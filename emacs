@@ -77,3 +77,6 @@
 
 ;; Hide tool bar
 (tool-bar-mode -1)
+
+;; Do not open startup GNU Emacs buffer
+(setq inhibit-startup-screen t)
