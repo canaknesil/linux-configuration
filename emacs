@@ -51,11 +51,12 @@
 
 (load-theme 'tango-dark)
 
+;; Highlight current line
+(set-face-background 'hl-line "#000020")
+(set-face-foreground 'highlight nil)
+
 ;; verilog setup
 (setq verilog-auto-newline nil)
-
-;; disable auto save
-(setq auto-save-default nil)
 
 ;; Julia setup
 (add-to-list 'load-path "/Users/canaknesil/seperate-programs/julia-emacs")
