@@ -54,6 +54,7 @@
 ;; Highlight current line
 (set-face-background 'hl-line "#000020")
 (set-face-foreground 'highlight nil)
+(global-hl-line-mode 1)
 
 ;; verilog setup
 (setq verilog-auto-newline nil)
