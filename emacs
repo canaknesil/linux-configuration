@@ -52,6 +52,7 @@
 (load-theme 'tango-dark)
 
 ;; Highlight current line
+(require 'hl-line)
 (set-face-background 'hl-line "#000020")
 (set-face-foreground 'highlight nil)
 (global-hl-line-mode 1)
