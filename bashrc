@@ -7,6 +7,7 @@ alias desk='desktop'
 alias downloads="pushd ~/Downloads"
 alias down='downloads'
 alias l='ls -alhF --color=never'
+alias rm="trash" # required trash-cli
 
 alias l32-state='VBoxManage showvminfo l32 | grep -i state'
 alias l32-start='VBoxManage startvm l32 --type headless'
