@@ -42,8 +42,9 @@
 ;; MY EMACS USAGE CONFIGURATIONS
 
 ;; Line numbers
-(when (version<= "26.0.50" emacs-version )
-  (global-display-line-numbers-mode))
+(if (version<= "26.0.50" emacs-version)
+    (global-display-line-numbers-mode)
+  (global-linum-mode t))
 
 ;; Theme
 ;(load "~/emacs-themes/fternoon-theme-source-code.el")
