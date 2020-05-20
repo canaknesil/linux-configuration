@@ -84,3 +84,6 @@
 
 ;; Do not open startup GNU Emacs buffer
 (setq inhibit-startup-screen t)
+
+;; Byte compile and load the elisp buffer
+(global-set-key (kbd "C-c C-c") 'emacs-lisp-byte-compile-and-load)
