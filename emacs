@@ -87,3 +87,14 @@
 
 ;; Byte compile and load the elisp buffer
 (global-set-key (kbd "C-c C-c") 'emacs-lisp-byte-compile-and-load)
+
+;; Company completion
+(setq company-idle-delay 0)
+(add-hook 'after-init-hook 'global-company-mode)
+
+;; AUCTeX
+(setq TeX-auto-save t)
+(setq TeX-parse-self t)
+(setq-default TeX-master nil)
+
+
