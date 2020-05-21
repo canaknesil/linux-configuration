@@ -97,4 +97,6 @@
 (setq TeX-parse-self t)
 (setq-default TeX-master nil)
 
+;; Aggressive fill paragraph mode
+(afp-setup-recommended-hooks)
 
