@@ -2,3 +2,4 @@ company (completion)
 auctex (latex support for company)
 auctex-latexmk (latexmk support for auctex)
 markdown-mode
+aggressive-fill-paragraph
