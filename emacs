@@ -101,3 +101,5 @@
 ;; Aggressive fill paragraph mode
 (afp-setup-recommended-hooks)
 
+;; Scroll animation
+(load "~/Documents/repos/scroll-animation.el/scroll-animation.el")
