@@ -69,7 +69,7 @@
 ;; Auto-fill mode by default to text buffers
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
-;; On the fly spell check for text mode
+;; On the fly spell check for text mode (requires ispell program, e.g. GNU Aspell)
 (dolist (hook '(text-mode-hook))
   (add-hook hook (lambda ()
 		   (flyspell-buffer)
@@ -107,3 +107,7 @@
 ;; Start as maximized window
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
+;; org-bullets setup
+(add-to-list 'load-path "/Users/canaknesil/seperate-programs/org-bullets")
+(require 'org-bullets)
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
