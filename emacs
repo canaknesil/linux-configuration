@@ -108,6 +108,6 @@
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 ;; org-bullets setup
-(add-to-list 'load-path "/Users/canaknesil/seperate-programs/org-bullets")
-(require 'org-bullets)
+;;(add-to-list 'load-path "/Users/canaknesil/seperate-programs/org-bullets")
+;;(require 'org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
