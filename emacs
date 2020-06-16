@@ -103,3 +103,7 @@
 
 ;; Scroll animation
 (load "~/Documents/repos/scroll-animation.el/scroll-animation.el")
+
+;; Start as maximized window
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
