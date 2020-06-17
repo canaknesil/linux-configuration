@@ -52,6 +52,9 @@
 
 (load-theme 'tango-dark)
 (set-background-color "#300028")
+;; The default one is too bright.
+;; (For swiper-line-face inherited from highlight)
+(set-face-attribute 'highlight (selected-frame) :background "#807000")
 
 ;; Highlight current line
 (require 'hl-line)
@@ -138,3 +141,57 @@
 
 ;; All backups to a specific directory
 (setq backup-directory-alist `(("." . "~/emacs-tmp")))
+
+;; Switch to new window after creation
+(defun hrs/split-window-below-and-switch ()
+  "Split the window horizontally, then switch to the new pane."
+  (interactive)
+  (split-window-below)
+  (balance-windows)
+  (other-window 1))
+
+(defun hrs/split-window-right-and-switch ()
+  "Split the window vertically, then switch to the new pane."
+  (interactive)
+  (split-window-right)
+  (balance-windows)
+  (other-window 1))
+
+(defun delete-window-and-balance ()
+  "Balance windows after invoking C-x 0."
+  (interactive)
+  (delete-window)
+  (balance-windows))
+
+(global-set-key (kbd "C-x 2") 'hrs/split-window-below-and-switch)
+(global-set-key (kbd "C-x 3") 'hrs/split-window-right-and-switch)
+(global-set-key (kbd "C-x 0") 'delete-window-and-balance)
+
+;; Which-key (display possible keys while typing a command
+(which-key-mode)
+
+;; helpful (better help buffers)
+(global-set-key (kbd "C-h f") #'helpful-callable)
+(global-set-key (kbd "C-h v") #'helpful-variable)
+(global-set-key (kbd "C-h k") #'helpful-key)
+
+;; ivy, swiper, and counsel setup
+(ivy-mode 1)
+;; Recommended config for new users
+(setq ivy-use-virtual-buffers t)
+(setq ivy-count-format "(%d/%d) ")
+;; Key bindings
+(global-set-key (kbd "C-s") 'swiper-isearch)
+(global-set-key (kbd "C-r") 'swiper-isearch-backward)
+(global-set-key (kbd "M-x") 'counsel-M-x)
+(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+(global-set-key (kbd "M-y") 'counsel-yank-pop)
+(global-set-key (kbd "<f1> f") 'counsel-describe-function)
+(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+(global-set-key (kbd "<f1> l") 'counsel-find-library)
+(global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+(global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+(global-set-key (kbd "<f2> j") 'counsel-set-variable)
+(global-set-key (kbd "C-x b") 'ivy-switch-buffer)
+(global-set-key (kbd "C-c v") 'ivy-push-view)
+(global-set-key (kbd "C-c V") 'ivy-pop-view)

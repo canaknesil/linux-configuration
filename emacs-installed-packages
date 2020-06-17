@@ -3,5 +3,11 @@ auctex (latex support for company)
 auctex-latexmk (latexmk support for auctex)
 markdown-mode
 aggressive-fill-paragraph (too agressive)
-org-bullets
-diff-hl
+org-bullets (Fancy bullets rather than stars in org mode)
+diff-hl (See uncommited changes on left margin)
+which-key (key suggestions while typing a command)
+helpful (better help buffers)
+ivy (better completion in minibuffer)
+swiper (better i-search)
+counsel (Make better use of ivy)
+
