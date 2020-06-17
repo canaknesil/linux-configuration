@@ -82,6 +82,12 @@
 
 ;; Hide tool bar
 (tool-bar-mode -1)
+;; Hide menu bar
+(menu-bar-mode 0)
+;; Hide scroll bar
+(scroll-bar-mode -1)
+;; Hide minibuffer scroll bar
+(set-window-scroll-bars (minibuffer-window) nil nil)
 
 ;; Do not open startup GNU Emacs buffer
 (setq inhibit-startup-screen t)
@@ -111,3 +117,24 @@
 ;;(add-to-list 'load-path "/Users/canaknesil/seperate-programs/org-bullets")
 ;;(require 'org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+
+;; Highigh uncommitted changes on the fringe
+(global-diff-hl-mode)
+(when (not (display-graphic-p))
+  (diff-hl-margin-mode t))
+
+;; Tread camelcase as separate words
+(add-hook 'prog-mode-hook 'subword-mode)
+
+;; Confirm closing
+(setq confirm-kill-emacs 'y-or-n-p)
+
+;; Dired ls options
+(setq-default dired-listing-switches "-alh")
+
+;; Show matching parenthesis
+(show-paren-mode t)
+(setq show-paren-delay 0.0)
+
+;; All backups to a specific directory
+(setq backup-directory-alist `(("." . "~/emacs-tmp")))

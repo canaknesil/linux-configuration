@@ -4,3 +4,4 @@ auctex-latexmk (latexmk support for auctex)
 markdown-mode
 aggressive-fill-paragraph (too agressive)
 org-bullets
+diff-hl
