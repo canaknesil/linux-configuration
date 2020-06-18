@@ -1,4 +1,4 @@
-;; required for MELPA setup
+;; Package config
 (require 'package)
 
 ;; MELPA setup
@@ -12,34 +12,21 @@
     ;; For important compatibility libraries like cl-lib
     (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.gnu.org/packages/")))))
 
-
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
 (package-initialize)
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (slime)))
- '(xterm-mouse-mode t))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+;; Ensure that use-package is installed.
+;;
+;; If use-package isn't already installed, it's extremely likely that this is a
+;; fresh installation! So we'll want to update the package repository and
+;; install use-package before loading the literate configuration.
+(when (not (package-installed-p 'use-package))
+  (package-refresh-contents)
+  (package-install 'use-package))
 
 ;; Slime setup
 ;; Set your lisp system and, optionally, some contribs
 (setq inferior-lisp-program "/usr/local/bin/sbcl")
 (setq slime-contribs '(slime-fancy))
-
-
-;; MY EMACS USAGE CONFIGURATIONS
 
 ;; Line numbers
 (if (version<= "26.0.50" emacs-version)
@@ -202,3 +189,8 @@
 ;; Using pylint for Python syntax checking.
 ;; Configuration is in ~/.pylintrc
 
+;; Dumb Jump setup (jump to definition)
+(dumb-jump-mode)
+
+;; Enable mouse in terminal
+(xterm-mouse-mode t)

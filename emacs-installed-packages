@@ -11,4 +11,5 @@ ivy (better completion in minibuffer)
 swiper (better i-search)
 counsel (Make better use of ivy)
 flycheck (on-the-fly syntax checker)
+dumb-jump (jump to definition)
 
