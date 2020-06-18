@@ -88,7 +88,8 @@
 ;; Hide menu bar
 (menu-bar-mode 0)
 ;; Hide scroll bar
-(scroll-bar-mode -1)
+(when (display-graphic-p) ;; scroll-bar-mode var is void in terminal
+  (scroll-bar-mode -1))
 ;; Hide minibuffer scroll bar
 (set-window-scroll-bars (minibuffer-window) nil nil)
 
@@ -195,3 +196,9 @@
 (global-set-key (kbd "C-x b") 'ivy-switch-buffer)
 (global-set-key (kbd "C-c v") 'ivy-push-view)
 (global-set-key (kbd "C-c V") 'ivy-pop-view)
+
+;; Flycheck (on-the-fly syntax check)
+(add-hook 'after-init-hook #'global-flycheck-mode)
+;; Using pylint for Python syntax checking.
+;; Configuration is in ~/.pylintrc
+
