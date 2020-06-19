@@ -252,10 +252,10 @@
            ("C-c V" . 'ivy-pop-view)))
 #+END_SRC
 
-** TODO Flycheck (on-the-fly syntax check)
+** Flycheck (on-the-fly syntax check)
 #+BEGIN_SRC emacs-lisp
-  ;; (use-package flycheck
-  ;;   :hook (after-init . 'global-flycheck-mode))
+  (use-package flycheck
+    :init (global-flycheck-mode))
 
   ;; Using pylint for Python syntax checking.
   ;; Configuration is in ~/.pylintrc
