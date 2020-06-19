@@ -1,0 +1,400 @@
+#+TITLE: Emacs Configuration
+#+AUTHOR: Can Aknesil
+#+STARTUP: content
+#+OPTIONS: toc:nil
+
+* Package and use-package
+#+BEGIN_SRC emacs-lisp
+  (require 'package)
+
+  ;; Melpa
+  (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
+                      (not (gnutls-available-p))))
+         (proto (if no-ssl "http" "https")))
+    (when no-ssl
+      (warn "\
+  Your version of Emacs does not support SSL connections,
+  which is unsafe because it allows man-in-the-middle attacks.
+  There are two things you can do about this warning:
+  1. Install an Emacs version that does support SSL and be safe.
+  2. Remove this warning from your init file so you won't see it again."))
+    ;; Comment/uncomment these two lines to enable/disable MELPA and MELPA Stable as desired
+    (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
+    ;;(add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
+    (when (< emacs-major-version 24)
+      ;; For important compatibility libraries like cl-lib
+      (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.gnu.org/packages/")))))
+
+  (package-initialize)
+
+  ;; Ensure that use-package is installed.
+  ;;
+  ;; If use-package isn't already installed, it's extremely likely that this is a
+  ;; fresh installation! So we'll want to update the package repository and
+  ;; install use-package before loading the literate configuration.
+  (when (not (package-installed-p 'use-package))
+    (package-refresh-contents)
+    (package-install 'use-package))
+
+  (eval-when-compile
+    ;; Following line is not needed if use-package.el is in ~/.emacs.d
+    ;; (add-to-list 'load-path "<path where use-package is installed>")
+    (require 'use-package))
+
+  ;; Install packages if not already available.
+  (require 'use-package-ensure)
+  (setq use-package-always-ensure t)
+
+  ;; Always compile packages, and use the newest version available.
+  (use-package auto-compile
+    :config (auto-compile-on-load-mode))
+
+  (setq load-prefer-newer t)
+#+END_SRC
+  
+* Appearance
+** Line numbers
+#+begin_src emacs-lisp
+  (if (version<= "26.0.50" emacs-version)
+      (global-display-line-numbers-mode)
+    (global-linum-mode t))
+#+end_src
+
+** Theme
+#+BEGIN_SRC emacs-lisp
+  ;; To load custom theme
+  ;;(load "~/emacs-themes/fternoon-theme-source-code.el")
+  ;;(load-theme 'afternoon t)
+
+  (load-theme 'tango-dark)
+  (set-background-color "#300028") ; Custom background
+  ;; Custom highigh background, default is too bright.
+  ;; swiper-line-face inherits from highlight
+  (set-face-attribute 'highlight (selected-frame) :background "#807000")
+#+END_SRC
+   
+** Highlight current line
+#+BEGIN_SRC emacs-lisp
+  (require 'hl-line)
+  (set-face-background 'hl-line "#402040")
+  (set-face-foreground 'highlight nil)
+  (global-hl-line-mode 1)
+#+END_SRC
+
+** Font size
+#+BEGIN_SRC emacs-lisp
+  ;; (set-face-attribute 'default (selected-frame) :height 120)
+#+END_SRC
+
+** Hide tool bar
+#+BEGIN_SRC emacs-lisp
+  (tool-bar-mode -1)
+#+END_SRC
+
+** Hide menu bar
+#+BEGIN_SRC emacs-lisp
+  (menu-bar-mode 0)
+#+END_SRC
+
+** Hide Scroll bar 
+#+BEGIN_SRC emacs-lisp
+  (when (display-graphic-p) ;; scroll-bar-mode var is void in terminal
+    (scroll-bar-mode -1))
+  ;; Hide minibuffer scroll bar
+  (set-window-scroll-bars (minibuffer-window) nil nil)
+#+END_SRC
+
+** Do not open startup GNU Emacs buffer
+#+BEGIN_SRC emacs-lisp
+  (setq inhibit-startup-screen t)
+#+END_SRC
+
+** Start as maximized window
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'default-frame-alist '(fullscreen . maximized))
+#+END_SRC
+
+* Functionality
+** Auto-fill mode for text buffers
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'text-mode-hook 'turn-on-auto-fill)
+#+END_SRC
+
+** Aggressive fill paragraph mode
+#+BEGIN_SRC emacs-lisp
+  ;; (use-package aggressive-fill-paragraph
+  ;;   :config
+  ;;   (afp-setup-recommended-hooks))
+#+END_SRC
+
+** Scroll animation
+#+BEGIN_SRC emacs-lisp
+  ;; (load "~/Documents/repos/scroll-animation.el/scroll-animation.el")
+#+END_SRC
+  
+** On the fly spell check
+#+BEGIN_SRC emacs-lisp
+  ;; On the fly spell check for text mode (requires ispell program, e.g. GNU Aspell)
+  (dolist (hook '(text-mode-hook))
+    (add-hook hook (lambda ()
+                     (flyspell-buffer)
+                     (flyspell-mode 1))))
+  (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
+    (add-hook hook (lambda () (flyspell-mode -1))))
+#+END_SRC
+
+** Company completion (core only)
+#+BEGIN_SRC emacs-lisp
+  (use-package company
+    :config
+    (setq company-idle-delay 0)
+    (add-hook 'after-init-hook 'global-company-mode))
+#+END_SRC
+
+** Highlight uncommitted changes
+#+BEGIN_SRC emacs-lisp
+  ;; Highigh uncommitted changes on the fringe
+  (use-package diff-hl
+    :config
+    (global-diff-hl-mode)
+    (when (not (display-graphic-p)) ; Fringe does not work on terminal.
+      (diff-hl-margin-mode t)))
+#+END_SRC
+
+** Camelcase as separate words 
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'prog-mode-hook 'subword-mode)
+#+END_SRC
+
+** Confirm closing
+#+BEGIN_SRC emacs-lisp
+  (setq confirm-kill-emacs 'y-or-n-p)
+#+END_SRC
+
+** Show matching parenthesis
+#+BEGIN_SRC emacs-lisp
+  (show-paren-mode t)
+  (setq show-paren-delay 0.0)
+#+END_SRC
+
+** All backups to a specific directory
+#+BEGIN_SRC emacs-lisp
+  (setq backup-directory-alist `(("." . "~/emacs-tmp")))
+#+END_SRC
+
+** Switch to new window after creation
+#+BEGIN_SRC emacs-lisp
+  (defun hrs/split-window-below-and-switch ()
+    "Split the window horizontally, then switch to the new pane."
+    (interactive)
+    (split-window-below)
+    (balance-windows)
+    (other-window 1))
+
+  (defun hrs/split-window-right-and-switch ()
+    "Split the window vertically, then switch to the new pane."
+    (interactive)
+    (split-window-right)
+    (balance-windows)
+    (other-window 1))
+
+  (defun delete-window-and-balance ()
+    "Balance windows after invoking C-x 0."
+    (interactive)
+    (delete-window)
+    (balance-windows))
+
+  (global-set-key (kbd "C-x 2") 'hrs/split-window-below-and-switch)
+  (global-set-key (kbd "C-x 3") 'hrs/split-window-right-and-switch)
+  (global-set-key (kbd "C-x 0") 'delete-window-and-balance)
+#+END_SRC
+
+** Which-key (display possible keys while typing a command)
+#+BEGIN_SRC emacs-lisp
+  (use-package which-key
+    :config
+    (which-key-mode))
+#+END_SRC
+
+** Helpful (better help buffers)
+#+BEGIN_SRC emacs-lisp
+  (use-package helpful
+    :config
+    (global-set-key (kbd "C-h f") #'helpful-callable)
+    (global-set-key (kbd "C-h v") #'helpful-variable)
+    (global-set-key (kbd "C-h k") #'helpful-key))
+#+END_SRC
+
+** Ivy, swiper, and counsel setup
+   Ivy (better minibuffer completion)
+   Swiper (better i-r-search)
+   Counsel (better usage of Ivy)
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ivy
+    :config
+    (ivy-mode 1)
+    ;; Recommended config for new users
+    (setq ivy-use-virtual-buffers t)
+    (setq ivy-count-format "(%d/%d) "))
+
+  (use-package swiper
+    :bind (("C-s" . 'swiper-isearch)
+           ("C-r" . 'swiper-isearch-backward)))
+
+  (use-package counsel
+    :bind (("M-x" . 'counsel-M-x)
+           ("C-x C-f" . 'counsel-find-file)
+           ("M-y" . 'counsel-yank-pop)
+           ("C-x b" . 'ivy-switch-buffer)
+           ("C-x b" . 'ivy-switch-buffer)
+           ("C-c v" . 'ivy-push-view)
+           ("C-c V" . 'ivy-pop-view)))
+#+END_SRC
+
+** TODO Flycheck (on-the-fly syntax check)
+#+BEGIN_SRC emacs-lisp
+  ;; (use-package flycheck
+  ;;   :hook (after-init . 'global-flycheck-mode))
+
+  ;; Using pylint for Python syntax checking.
+  ;; Configuration is in ~/.pylintrc
+#+END_SRC
+
+** Dumb Jump (jump to definition)
+#+BEGIN_SRC emacs-lisp
+  (use-package dumb-jump
+    :config
+    (dumb-jump-mode))
+#+END_SRC
+
+** Enable mouse in terminal
+#+BEGIN_SRC emacs-lisp
+  (xterm-mouse-mode t)
+#+END_SRC
+
+* Programming languages & Modes
+** Verilog
+#+BEGIN_SRC emacs-lisp
+  (setq verilog-auto-newline nil)
+#+END_SRC
+   
+** Julia
+#+BEGIN_SRC emacs-lisp
+  ;; Old way
+  ;;(add-to-list 'load-path "/Users/canaknesil/seperate-programs/julia-emacs")
+  ;;(require 'julia-mode)
+
+  ;; New way
+  (use-package julia-mode)
+#+END_SRC
+
+** LaTeX
+#+BEGIN_SRC emacs-lisp
+  (use-package auctex ; latex support for company
+    :defer t ; This line is needed (for some reason)
+    :config
+    (setq TeX-auto-save t)
+    (setq TeX-parse-self t)
+    (setq-default TeX-master nil))
+  (use-package auctex-latexmk) ;; latexmk support for auctex
+#+END_SRC
+
+** Org Mode
+#+BEGIN_SRC emacs-lisp
+  (use-package org-bullets
+    :commands org-bullets-mode
+    :init
+    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+#+END_SRC
+
+** Markdown
+#+BEGIN_SRC emacs-lisp
+  (use-package markdown-mode)
+#+END_SRC
+
+** Dired
+#+BEGIN_SRC emacs-lisp
+  ;; Dired ls options
+  (setq-default dired-listing-switches "-alh")
+#+END_SRC
+
+* Keyboard shortcut commands
+#+BEGIN_SRC emacs-lisp
+  ;; Byte compile and load the elisp buffer
+  (global-set-key (kbd "C-c C-c") 'emacs-lisp-byte-compile-and-load)
+#+END_SRC
+
+* Others
+
+;; Show matching parenthesis
+(show-paren-mode t)
+(setq show-paren-delay 0.0)
+
+;; All backups to a specific directory
+(setq backup-directory-alist `(("." . "~/emacs-tmp")))
+
+;; Switch to new window after creation
+(defun hrs/split-window-below-and-switch ()
+  "Split the window horizontally, then switch to the new pane."
+  (interactive)
+  (split-window-below)
+  (balance-windows)
+  (other-window 1))
+
+(defun hrs/split-window-right-and-switch ()
+  "Split the window vertically, then switch to the new pane."
+  (interactive)
+  (split-window-right)
+  (balance-windows)
+  (other-window 1))
+
+(defun delete-window-and-balance ()
+  "Balance windows after invoking C-x 0."
+  (interactive)
+  (delete-window)
+  (balance-windows))
+
+(global-set-key (kbd "C-x 2") 'hrs/split-window-below-and-switch)
+(global-set-key (kbd "C-x 3") 'hrs/split-window-right-and-switch)
+(global-set-key (kbd "C-x 0") 'delete-window-and-balance)
+
+;; Which-key (display possible keys while typing a command
+(which-key-mode)
+
+;; helpful (better help buffers)
+(global-set-key (kbd "C-h f") #'helpful-callable)
+(global-set-key (kbd "C-h v") #'helpful-variable)
+(global-set-key (kbd "C-h k") #'helpful-key)
+
+;; ivy, swiper, and counsel setup
+(ivy-mode 1)
+;; Recommended config for new users
+(setq ivy-use-virtual-buffers t)
+(setq ivy-count-format "(%d/%d) ")
+;; Key bindings
+(global-set-key (kbd "C-s") 'swiper-isearch)
+(global-set-key (kbd "C-r") 'swiper-isearch-backward)
+(global-set-key (kbd "M-x") 'counsel-M-x)
+(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+(global-set-key (kbd "M-y") 'counsel-yank-pop)
+(global-set-key (kbd "<f1> f") 'counsel-describe-function)
+(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+(global-set-key (kbd "<f1> l") 'counsel-find-library)
+(global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+(global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+(global-set-key (kbd "<f2> j") 'counsel-set-variable)
+(global-set-key (kbd "C-x b") 'ivy-switch-buffer)
+(global-set-key (kbd "C-c v") 'ivy-push-view)
+(global-set-key (kbd "C-c V") 'ivy-pop-view)
+
+;; Flycheck (on-the-fly syntax check)
+(add-hook 'after-init-hook #'global-flycheck-mode)
+;; Using pylint for Python syntax checking.
+;; Configuration is in ~/.pylintrc
+
+;; Dumb Jump setup (jump to definition)
+(dumb-jump-mode)
+
+;; Enable mouse in terminal
+(xterm-mouse-mode t)
