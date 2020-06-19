@@ -1,29 +1,30 @@
-# MY OWN CONFIGURATIONS
+#
+# Use this script as such:
+#
+# LINUX_CONFIGURATION_PROJ_DIR=~/seperate-programs/linux-configuration
+# . ~/seperate-programs/linux-configuration/bashrc
+#
+
 export PATH=$PATH:~/bin
+if [ -n "$LINUX_CONFIGURATION_PROJ_DIR" ]; then
+    export PATH=$PATH:$LINUX_CONFIGURATION_PROJ_DIR/bin
+fi
 
 alias e="emacs -nw"
+alias matlab='matlab -nodisplay'
+alias octave="octave-cli"
+alias julia='julia --color=yes'
+alias sdcv="sdcv --utf8-input --utf8-output --color"
+alias l='ls -alhF --color=never'
+alias rm="trash" # required trash-cli
+
 alias desktop="pushd ~/Desktop"
 alias desk='desktop'
 alias downloads="pushd ~/Downloads"
 alias down='downloads'
-alias l='ls -alhF --color=never'
-alias rm="trash" # required trash-cli
 
-alias l32-state='VBoxManage showvminfo l32 | grep -i state'
-alias l32-start='VBoxManage startvm l32 --type headless'
-alias l32-poweroff='VBoxManage controlvm l32 poweroff'
-alias l32-ssh='ssh -p 2222 -Y is2202@127.0.0.1'
+# Ignore case during completion on bash
+if [ -n "$BASH_VERSION" ]; then
+   bind "set completion-ignore-case on"
+fi
 
-PS1='┏━\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\n┗━\$ '
-
-bind "set completion-ignore-case on"
-
-cd ~/Desktop
-
-# for sdcv dictionary 
-export PATH=$PATH:/usr/local/opt/sdcv/bin
-export STARDICT_DATA_DIR=/usr/local/share/stardict
-alias sdcv="sdcv --utf8-input --utf8-output --color"
-
-# For some cl applications like wget
-export LANG=en_US.UTF-8
