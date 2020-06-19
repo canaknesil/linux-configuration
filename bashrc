@@ -15,8 +15,8 @@ alias matlab='matlab -nodisplay'
 alias octave="octave-cli"
 alias julia='julia --color=yes'
 alias sdcv="sdcv --utf8-input --utf8-output --color"
-alias l='ls -alhF --color=never'
-alias rm="trash" # required trash-cli
+alias l='ls -alhF' # --color=never doen't work on mac.
+# alias rm="trash" # required trash-cli
 
 alias desktop="pushd ~/Desktop"
 alias desk='desktop'
