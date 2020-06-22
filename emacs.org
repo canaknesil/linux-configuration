@@ -317,6 +317,14 @@
     :commands org-bullets-mode
     :init
     (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+
+  ;; active Babel languages
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((R . t)
+     (python . t)))
+
+  (setq org-babel-python-command "python3")
 #+END_SRC
 
 ** Markdown
@@ -330,10 +338,10 @@
   (setq-default dired-listing-switches "-alh")
 #+END_SRC
 
-* Keyboard shortcut commands
+* TODO Keyboard shortcut commands
 #+BEGIN_SRC emacs-lisp
   ;; Byte compile and load the elisp buffer
-  (global-set-key (kbd "C-c C-c") 'emacs-lisp-byte-compile-and-load)
+  ;; (global-set-key (kbd "C-c C-c") 'emacs-lisp-byte-compile-and-load)
 #+END_SRC
 
 
