@@ -273,6 +273,14 @@
   (xterm-mouse-mode t)
 #+END_SRC
 
+** Recent files
+#+BEGIN_SRC emacs-lisp
+  (recentf-mode 1)
+  (setq recentf-max-menu-items 25)
+  (setq recentf-max-saved-items 25)
+  (global-set-key "\C-x\ \M-f" 'recentf-open-files)
+#+END_SRC
+
 * Programming languages & Modes
 ** Verilog
 #+BEGIN_SRC emacs-lisp
