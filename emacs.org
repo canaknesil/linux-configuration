@@ -279,6 +279,9 @@
   (setq recentf-max-menu-items 25)
   (setq recentf-max-saved-items 25)
   (global-set-key "\C-x\ \M-f" 'recentf-open-files)
+
+  ;; Save recent file list every 5 min in case of abrupt exit.
+  (run-at-time nil (* 5 60) 'recentf-save-list)
 #+END_SRC
 
 * Programming languages & Modes
