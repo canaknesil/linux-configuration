@@ -17,6 +17,8 @@ alias julia='julia --color=yes'
 alias sdcv="sdcv --utf8-input --utf8-output --color"
 alias l='ls -alhF' # --color=never doen't work on mac.
 # alias rm="trash" # required trash-cli
+alias py='python3'
+alias ipy='ipython3'
 
 alias desktop="pushd ~/Desktop"
 alias desk='desktop'

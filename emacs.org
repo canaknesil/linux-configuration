@@ -53,6 +53,10 @@
 #+END_SRC
   
 * Appearance
+** Start as maximized window
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'default-frame-alist '(fullscreen . maximized))
+#+END_SRC
 ** Line numbers
 #+begin_src emacs-lisp
   (if (version<= "26.0.50" emacs-version)
@@ -107,11 +111,6 @@
 ** Do not open startup GNU Emacs buffer
 #+BEGIN_SRC emacs-lisp
   (setq inhibit-startup-screen t)
-#+END_SRC
-
-** Start as maximized window
-#+BEGIN_SRC emacs-lisp
-  (add-to-list 'default-frame-alist '(fullscreen . maximized))
 #+END_SRC
 
 * Functionality
@@ -338,10 +337,25 @@
   (setq-default dired-listing-switches "-alh")
 #+END_SRC
 
-* TODO Keyboard shortcut commands
+** Python
+#+BEGIN_SRC emacs-lisp
+  (use-package elpy
+    :init
+    (elpy-enable))
+
+  (setq python-shell-interpreter "python3")
+#+END_SRC
+
+* Shortcut commands
 #+BEGIN_SRC emacs-lisp
   ;; Byte compile and load the elisp buffer
-  ;; (global-set-key (kbd "C-c C-c") 'emacs-lisp-byte-compile-and-load)
+  (define-key emacs-lisp-mode-map (kbd "C-c C-c")
+    'emacs-lisp-byte-compile-and-load)
+
+  ;; Run .emacs
+  (defun reload-config ()
+    (interactive)
+    (load-file "~/.emacs"))
 #+END_SRC
 
 
