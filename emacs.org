@@ -321,9 +321,10 @@
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((R . t)
-     (python . t)))
+     (python . t)
+     (shell . t)))
 
-  (setq org-babel-python-command "python3")
+  (setq org-babel-python-command "python3 -q")
 #+END_SRC
 
 ** Markdown
