@@ -310,7 +310,7 @@
   (use-package auctex-latexmk) ;; latexmk support for auctex
 #+END_SRC
 
-** Org Mode
+** TODO Org Mode
 #+BEGIN_SRC emacs-lisp
   (use-package org-bullets
     :commands org-bullets-mode
@@ -322,7 +322,10 @@
    'org-babel-load-languages
    '((R . t)
      (python . t)
-     (shell . t)))
+     ;; This has version conflict. Newer versions may use (sh . t)
+     ;; Solve this problem.
+     ;; (shell . t) 
+     ))
 
   (setq org-babel-python-command "python3 -q")
 #+END_SRC
