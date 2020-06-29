@@ -235,20 +235,21 @@
     (ivy-mode 1)
     ;; Recommended config for new users
     (setq ivy-use-virtual-buffers t)
-    (setq ivy-count-format "(%d/%d) "))
+    (setq ivy-count-format "(%d/%d) ")
+    (setq ivy-height 20))
 
   (use-package swiper
     :bind (("C-s" . 'swiper-isearch)
-           ("C-r" . 'swiper-isearch-backward)))
+	   ("C-r" . 'swiper-isearch-backward)))
 
   (use-package counsel
     :bind (("M-x" . 'counsel-M-x)
-           ("C-x C-f" . 'counsel-find-file)
-           ("M-y" . 'counsel-yank-pop)
-           ("C-x b" . 'ivy-switch-buffer)
-           ("C-x b" . 'ivy-switch-buffer)
-           ("C-c v" . 'ivy-push-view)
-           ("C-c V" . 'ivy-pop-view)))
+	   ("C-x C-f" . 'counsel-find-file)
+	   ("M-y" . 'counsel-yank-pop)
+	   ("C-x b" . 'ivy-switch-buffer)
+	   ("C-x b" . 'ivy-switch-buffer)
+	   ("C-c v" . 'ivy-push-view)
+	   ("C-c V" . 'ivy-pop-view)))
 #+END_SRC
 
 ** Flycheck (on-the-fly syntax check)
@@ -345,10 +346,12 @@
 #+BEGIN_SRC emacs-lisp
   (use-package elpy
     :init
-    (elpy-enable))
+    (elpy-enable)
+    :config
+    ;; Fall back to completion via shell.
+    (setq elpy-get-info-from-shell t))
 
   (setq python-shell-interpreter "python3")
-  (setq elpy-get-info-from-shell t) ;; Fall back to completion via shell.
 #+END_SRC
 
 * Shortcut commands
