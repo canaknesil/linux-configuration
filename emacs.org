@@ -348,6 +348,7 @@
     (elpy-enable))
 
   (setq python-shell-interpreter "python3")
+  (setq elpy-get-info-from-shell t) ;; Fall back to completion via shell.
 #+END_SRC
 
 * Shortcut commands
