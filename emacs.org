@@ -236,7 +236,8 @@
     ;; Recommended config for new users
     (setq ivy-use-virtual-buffers t)
     (setq ivy-count-format "(%d/%d) ")
-    (setq ivy-height 20))
+    (setq ivy-height 20)
+    (setq ivy-fixed-height-minibuffer t))
 
   (use-package swiper
     :bind (("C-s" . 'swiper-isearch)
@@ -311,7 +312,7 @@
   (use-package auctex-latexmk) ;; latexmk support for auctex
 #+END_SRC
 
-** TODO Org Mode
+** Org Mode
 #+BEGIN_SRC emacs-lisp
   (use-package org-bullets
     :commands org-bullets-mode
@@ -323,9 +324,7 @@
    'org-babel-load-languages
    '((R . t)
      (python . t)
-     ;; This has version conflict. Newer versions may use (sh . t)
-     ;; Solve this problem.
-     ;; (shell . t) 
+     (shell . t)
      ))
 
   (setq org-babel-python-command "python3 -q")
