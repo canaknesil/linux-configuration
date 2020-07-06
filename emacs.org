@@ -64,17 +64,29 @@
     (global-linum-mode t))
 #+end_src
 
-** Theme
+** TODO Theme
 #+BEGIN_SRC emacs-lisp
   ;; To load custom theme
   ;;(load "~/emacs-themes/fternoon-theme-source-code.el")
   ;;(load-theme 'afternoon t)
 
   (load-theme 'tango-dark)
-  (set-background-color "#300028") ; Custom background
+
+  ;; Custom background (re-evaluate only first 2 lines to overwrite)
+  (setq my-custom-background "#300028")
+  (set-background-color my-custom-background) ;; Only sets current frame.
+  ;; For future frames.
+  (add-hook 'after-make-frame-functions
+	    (lambda (frame)
+	      (select-frame frame)
+	      (set-background-color my-custom-background)))
+
+  ;; BUG: When using as daemon and open emacs in terminal using
+  ;; "emacsclient -c" background is very bright blue or red.
+
   ;; Custom highigh background, default is too bright.
   ;; swiper-line-face inherits from highlight
-  (set-face-attribute 'highlight (selected-frame) :background "#807000")
+  (set-face-attribute 'highlight nil :background "#807000")
 #+END_SRC
    
 ** Highlight current line
@@ -87,7 +99,7 @@
 
 ** Font size
 #+BEGIN_SRC emacs-lisp
-  ;; (set-face-attribute 'default (selected-frame) :height 120)
+  ;; (set-face-attribute 'default nil :height 120)
 #+END_SRC
 
 ** Hide tool bar
@@ -102,8 +114,15 @@
 
 ** Hide Scroll bar 
 #+BEGIN_SRC emacs-lisp
-  (when (display-graphic-p) ;; scroll-bar-mode var is void in terminal
+  ;; Wrong way:
+  ;; because display-graphic-p returns always nil when started as daemon.
+  ;; (when (display-graphic-p) 
+  ;;   (scroll-bar-mode -1))
+
+  ;; scroll-bar-mode is void when opened in terminal mode. 
+  (when (boundp 'scroll-bar-mode)
     (scroll-bar-mode -1))
+
   ;; Hide minibuffer scroll bar
   (set-window-scroll-bars (minibuffer-window) nil nil)
 #+END_SRC
@@ -150,14 +169,17 @@
     (add-hook 'after-init-hook 'global-company-mode))
 #+END_SRC
 
-** Highlight uncommitted changes
+** TODO Highlight uncommitted changes
 #+BEGIN_SRC emacs-lisp
   ;; Highigh uncommitted changes on the fringe
   (use-package diff-hl
     :config
-    (global-diff-hl-mode)
-    (when (not (display-graphic-p)) ; Fringe does not work on terminal.
-      (diff-hl-margin-mode t)))
+    (global-diff-hl-mode))
+
+  ;; Fringe does not work on terminal.
+  ;; display-graphic-p returns always nil when started as daemon.
+  ;; Find a way to enable fringe mode for X, even using as daemon,
+  ;; while still using margin mode with terminal.
 #+END_SRC
 
 ** Camelcase as separate words 
