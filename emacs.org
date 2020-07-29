@@ -375,6 +375,12 @@
   (setq python-shell-interpreter "python3")
 #+END_SRC
 
+** Arduino
+#+BEGIN_SRC emacs-lisp
+  (use-package arduino-mode)
+  (use-package company-arduino)
+#+END_SRC
+
 * Shortcut commands
 #+BEGIN_SRC emacs-lisp
   ;; Byte compile and load the elisp buffer
