@@ -381,6 +381,10 @@
   (use-package company-arduino)
 #+END_SRC
 
+** OpenSCAD
+#+BEGIN_SRC emacs-lisp
+  (use-package scad-mode)
+#+END_SRC
 * Shortcut commands
 #+BEGIN_SRC emacs-lisp
   ;; Byte compile and load the elisp buffer
