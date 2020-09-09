@@ -2,6 +2,7 @@
 # Use this script as such:
 #
 # LINUX_CONFIGURATION_PROJ_DIR=~/seperate-programs/linux-configuration
+# PYTHON_VENV_DIR=~/.venv
 # . ~/seperate-programs/linux-configuration/bashrc
 #
 
@@ -16,7 +17,7 @@ alias octave="octave-cli"
 alias julia='julia --color=yes'
 alias sdcv="sdcv --utf8-input --utf8-output --color"
 alias l='ls -alhF' # --color=never doen't work on mac.
-# alias rm="trash" # required trash-cli
+# alias rm="trash" # requires trash-cli
 alias py='python3'
 alias ipy='ipython3'
 
@@ -29,4 +30,9 @@ alias down='downloads'
 if [ -n "$BASH_VERSION" ]; then
    bind "set completion-ignore-case on"
 fi
+
+venv-activate() {
+    . $PYTHON_VENV_DIR/$1/bin/activate
+}
+
 
