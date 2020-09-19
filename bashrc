@@ -31,8 +31,12 @@ if [ -n "$BASH_VERSION" ]; then
    bind "set completion-ignore-case on"
 fi
 
-venv-activate() {
-    . $PYTHON_VENV_DIR/$1/bin/activate
-}
+if [ -n "$PYTHON_VENV_DIR" ]; then
+    export WORKON_HOME=$PYTHON_VENV_DIR # For emacs elpy pyvenv-* commands.
+    venv-activate() {
+	. $PYTHON_VENV_DIR/$1/bin/activate
+    }
+fi
+
 
 
