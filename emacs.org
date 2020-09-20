@@ -203,33 +203,6 @@
   (setq backup-directory-alist `(("." . "~/emacs-tmp")))
 #+END_SRC
 
-** Switch to new window after creation
-#+BEGIN_SRC emacs-lisp
-  (defun hrs/split-window-below-and-switch ()
-    "Split the window horizontally, then switch to the new pane."
-    (interactive)
-    (split-window-below)
-    (balance-windows)
-    (other-window 1))
-
-  (defun hrs/split-window-right-and-switch ()
-    "Split the window vertically, then switch to the new pane."
-    (interactive)
-    (split-window-right)
-    (balance-windows)
-    (other-window 1))
-
-  (defun delete-window-and-balance ()
-    "Balance windows after invoking C-x 0."
-    (interactive)
-    (delete-window)
-    (balance-windows))
-
-  (global-set-key (kbd "C-x 2") 'hrs/split-window-below-and-switch)
-  (global-set-key (kbd "C-x 3") 'hrs/split-window-right-and-switch)
-  (global-set-key (kbd "C-x 0") 'delete-window-and-balance)
-#+END_SRC
-
 ** Which-key (display possible keys while typing a command)
 #+BEGIN_SRC emacs-lisp
   (use-package which-key
@@ -259,7 +232,11 @@
     (setq ivy-use-virtual-buffers t)
     (setq ivy-count-format "(%d/%d) ")
     (setq ivy-height 20)
-    (setq ivy-fixed-height-minibuffer t))
+    (setq ivy-fixed-height-minibuffer t)
+    ;; Additional config from me
+    (setq ivy-re-builders-alist
+	  '((t . ivy--regex-ignore-order))) ; ignore order of space separated words.
+    )
 
   (use-package swiper
     :bind (("C-s" . 'swiper-isearch)
@@ -270,10 +247,47 @@
 	   ("C-x C-f" . 'counsel-find-file)
 	   ("M-y" . 'counsel-yank-pop)
 	   ("C-x b" . 'ivy-switch-buffer)
-	   ("C-x b" . 'ivy-switch-buffer)
 	   ("C-c v" . 'ivy-push-view)
 	   ("C-c V" . 'ivy-pop-view)))
 #+END_SRC
+
+** Switch to new window after creation, delete window after killing buffer
+#+BEGIN_SRC emacs-lisp
+  (defun hrs/split-window-below-and-switch ()
+    "Split the window horizontally, then switch to the new pane."
+    (interactive)
+    (split-window-below)
+    (balance-windows)
+    (other-window 1))
+
+  (defun hrs/split-window-right-and-switch ()
+    "Split the window vertically, then switch to the new pane."
+    (interactive)
+    (split-window-right)
+    (balance-windows)
+    (other-window 1))
+
+  (defun delete-window-and-balance ()
+    "Balance windows after invoking C-x 0."
+    (interactive)
+    (delete-window)
+    (balance-windows))
+
+  (defun kill-buffer-and-delete-window ()
+    "Delete current window after killing buffer, if there are more than 1 windows."
+    (interactive)
+    (kill-buffer)
+    (if (> (count-windows) 1)
+	(delete-window-and-balance)))
+
+  (global-set-key (kbd "C-x 2") 'hrs/split-window-below-and-switch)
+  (global-set-key (kbd "C-x 3") 'hrs/split-window-right-and-switch)
+  (global-set-key (kbd "C-x 0") 'delete-window-and-balance)
+  (global-set-key (kbd "C-x k") 'kill-buffer-and-delete-window)
+#+END_SRC
+
+#+RESULTS:
+: kill-buffer-and-delete-window
 
 ** Flycheck (on-the-fly syntax check)
 #+BEGIN_SRC emacs-lisp
@@ -304,7 +318,15 @@
   (global-set-key "\C-x\ \M-f" 'recentf-open-files)
 
   ;; Save recent file list every 5 min in case of abrupt exit.
-  (run-at-time nil (* 5 60) 'recentf-save-list)
+  (defun recentf-save-list-without-message ()
+    (let ((inhibit-message t))
+      (recentf-save-list)))
+
+  (run-at-time nil (* 5 60) 'recentf-save-list-without-message)
+
+  ;; Exclude internal recentf file.
+  (add-to-list 'recentf-exclude (expand-file-name recentf-save-file))
+  (recentf-cleanup)
 #+END_SRC
 
 * Programming languages & Modes
