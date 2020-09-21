@@ -141,7 +141,8 @@
 ** Aggressive fill paragraph mode
 #+BEGIN_SRC emacs-lisp
   ;; (use-package aggressive-fill-paragraph
-  ;;   :config
+  ;;   :commands afp-setup-recommended-hooks
+  ;;   :init
   ;;   (afp-setup-recommended-hooks))
 #+END_SRC
 
@@ -166,7 +167,8 @@
   (use-package company
     :config
     (setq company-idle-delay 0)
-    (add-hook 'after-init-hook 'global-company-mode))
+    :init
+    (add-hook 'after-init-hook #'global-company-mode))
 #+END_SRC
 
 ** TODO Highlight uncommitted changes
@@ -283,7 +285,7 @@
   (global-set-key (kbd "C-x 2") 'hrs/split-window-below-and-switch)
   (global-set-key (kbd "C-x 3") 'hrs/split-window-right-and-switch)
   (global-set-key (kbd "C-x 0") 'delete-window-and-balance)
-  (global-set-key (kbd "C-x k") 'kill-buffer-and-delete-window)
+  (global-set-key (kbd "C-x j") 'kill-buffer-and-delete-window)
 #+END_SRC
 
 #+RESULTS:
@@ -329,6 +331,35 @@
   (recentf-cleanup)
 #+END_SRC
 
+** Restart emacs from within
+#+BEGIN_SRC emacs-lisp
+  (use-package restart-emacs
+    :config
+    (setq restart-emacs-restore-frames t)
+    )
+#+END_SRC
+
+** Golden ratio windows
+#+begin_src emacs-lisp
+  (use-package golden-ratio
+    :config
+    (golden-ratio-mode 1))
+#+end_src
+
+** Rainbow delimiters
+#+begin_src emacs-lisp
+  (use-package rainbow-delimiters
+    :init
+    (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+#+end_src
+
+** TODO Highlight indentation
+#+begin_src emacs-lisp
+  ;; This is not good, only counts spaces.
+  ;;(add-hook 'prog-mode-hook #'highlight-indentation-mode)
+
+  ;; Find a good package.
+#+end_src
 * Programming languages & Modes
 ** Verilog
 #+BEGIN_SRC emacs-lisp
@@ -410,6 +441,11 @@
 #+BEGIN_SRC emacs-lisp
   (use-package scad-mode)
 #+END_SRC
+** Gitignore
+#+BEGIN_SRC emacs-lisp
+  (use-package gitignore-mode)
+#+END_SRC
+
 * Shortcut commands
 #+BEGIN_SRC emacs-lisp
   ;; Byte compile and load the elisp buffer
