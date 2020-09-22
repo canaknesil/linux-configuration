@@ -91,10 +91,10 @@
    
 ** Highlight current line
 #+BEGIN_SRC emacs-lisp
-  (require 'hl-line)
-  (set-face-background 'hl-line "#402040")
-  (set-face-foreground 'highlight nil)
-  (global-hl-line-mode 1)
+  ;;(require 'hl-line)
+  ;;(set-face-background 'hl-line "#402040")
+  ;;(set-face-foreground 'highlight nil)
+  ;;(global-hl-line-mode 1)
 #+END_SRC
 
 ** Font size
@@ -131,6 +131,40 @@
 #+BEGIN_SRC emacs-lisp
   (setq inhibit-startup-screen t)
 #+END_SRC
+
+** Golden ratio windows
+#+begin_src emacs-lisp
+  (use-package golden-ratio
+    :config
+    (golden-ratio-mode 1))
+#+end_src
+
+** TODO Highlight indentation
+#+begin_src emacs-lisp
+  ;; This is not good, only counts spaces.
+  ;;(add-hook 'prog-mode-hook #'highlight-indentation-mode)
+
+  ;; Find a good package.
+#+end_src
+** TODO Highlight uncommitted changes
+#+BEGIN_SRC emacs-lisp
+  ;; Highigh uncommitted changes on the fringe
+  (use-package diff-hl
+    :config
+    (global-diff-hl-mode))
+
+  ;; Fringe does not work on terminal.
+  ;; display-graphic-p returns always nil when started as daemon.
+  ;; Find a way to enable fringe mode for X, even using as daemon,
+  ;; while still using margin mode with terminal.
+#+END_SRC
+
+** Rainbow delimiters
+#+begin_src emacs-lisp
+  (use-package rainbow-delimiters
+    :init
+    (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+#+end_src
 
 * Functionality
 ** Auto-fill mode for text buffers
@@ -169,19 +203,6 @@
     (setq company-idle-delay 0)
     :init
     (add-hook 'after-init-hook #'global-company-mode))
-#+END_SRC
-
-** TODO Highlight uncommitted changes
-#+BEGIN_SRC emacs-lisp
-  ;; Highigh uncommitted changes on the fringe
-  (use-package diff-hl
-    :config
-    (global-diff-hl-mode))
-
-  ;; Fringe does not work on terminal.
-  ;; display-graphic-p returns always nil when started as daemon.
-  ;; Find a way to enable fringe mode for X, even using as daemon,
-  ;; while still using margin mode with terminal.
 #+END_SRC
 
 ** Camelcase as separate words 
@@ -339,27 +360,6 @@
     )
 #+END_SRC
 
-** Golden ratio windows
-#+begin_src emacs-lisp
-  (use-package golden-ratio
-    :config
-    (golden-ratio-mode 1))
-#+end_src
-
-** Rainbow delimiters
-#+begin_src emacs-lisp
-  (use-package rainbow-delimiters
-    :init
-    (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
-#+end_src
-
-** TODO Highlight indentation
-#+begin_src emacs-lisp
-  ;; This is not good, only counts spaces.
-  ;;(add-hook 'prog-mode-hook #'highlight-indentation-mode)
-
-  ;; Find a good package.
-#+end_src
 * Programming languages & Modes
 ** Verilog
 #+BEGIN_SRC emacs-lisp
