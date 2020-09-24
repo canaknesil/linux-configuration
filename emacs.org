@@ -159,13 +159,6 @@
   ;; while still using margin mode with terminal.
 #+END_SRC
 
-** Rainbow delimiters
-#+begin_src emacs-lisp
-  (use-package rainbow-delimiters
-    :init
-    (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
-#+end_src
-
 * Functionality
 ** Auto-fill mode for text buffers
 #+BEGIN_SRC emacs-lisp
@@ -215,12 +208,31 @@
   (setq confirm-kill-emacs 'y-or-n-p)
 #+END_SRC
 
+** Rainbow delimiters
+#+begin_src emacs-lisp
+  (use-package rainbow-delimiters
+    :init
+    (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+#+end_src
+
 ** Show matching parenthesis
 #+BEGIN_SRC emacs-lisp
   (show-paren-mode t)
   (setq show-paren-delay 0.0)
 #+END_SRC
 
+** TODO Smartparens
+#+begin_src emacs-lisp
+  ;; (use-package smartparens
+  ;;   :config
+  ;;   ;;(require 'smartparens-config) ; Enable default configuration
+  ;;   (add-hook 'prog-mode-hook #'smartparens-mode)
+  ;;   (setq sp-highlight-pair-overlay nil)
+  ;;   (setq sp-highlight-wrap-overlay nil)
+  ;;   (setq sp-highlight-wrap-tag-overlay nil))
+
+  ;; TODO: Find a better package. smartparens is too aggressive. 
+#+end_src
 ** All backups to a specific directory
 #+BEGIN_SRC emacs-lisp
   (setq backup-directory-alist `(("." . "~/emacs-tmp")))
@@ -455,6 +467,12 @@
   ;;   :after treemacs persp-mode ;;or perspective vs. persp-mode
   ;;   :ensure t
   ;;   :config (treemacs-set-scope-type 'Perspectives))
+#+end_src
+** Move text
+#+begin_src emacs-lisp
+  (use-package move-text
+    :config
+    (move-text-default-bindings))
 #+end_src
 * Programming languages & Modes
 ** Verilog
