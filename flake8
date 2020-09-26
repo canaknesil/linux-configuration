@@ -1,0 +1,28 @@
+# Must be put to or linked from ~/.config/flake8
+
+[flake8]
+ignore = E302,E501,E265,E226,E261,E231,W293,W291,E303,E203,W503,W504,E221,E241,E305,E202,E251,W391,E266,E225,E222,E127,E228
+
+# E302: Minimum 2 new lines between functions
+# E501: Line too long
+# E265: Block comment should start with '# '
+# E226: Missing whitespace around arithmetic operator
+# E261: At least 2 spaces before inline comment
+# E231: Missing whilespace after ','
+# W293: Blank line contains whilespace
+# W291: Trailing whitespace
+# E303: Too many blank lines
+# E203: Whilespace before ';'
+# W503: Line brake before binary operator
+# W504: Line brake after binary operator
+# E221: Multiple spaces before operator
+# E241: Multiple spaces after ','
+# E305: Expected 2 blank lines after function or class definition
+# E202: whitespace before ']'
+# E251: Unexpected spaces around keyword/parameter equals
+# W391: Blank line at the end of file
+# E266: Too many leading '#' for block comment
+# E225: Missing whilespace around operator
+# E222: Multiple spaces after operator
+# E127: Continuation line over-indented for visual-indent
+# E228: Missing whitespace around module operator

@@ -324,10 +324,20 @@
 #+RESULTS:
 : kill-buffer-and-delete-window
 
-** Flycheck (on-the-fly syntax check)
+** On-the-fly syntax check
 #+BEGIN_SRC emacs-lisp
-  (use-package flycheck
-    :init (global-flycheck-mode))
+  ;; Use flymake whenever is possible. It is built-in.
+
+  ;; Use flake8 python package. Elpy uses it.
+  ;; Flake8 configuration is at linux-configuration/flake8.
+  ;; Copy or link it to ~/.config/flake8
+  ;; The config makes flake8 to ignore several anoying warnings. 
+
+
+  ;; Old setup, not useing flycheck anymore.
+
+  ;;(use-package flycheck
+  ;;  :init (global-flycheck-mode))
 
   ;; Using pylint for Python syntax checking.
   ;; Configuration is in ~/.pylintrc
