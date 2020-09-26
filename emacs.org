@@ -87,6 +87,10 @@
   ;; Custom highigh background, default is too bright.
   ;; swiper-line-face inherits from highlight
   (set-face-attribute 'highlight nil :background "#807000")
+
+  ;; show-paren-mode match background is too bright, not seeing the delimiter.
+  (set-face-background 'show-paren-match "#990000")
+  (set-face-foreground 'show-paren-match "#ccccff")
 #+END_SRC
    
 ** Highlight current line

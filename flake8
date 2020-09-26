@@ -1,7 +1,7 @@
 # Must be put to or linked from ~/.config/flake8
 
 [flake8]
-ignore = E302,E501,E265,E226,E261,E231,W293,W291,E303,E203,W503,W504,E221,E241,E305,E202,E251,W391,E266,E225,E222,E127,E228
+ignore = E302,E501,E265,E226,E261,E231,W293,W291,E303,E203,W503,W504,E221,E241,E305,E202,E251,W391,E266,E225,E222,E127,E228,E262
 
 # E302: Minimum 2 new lines between functions
 # E501: Line too long
@@ -26,3 +26,4 @@ ignore = E302,E501,E265,E226,E261,E231,W293,W291,E303,E203,W503,W504,E221,E241,E
 # E222: Multiple spaces after operator
 # E127: Continuation line over-indented for visual-indent
 # E228: Missing whitespace around module operator
+# E262: Inline comments should start with '# '
