@@ -574,6 +574,10 @@
   (use-package gitignore-mode)
 #+END_SRC
 
+** Powershell
+#+BEGIN_SRC emacs-lisp
+  (use-package powershell)
+#+END_SRC
 * Shortcut commands
 #+BEGIN_SRC emacs-lisp
   ;; Byte compile and load the elisp buffer
