@@ -24,9 +24,16 @@ function down { pushd "d:\Users\$env:USERNAME\Downloads" }
 function homec { pushd "c:\Users\$env:USERNAME" }
 function homed { pushd "d:\Users\$env:USERNAME" }
 
+# Rather than creating links (sometimes they don't work...) creating functions.
+function bash { C:\msys64\usr\bin\bash.exe @args }
+
 if ($python_venv_dir -ne $null) {
     function venv-activate {
 	param($env_name)
 	. "$python_venv_dir\$env_name\Scripts\activate.ps1"
     }
 }
+
+# For readline style line editing. 
+Import-Module PSReadLine
+Set-PSReadLineOption -EditMode Emacs

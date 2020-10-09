@@ -488,6 +488,16 @@
     :config
     (move-text-default-bindings))
 #+end_src
+** Home directory on Windows
+#+BEGIN_SRC emacs-lisp
+  ;; On windows 10 default home directory for emacs is C:\Users\canaknesil\AppData\Roaming
+  ;; Changing it to default home directory outside emacs.
+  ;; Note that when emacs is starting it uses the old home to look for .emacs file.
+
+  (when (eq system-type 'windows-nt)
+    (setenv "EMACS_HOME" (getenv "Home"))
+    (setenv "Home" (getenv "UserProfile")))
+#+END_SRC
 * Programming languages & Modes
 ** Verilog
 #+BEGIN_SRC emacs-lisp
