@@ -101,9 +101,34 @@
   (global-hl-line-mode 1)
 #+END_SRC
 
-** Font size
+** Font and its size
 #+BEGIN_SRC emacs-lisp
-  ;; (set-face-attribute 'default nil :height 120)
+  (setq my-custom-font nil)
+  (setq my-custom-font-size nil)
+
+  (defun set-font (font)
+    (set-face-attribute 'default nil :font font))
+
+  (defun set-font-size (font-size)
+    (set-face-attribute 'default nil :height font-size))
+  
+  (add-hook 'after-make-frame-functions
+	    (lambda (frame)
+	      (select-frame frame)
+	      (if my-custom-font
+		  (set-font my-custom-font))
+	      (if my-custom-font-size
+		  (set-font-size my-custom-font-size))))
+
+  ;; The following function should be called for font configuration.
+  (defun configure-font (font)
+    (setq my-custom-font font)
+    (set-font font))
+
+  (defun configure-font-size (font-size)
+    "Font size is around 110."
+    (setq my-custom-font-size font-size)
+    (set-font-size font-size))
 #+END_SRC
 
 ** Hide tool bar

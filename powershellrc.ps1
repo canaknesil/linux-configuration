@@ -11,6 +11,10 @@ if ($linux_configuration_proj_dir -ne $null) {
 }
 
 function e { emacs -nw @args } # The theme is horrible. 
+function ec { emacsclientw --server-file "$env:UserProfile\.emacs.d\server\server" @args }
+# Start emacs server with ".../runemacs.exe --daemon".
+# Put the shortcut to "C:\Users\canaknesil\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup".
+
 #function matlab { matlab -nodisplay @args } # This does not work.
 #function octave { octave-cli @args } # I don't have octave yet. 
 #function julia { julia --color=yes @args } # Somehow does not work.
