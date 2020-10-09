@@ -30,6 +30,13 @@ function homed { pushd "d:\Users\$env:USERNAME" }
 
 # Rather than creating links (sometimes they don't work...) creating functions.
 function bash { C:\msys64\usr\bin\bash.exe @args }
+function du {
+    param(
+	[parameter(valueFromPipeline)]
+	$path
+    )
+    process {C:\msys64\usr\bin\du.exe -hs $path}
+}
 
 if ($python_venv_dir -ne $null) {
     function venv-activate {

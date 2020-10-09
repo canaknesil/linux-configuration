@@ -565,7 +565,7 @@
      (shell . t)
      ))
 
-  (setq org-babel-python-command "python3 -q")
+  (setq org-babel-python-command "python -q")
 #+END_SRC
 
 ** Markdown
