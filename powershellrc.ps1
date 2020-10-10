@@ -29,7 +29,7 @@ function homec { pushd "c:\Users\$env:USERNAME" }
 function homed { pushd "d:\Users\$env:USERNAME" }
 
 # Rather than creating links (sometimes they don't work...) creating functions.
-function bash { C:\msys64\usr\bin\bash.exe @args }
+function bash { C:\msys64\usr\bin\bash.exe --rcfile "$env:USERPROFILE\.native_bashrc" @args }
 function du {
     param(
 	[parameter(valueFromPipeline)]
