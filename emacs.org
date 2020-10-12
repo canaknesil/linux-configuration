@@ -95,10 +95,11 @@
    
 ** Highlight current line
 #+BEGIN_SRC emacs-lisp
-  (require 'hl-line)
-  (set-face-background 'hl-line "#402040")
-  (set-face-foreground 'highlight nil)
-  (global-hl-line-mode 1)
+  (use-package hl-line
+    :config
+    (set-face-background 'hl-line "#402040")
+    (set-face-foreground 'highlight nil)
+    (global-hl-line-mode 1))
 #+END_SRC
 
 ** Font and its size
@@ -411,6 +412,14 @@
     )
 #+END_SRC
 
+** Projectile
+#+begin_src emacs-lisp
+  (use-package projectile
+    :config
+    (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+    (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+    (projectile-mode +1))
+#+end_src
 ** Treemacs
 #+begin_src emacs-lisp
   (use-package treemacs
@@ -460,12 +469,14 @@
 	    treemacs-tag-follow-delay              1.5
 	    treemacs-user-mode-line-format         nil
 	    treemacs-user-header-line-format       nil
-	    treemacs-width                         35
+	    ;;treemacs-width                         35
+	    treemacs-width                         40
 	    treemacs-workspace-switch-cleanup      nil)
 
       ;; The default width and height of the icons is 22 pixels. If you are
       ;; using a Hi-DPI display, uncomment this to double the icon size.
       ;;(treemacs-resize-icons 44)
+      (treemacs-resize-icons 18)
 
       (treemacs-follow-mode t)
       (treemacs-filewatch-mode t)
@@ -489,9 +500,9 @@
   ;;   :after treemacs evil
   ;;   :ensure t)
 
-  ;; (use-package treemacs-projectile
-  ;;   :after treemacs projectile
-  ;;   :ensure t)
+  (use-package treemacs-projectile
+    :after treemacs projectile
+    :ensure t)
 
   (use-package treemacs-icons-dired
     :after treemacs dired
