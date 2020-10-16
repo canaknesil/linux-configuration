@@ -57,7 +57,7 @@ function Get-DiskUsage {
 	[parameter(valueFromPipeline)]
 	[string[]] $path
     )
-    process {C:\msys64\usr\bin\du.exe -hs $path}
+    process {du -hs $path}
 }
 set-alias gdu Get-DiskUsage
 
