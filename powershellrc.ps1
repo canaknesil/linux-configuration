@@ -10,30 +10,32 @@ if ($linux_configuration_proj_dir -ne $null) {
     #export PATH=$PATH:$LINUX_CONFIGURATION_PROJ_DIR/bin
 }
 
+set-alias l ls
+set-alias py python
+set-alias ipy ipython
+
 function e { emacs -nw @args } # The theme is horrible. 
 function ec { emacsclientw --server-file "$env:UserProfile\.emacs.d\server\server" @args }
 # Start emacs server with ".../runemacs.exe --daemon".
-# Put the shortcut to "C:\Users\canaknesil\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup".
+# Put the shortcut to "C:\Users\canaknesil\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup". It did not work.
 
 #function matlab { matlab -nodisplay @args } # This does not work.
 #function octave { octave-cli @args } # I don't have octave yet. 
 #function julia { julia --color=yes @args } # Somehow does not work.
-function l { ls @args }
-function py { python @args }
-function ipy { ipython @args }
-# Can't find anythink to send files to trash.
 
 function desk { pushd "c:\Users\$env:USERNAME\Desktop" }
 function down { pushd "d:\Users\$env:USERNAME\Downloads" }
 function homec { pushd "c:\Users\$env:USERNAME" }
 function homed { pushd "d:\Users\$env:USERNAME" }
 
-# Rather than creating links (sometimes they don't work...) creating functions.
-function bash { C:\msys64\usr\bin\bash.exe --rcfile "$env:USERPROFILE\.native_bashrc" @args }
+# Bash and Zsh
+$env:HOME = $env:USERPROFILE # Could not find a way to run only command with an environment variable.
+set-alias bash C:\msys64\usr\bin\bash.exe
+
 function du {
     param(
 	[parameter(valueFromPipeline)]
-	$path
+	[string[]] $path
     )
     process {C:\msys64\usr\bin\du.exe -hs $path}
 }
@@ -46,5 +48,5 @@ if ($python_venv_dir -ne $null) {
 }
 
 # For readline style line editing. 
-Import-Module PSReadLine
+#Import-Module PSReadLine
 Set-PSReadLineOption -EditMode Emacs
