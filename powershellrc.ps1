@@ -31,9 +31,9 @@ if ($IsWindows) {
     function homec { pushd "c:\Users\$env:USERNAME" }
     function homed { pushd "d:\Users\$env:USERNAME" }
 } else {
-    function desk { pushd "$homedir/Desktop" }
-    function down { pushd "$homedir/Downloads" }
-    function doc  { pushd "$homedir/Documents" }
+    function desk { pushd "$env:HOME/Desktop" }
+    function down { pushd "$env:HOME/Downloads" }
+    function doc  { pushd "$env:HOME/Documents" }
 }
 
 if ($IsWindows) {
@@ -60,3 +60,17 @@ if ($python_venv_dir -ne $null) {
 # For readline style line editing. 
 #Import-Module PSReadLine
 Set-PSReadLineOption -EditMode Emacs
+
+# Prompt
+import-module posh-git
+$GitPromptSettings.DefaultPromptAbbreviateHomeDirectory = $true
+
+$GitPromptSettings.DefaultPromptPrefix = "PS "
+$GitPromptSettings.DefaultPromptSuffix = "`n`$('>' * (`$nestedPromptLevel + 1)) "
+$GitPromptSettings.DefaultPromptDebugSuffix = "`n[DBG]`$('>' * (`$nestedPromptLevel + 1)) "
+#$GitPromptSettings.DefaultForegroundColor = 'Yellow'
+
+$GitPromptSettings.ShowStatusWhenZero = $false
+$GitPromptSettings.BranchIdenticalStatusToSymbol = ""
+$GitPromptSettings.LocalWorkingStatusSymbol = "*"
+$GitPromptSettings.LocalStagedStatusForegroundColor = "Green"
