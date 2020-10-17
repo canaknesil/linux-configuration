@@ -18,7 +18,11 @@ set-alias ipy ipython
 function gst { git status @args }
 
 function e { emacs -nw @args }
-function ec { emacsclientw @args }
+if ($IsWindows) {
+    set-alias ec emacsclientw
+} else {
+    set-alias ec emacsclient 
+}
 
 #function matlab { matlab -nodisplay @args } # This does not work.
 #function octave { octave-cli @args } # I don't have octave yet. 
