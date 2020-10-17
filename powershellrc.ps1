@@ -5,12 +5,8 @@
 # $python_venv_dir = "c:\Users\canaknesil\.venv"
 # . "$linux_configuration_proj_dir\powershellrc.ps1"
 #
-
-if ($IsWindows) {
-    $homedir = $env:USERPROFILE
-} else {
-    $homedir = $env:HOME
-}
+# Create HOME environment variable on Windows. This will be used by bash, zsh, and emacs. 
+#
 
 if ($linux_configuration_proj_dir -ne $null) {
     #export PATH=$PATH:$LINUX_CONFIGURATION_PROJ_DIR/bin
@@ -22,13 +18,7 @@ set-alias ipy ipython
 function gst { git status @args }
 
 function e { emacs -nw @args }
-if ($IsWindows) {
-    function ec { emacsclientw --server-file "$env:UserProfile\.emacs.d\server\server" @args }
-    # Start emacs server with ".../runemacs.exe --daemon".
-    # Put the shortcut to "C:\Users\canaknesil\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup". It did not work.
-} else {
-    set-alias ec emacsclient
-}
+function ec { emacsclientw @args }
 
 #function matlab { matlab -nodisplay @args } # This does not work.
 #function octave { octave-cli @args } # I don't have octave yet. 
@@ -46,9 +36,8 @@ if ($IsWindows) {
     function doc  { pushd "$homedir/Documents" }
 }
 
-# Bash and Zsh for windows
 if ($IsWindows) {
-    $env:HOME = $env:USERPROFILE # Could not find a way to run only command with an environment variable.
+    # Bash and Zsh required HOME environment variable.
     set-alias bash C:\msys64\usr\bin\bash.exe
 }
 
