@@ -70,8 +70,8 @@ import-module posh-git
 $GitPromptSettings.DefaultPromptAbbreviateHomeDirectory = $true
 
 $GitPromptSettings.DefaultPromptPrefix = "PS "
-$GitPromptSettings.DefaultPromptSuffix = "`n`$('>' * (`$nestedPromptLevel + 1)) "
-$GitPromptSettings.DefaultPromptDebugSuffix = "`n[DBG]`$('>' * (`$nestedPromptLevel + 1)) "
+$GitPromptSettings.DefaultPromptSuffix = '`n$(">" * ($nestedPromptLevel + 1)) '
+$GitPromptSettings.DefaultPromptDebugSuffix = '`n[DBG]$(">" * ($nestedPromptLevel + 1)) '
 #$GitPromptSettings.DefaultForegroundColor = 'Yellow'
 
 $GitPromptSettings.ShowStatusWhenZero = $false
