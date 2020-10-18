@@ -1,0 +1,46 @@
+#! /bin/sh
+
+#
+# INPUTS: $1 inc or dec, $2 driver, $3 percentage step
+#
+
+OP=+
+case $1 in
+    inc)
+        OP=+
+        ;;
+    dec)
+        OP=-
+        ;;
+    *)
+        echo No command $1. Must be inc or dec.
+        exit
+        ;;
+esac
+
+DRIVER=$2
+PERCENTAGE=$3
+
+#
+# MAIN PART
+#
+
+DIR=/sys/class/backlight/${DRIVER}
+
+CURRENT_BR=$(cat ${DIR}/brightness)
+MAX_BR=$(cat ${DIR}/max_brightness)
+
+STEP=$((${MAX_BR} * ${PERCENTAGE} / 100))
+NEW_BR=${CURRENT_BR}
+NEW_BR=$((${NEW_BR} ${OP} ${STEP}))
+
+if [ ${NEW_BR} -gt ${MAX_BR} ]; then
+    NEW_BR=${MAX_BR}
+fi
+
+if [ ${NEW_BR} -lt ${STEP} ]; then
+    NEW_BR=${STEP}
+fi
+
+echo Changing brightness from $CURRENT_BR to $NEW_BR.
+echo ${NEW_BR} > ${DIR}/brightness
