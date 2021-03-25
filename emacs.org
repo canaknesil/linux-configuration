@@ -607,6 +607,7 @@
 
 ** Arduino
 #+BEGIN_SRC emacs-lisp
+  (use-package flycheck) ;; arduino-mode gives error if flycheck is not found.
   (use-package arduino-mode)
   (use-package company-arduino)
 #+END_SRC

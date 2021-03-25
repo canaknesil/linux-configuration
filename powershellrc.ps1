@@ -71,10 +71,15 @@ $GitPromptSettings.DefaultPromptAbbreviateHomeDirectory = $true
 
 $GitPromptSettings.DefaultPromptPrefix = "PS "
 $GitPromptSettings.DefaultPromptSuffix = '`n$(">" * ($nestedPromptLevel + 1)) '
-$GitPromptSettings.DefaultPromptDebugSuffix = '`n[DBG]$(">" * ($nestedPromptLevel + 1)) '
+if ($IsWindows) {
+    $GitPromptSettings.DefaultPromptDebugSuffix = '`n[DBG]$(">" * ($nestedPromptLevel + 1)) ' # Does not exist on Linux.
+    $GitPromptSettings.BranchIdenticalStatusToSymbol = ""
+    $GitPromptSettings.LocalStagedStatusForegroundColor = "Green"
+} else {
+    $GitPromptSettings.DefaultPromptDebug.Text = '`n[DBG]$(">" * ($nestedPromptLevel + 1)) ' # Does not exist on Linux.
+    $GitPromptSettings.BranchIdenticalStatusSymbol.Text = ""
+    $GitPromptSettings.LocalStagedStatusSymbol.ForegroundColor = "Green"
+}
 #$GitPromptSettings.DefaultForegroundColor = 'Yellow'
-
 $GitPromptSettings.ShowStatusWhenZero = $false
-$GitPromptSettings.BranchIdenticalStatusToSymbol = ""
 $GitPromptSettings.LocalWorkingStatusSymbol = "*"
-$GitPromptSettings.LocalStagedStatusForegroundColor = "Green"
