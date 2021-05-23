@@ -165,6 +165,7 @@
 ** Golden ratio windows
 #+begin_src emacs-lisp
   (use-package golden-ratio
+    :defer
     :config
     (golden-ratio-mode 1))
 #+end_src
@@ -180,6 +181,7 @@
 #+BEGIN_SRC emacs-lisp
   ;; Highigh uncommitted changes on the fringe
   (use-package diff-hl
+    :defer
     :config
     (global-diff-hl-mode))
 
@@ -222,6 +224,7 @@
 ** Company completion (core only)
 #+BEGIN_SRC emacs-lisp
   (use-package company
+    :defer
     :config
     (setq company-idle-delay 0)
     :init
@@ -271,6 +274,7 @@
 ** Which-key (display possible keys while typing a command)
 #+BEGIN_SRC emacs-lisp
   (use-package which-key
+    :defer
     :config
     (which-key-mode))
 #+END_SRC
@@ -278,6 +282,7 @@
 ** Helpful (better help buffers)
 #+BEGIN_SRC emacs-lisp
   (use-package helpful
+    :defer
     :config
     (global-set-key (kbd "C-h f") #'helpful-callable)
     (global-set-key (kbd "C-h v") #'helpful-variable)
@@ -291,6 +296,7 @@
 
 #+BEGIN_SRC emacs-lisp
   (use-package ivy
+    :defer
     :config
     (ivy-mode 1)
     ;; Recommended config for new users
@@ -304,10 +310,12 @@
     )
 
   (use-package swiper
+    :defer
     :bind (("C-s" . 'swiper-isearch)
 	   ("C-r" . 'swiper-isearch-backward)))
 
   (use-package counsel
+    :defer
     :bind (("M-x" . 'counsel-M-x)
 	   ("C-x C-f" . 'counsel-find-file)
 	   ("M-y" . 'counsel-yank-pop)
@@ -376,6 +384,7 @@
 ** Dumb Jump (jump to definition)
 #+BEGIN_SRC emacs-lisp
   (use-package dumb-jump
+    :defer
     :config
     (dumb-jump-mode))
 #+END_SRC
@@ -387,26 +396,29 @@
 
 ** Recent files
 #+BEGIN_SRC emacs-lisp
-  (recentf-mode 1)
-  (setq recentf-max-menu-items 25)
-  (setq recentf-max-saved-items 25)
-  (global-set-key "\C-x\ \M-f" 'recentf-open-files)
+  ;; ivy, counsel, swiper handles this
 
-  ;; Save recent file list every 5 min in case of abrupt exit.
-  (defun recentf-save-list-without-message ()
-    (let ((inhibit-message t))
-      (recentf-save-list)))
+  ;; (recentf-mode 1)
+  ;; (setq recentf-max-menu-items 25)
+  ;; (setq recentf-max-saved-items 25)
+  ;; (global-set-key "\C-x\ \M-f" 'recentf-open-files)
 
-  (run-at-time nil (* 5 60) 'recentf-save-list-without-message)
+  ;; ;; Save recent file list every 5 min in case of abrupt exit.
+  ;; (defun recentf-save-list-without-message ()
+  ;;   (let ((inhibit-message t))
+  ;;     (recentf-save-list)))
 
-  ;; Exclude internal recentf file.
-  (add-to-list 'recentf-exclude (expand-file-name recentf-save-file))
-  (recentf-cleanup)
+  ;; (run-at-time nil (* 5 60) 'recentf-save-list-without-message)
+
+  ;; ;; Exclude internal recentf file.
+  ;; (add-to-list 'recentf-exclude (expand-file-name recentf-save-file))
+  ;; (recentf-cleanup)
 #+END_SRC
 
 ** Restart emacs from within
 #+BEGIN_SRC emacs-lisp
   (use-package restart-emacs
+    :defer
     :config
     (setq restart-emacs-restore-frames t)
     )
@@ -415,6 +427,7 @@
 ** Projectile
 #+begin_src emacs-lisp
   (use-package projectile
+    :defer
     :config
     (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
     (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
@@ -521,6 +534,7 @@
 ** Move text
 #+begin_src emacs-lisp
   (use-package move-text
+    :defer
     :config
     (move-text-default-bindings))
 #+end_src
@@ -533,6 +547,12 @@
   (when (eq system-type 'windows-nt)
     (setenv "EMACS_HOME" (getenv "Home"))
     (setenv "Home" (getenv "UserProfile")))
+#+END_SRC
+** ESUP - Emacs Start Up Profiler
+#+BEGIN_SRC emacs-lisp
+  (use-package esup
+    :defer
+    :pin melpa)
 #+END_SRC
 * Programming languages & Modes
 ** Verilog
@@ -547,7 +567,8 @@
   ;;(require 'julia-mode)
 
   ;; New way
-  (use-package julia-mode)
+  (use-package julia-mode
+    :defer)
 #+END_SRC
 
 ** LaTeX
@@ -558,12 +579,14 @@
     (setq TeX-auto-save t)
     (setq TeX-parse-self t)
     (setq-default TeX-master nil))
-  (use-package auctex-latexmk) ;; latexmk support for auctex
+  (use-package auctex-latexmk
+    :defer) ;; latexmk support for auctex
 #+END_SRC
 
 ** Org Mode
 #+BEGIN_SRC emacs-lisp
   (use-package org-bullets
+    :defer
     :commands org-bullets-mode
     :init
     (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
@@ -571,9 +594,10 @@
   ;; active Babel languages
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((R . t)
-     (python . t)
-     (shell . t)
+   '(
+     ;;(R . t)
+     ;;(python . t)
+     ;;(shell . t)
      ))
 
   (setq org-babel-python-command "python -q")
@@ -581,7 +605,8 @@
 
 ** Markdown
 #+BEGIN_SRC emacs-lisp
-  (use-package markdown-mode)
+  (use-package markdown-mode
+    :defer)
 #+END_SRC
 
 ** Dired
@@ -593,9 +618,11 @@
 ** Python
 #+BEGIN_SRC emacs-lisp
   (use-package elpy
+    :defer
     :init
-    (elpy-enable)
+    ;;(elpy-enable)
     :config
+    (elpy-enable)
     ;; Fall back to completion via shell.
     ;;(setq elpy-get-info-from-shell t)
     )
@@ -607,23 +634,30 @@
 
 ** Arduino
 #+BEGIN_SRC emacs-lisp
-  (use-package flycheck) ;; arduino-mode gives error if flycheck is not found.
-  (use-package arduino-mode)
-  (use-package company-arduino)
+  (use-package flycheck
+    :defer) ;; arduino-mode gives error if flycheck is not found.
+  (use-package arduino-mode
+    :defer
+    :after flycheck)
+  (use-package company-arduino
+    :defer)
 #+END_SRC
 
 ** OpenSCAD
 #+BEGIN_SRC emacs-lisp
-  (use-package scad-mode)
+  (use-package scad-mode
+    :defer)
 #+END_SRC
 ** Gitignore
 #+BEGIN_SRC emacs-lisp
-  (use-package gitignore-mode)
+  (use-package gitignore-mode
+    :defer)
 #+END_SRC
 
 ** Powershell
 #+BEGIN_SRC emacs-lisp
-  (use-package powershell)
+  (use-package powershell
+    :defer)
 #+END_SRC
 * Shortcut commands
 #+BEGIN_SRC emacs-lisp
