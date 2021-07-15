@@ -14,11 +14,16 @@ alias l='ls -alhF' # --color=never doen't work on mac.
 # alias rm="trash" # requires trash-cli
 alias py='python3'
 alias ipy='ipython3'
+alias ca='conda activate'
 
 alias desktop="pushd ~/Desktop"
 alias desk='desktop'
 alias downloads="pushd ~/Downloads"
 alias down='downloads'
+
+h () {
+  history | grep $@
+}
 
 # Ignore case during completion on bash
 if [ -n "$BASH_VERSION" ]; then
