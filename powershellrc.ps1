@@ -2,20 +2,22 @@
 # Use this script as such:
 #
 # $linux_configuration_proj_dir = "c:\Users\canaknesil\StandalonePrograms\linux-configuration"
-# $python_venv_dir = "c:\Users\canaknesil\.venv"
 # . "$linux_configuration_proj_dir\powershellrc.ps1"
 #
 # Create HOME environment variable on Windows. This will be used by bash, zsh, and emacs. 
 #
 
 if ($linux_configuration_proj_dir -ne $null) {
-    #export PATH=$PATH:$LINUX_CONFIGURATION_PROJ_DIR/bin
+
 }
 
 set-alias l get-childitem
 set-alias py python
 set-alias ipy ipython
 function gst { git status @args }
+function ca { conda activate @args }
+#set-alias Remove-Item trash # requires trash-cli
+#set-alias rm trash
 
 function e { emacs -nw @args }
 if ($IsWindows) {
@@ -41,7 +43,7 @@ if ($IsWindows) {
 }
 
 if ($IsWindows) {
-    # Bash and Zsh required HOME environment variable.
+    # Bash and Zsh requires HOME environment variable.
     set-alias bash C:\msys64\usr\bin\bash.exe
 }
 
