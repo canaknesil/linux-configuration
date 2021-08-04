@@ -68,20 +68,26 @@ if ($python_venv_dir -ne $null) {
 Set-PSReadLineOption -EditMode Emacs
 
 # Prompt
-import-module posh-git
-$GitPromptSettings.DefaultPromptAbbreviateHomeDirectory = $true
+function prompt {
+    $debug = $(if (Test-Path variable:/PSDebugContext) { '[DBG] ' } else { '' })
+    $cwd = $(get-location) -replace "^${env:HOME}", '~'
+    $user = $env:USERNAME
+    $hostname_str = [System.Net.Dns]::GetHostname()
+    $last_char = $(if ($NestedPromptLevel -ge 1) { '>>' }) + '> '
 
-$GitPromptSettings.DefaultPromptPrefix = "PS "
-$GitPromptSettings.DefaultPromptSuffix = '`n$(">" * ($nestedPromptLevel + 1)) '
-if ($IsWindows) {
-    $GitPromptSettings.DefaultPromptDebugSuffix = '`n[DBG]$(">" * ($nestedPromptLevel + 1)) ' # Does not exist on Linux.
-    $GitPromptSettings.BranchIdenticalStatusToSymbol = ""
-    $GitPromptSettings.LocalStagedStatusForegroundColor = "Green"
-} else {
-    $GitPromptSettings.DefaultPromptDebug.Text = '`n[DBG]$(">" * ($nestedPromptLevel + 1)) ' # Does not exist on Linux.
-    $GitPromptSettings.BranchIdenticalStatusSymbol.Text = ""
-    $GitPromptSettings.LocalStagedStatusSymbol.ForegroundColor = "Green"
+    $is_git = $(get-gitdirectory) -ne $null
+    if ($is_git) {
+	$git_status = (get-gitstatus)
+
+	$git_prompt_str = ' '
+	$git_prompt_str += $git_status.branch + ' '
+	if ($git_status.hasworking) {$git_prompt_str += '*'}
+	if ($git_status.hasindex) {$git_prompt_str += '+'}
+	if ($git_status.AheadBy -gt 0) {$git_prompt_str += '↑'}
+	if ($git_status.BehindBy -gt 0) {$git_prompt_str += '↓'}
+    }
+    
+    "${debug}PS `e[33m${user}@${hostname_str}`e[0m `e[94m${cwd}`e[0m`e[32m${git_prompt_str}`e[0m`n`e[90m${last_char}`e[0m"
 }
-#$GitPromptSettings.DefaultForegroundColor = 'Yellow'
-$GitPromptSettings.ShowStatusWhenZero = $false
-$GitPromptSettings.LocalWorkingStatusSymbol = "*"
+# For colors: https://en.wikipedia.org/wiki/ANSI_escape_code
+
