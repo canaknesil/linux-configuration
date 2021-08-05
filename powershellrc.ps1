@@ -70,7 +70,10 @@ Set-PSReadLineOption -EditMode Emacs
 # Prompt
 function prompt {
     $debug = $(if (Test-Path variable:/PSDebugContext) { '[DBG] ' } else { '' })
-    $cwd = $(get-location) -replace "^${env:HOME}", '~'
+    $cwd = $(get-location)
+    if (-not $IsWindows) {
+	$cwd = $cwd -replace "^${env:HOME}", '~'
+    }
     $user = $env:USERNAME
     $hostname_str = [System.Net.Dns]::GetHostname()
     $last_char = $(if ($NestedPromptLevel -ge 1) { '>>' }) + '> '
