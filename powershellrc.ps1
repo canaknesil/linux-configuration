@@ -7,6 +7,11 @@
 # Create HOME environment variable on Windows. This will be used by bash, zsh, and emacs. 
 #
 
+# TODO
+# Zshell style completion (matching middle of words etc.)
+# Revert to Bash completion (ex: systemctl status TAB)
+# Powershell interface for command Linux programs (ex: df, systemctl, iptables, etc.)
+
 if ($linux_configuration_proj_dir -ne $null) {
 
 }
