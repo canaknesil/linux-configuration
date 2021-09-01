@@ -16,7 +16,6 @@ if ($linux_configuration_proj_dir -ne $null) {
 
 }
 
-set-alias l get-childitem
 set-alias py python
 set-alias ipy ipython
 function gst { git status @args }
@@ -51,6 +50,46 @@ if ($IsWindows) {
     # Bash and Zsh requires HOME environment variable.
     set-alias bash C:\msys64\usr\bin\bash.exe
 }
+
+function Format-HumanReadable {
+    param([int64] $n)
+
+    $units = [ordered] @{
+	"TB" = 1TB
+	"GB" = 1GB
+	"MB" = 1MB
+	"KB" = 1KB
+	"B" = 1
+    }
+
+    if ($n -lt 1KB) {
+	"{0}     B" -f $n
+    } else {
+	foreach ($pair in $units.GetEnumerator()) {
+	    if ($n -ge $pair.value) {
+		return "{0:0.00} {1}" -f ($n / $pair.value), $pair.key
+	    }
+	}
+    }
+}
+
+function Get-ChildItemHumanReadable {
+    $properties = @(
+	@{name="Mode"; expression={$_.Mode}; width=7}
+	@{name="LastWriteTime"; expression={$_.LastWriteTime}; alignment="Right"; width=23}
+	@{name="Length"
+	  expression={$_.GetType() -eq [System.IO.FileInfo] ? $(Format-HumanReadable $_.Length) : ""}
+	  alignment="Right"; width=12}
+	@{name="Name"; expression={$_.Name}}
+    )
+
+    Get-ChildItem @args |
+      Sort-Object -Property Name |
+      Format-Table -Property $properties -GroupBy @{name="Directory"
+						    expression={$_.PSParentPath | Convert-Path}}
+}
+set-alias ll Get-ChildItemHumanReadable
+set-alias l  Get-ChildItem
 
 function Get-DiskUsage {
     param(
