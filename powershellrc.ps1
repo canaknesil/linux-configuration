@@ -107,6 +107,31 @@ if ($python_venv_dir -ne $null) {
     }
 }
 
+function Get-CrossProduct {
+    [CmdletBinding()]
+    param (
+	[parameter(valueFromPipeline, mandatory)]
+	[object[]] $Set1,
+	
+	[parameter(position=0, mandatory)]
+	[object[]] $Set2,
+
+	[scriptblock] $Op
+    )
+    process {
+	foreach ($x in $set1) {
+	    foreach ($y in $set2) {
+		if ($Op) {
+		    &($Op)
+		} else {
+		    $x + $y
+		}
+	    }
+	}
+    }
+}
+set-alias cross Get-CrossProduct
+
 # For readline style line editing. 
 #Import-Module PSReadLine
 Set-PSReadLineOption -EditMode Emacs
