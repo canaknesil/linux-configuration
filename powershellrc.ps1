@@ -55,19 +55,19 @@ function Format-HumanReadable {
     param([int64] $n)
 
     $units = [ordered] @{
-	"TB" = 1TB
-	"GB" = 1GB
-	"MB" = 1MB
-	"KB" = 1KB
-	"B" = 1
+	"T" = 1TB
+	"G" = 1GB
+	"M" = 1MB
+	"K" = 1KB
+	"" = 1
     }
 
     if ($n -lt 1KB) {
-	"{0}     B" -f $n
+	"{0}" -f $n
     } else {
 	foreach ($pair in $units.GetEnumerator()) {
 	    if ($n -ge $pair.value) {
-		return "{0:0.00} {1}" -f ($n / $pair.value), $pair.key
+		return "{0:0.00}{1}" -f ($n / $pair.value), $pair.key
 	    }
 	}
     }
@@ -96,7 +96,12 @@ function Get-DiskUsage {
 	[parameter(valueFromPipeline)]
 	[string[]] $path
     )
-    process {du -hs $path}
+    process {
+	foreach ($p in $path) {
+	    $size = (du -sh $p).split()[0]
+	    [pscustomobject] @{DiskUsage=$size; Path=$p}
+	}
+    }
 }
 set-alias gdu Get-DiskUsage
 
