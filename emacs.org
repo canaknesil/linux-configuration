@@ -660,6 +660,12 @@
   (use-package powershell
     :defer)
 #+END_SRC
+
+** Matlab
+#+BEGIN_SRC emacs-lisp
+  (use-package matlab-mode
+    :defer)
+#+END_SRC
 * Shortcut commands
 #+BEGIN_SRC emacs-lisp
   ;; Byte compile and load the elisp buffer
