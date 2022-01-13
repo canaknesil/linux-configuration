@@ -75,7 +75,7 @@ function Format-HumanReadable {
 
 function Get-ChildItemHumanReadable {
     $properties = @(
-	@{name="Mode"; expression={$_.Mode}; width=7}
+	@{name="UnixMode"; expression={$_.UnixMode}; width=12}
 	@{name="LastWriteTime"; expression={$_.LastWriteTime}; alignment="Right"; width=23}
 	@{name="Length"
 	  expression={$_.GetType() -eq [System.IO.FileInfo] ? $(Format-HumanReadable $_.Length) : ""}
