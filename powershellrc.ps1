@@ -22,6 +22,7 @@ function gst { git status @args }
 function ca { conda activate @args }
 #set-alias Remove-Item trash # requires trash-cli
 #set-alias rm trash
+set-alias x invoke-item
 
 function e { emacs -nw @args }
 if ($IsWindows) {
