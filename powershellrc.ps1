@@ -4,13 +4,9 @@
 # $linux_configuration_proj_dir = "c:\Users\canaknesil\StandalonePrograms\linux-configuration"
 # . "$linux_configuration_proj_dir\powershellrc.ps1"
 #
-# Create HOME environment variable on Windows. This will be used by bash, zsh, and emacs. 
+# Create HOME environment variable on Windows.
 #
 
-# TODO
-# Zshell style completion (matching middle of words etc.)
-# Revert to Bash completion (ex: systemctl status TAB)
-# Powershell interface for command Linux programs (ex: df, systemctl, iptables, etc.)
 
 if ($linux_configuration_proj_dir -ne $null) {
 
@@ -35,17 +31,10 @@ if ($IsWindows) {
 #function octave { octave-cli @args } # I don't have octave yet. 
 #function julia { julia --color=yes @args } # Somehow does not work.
 
-if ($IsWindows) {
-    function desk { pushd "c:\Users\$env:USERNAME\Desktop" }
-    function down { pushd "d:\Users\$env:USERNAME\Downloads" }
-    function doc  { pushd "d:\Users\$env:USERNAME\Documents" }
-    function homec { pushd "c:\Users\$env:USERNAME" }
-    function homed { pushd "d:\Users\$env:USERNAME" }
-} else {
-    function desk { pushd "$env:HOME/Desktop" }
-    function down { pushd "$env:HOME/Downloads" }
-    function doc  { pushd "$env:HOME/Documents" }
-}
+function desk { pushd "$env:HOME/Desktop" }
+function down { pushd "$env:HOME/Downloads" }
+function doc  { pushd "$env:HOME/Documents" }
+
 
 if ($IsWindows) {
     # Bash and Zsh requires HOME environment variable.
@@ -142,7 +131,7 @@ set-alias cross Get-CrossProduct
 #Import-Module PSReadLine
 Set-PSReadLineOption -EditMode Emacs
 
-# Prompt
+# Prompt (posh-git module needs to be installed)
 function prompt {
     $debug = $(if (Test-Path variable:/PSDebugContext) { '[DBG] ' } else { '' })
     $cwd = $(get-location)
