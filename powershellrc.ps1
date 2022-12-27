@@ -130,6 +130,8 @@ set-alias cross Get-CrossProduct
 # For readline style line editing. 
 #Import-Module PSReadLine
 Set-PSReadLineOption -EditMode Emacs
+# disable Predictive IntelliSense
+Set-PSReadLineOption -PredictionSource None
 
 # Prompt (posh-git module needs to be installed)
 function prompt {
