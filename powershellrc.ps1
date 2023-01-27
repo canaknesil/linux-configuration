@@ -12,6 +12,11 @@ if ($linux_configuration_proj_dir -ne $null) {
 
 }
 
+
+#
+# ALIAS AND SHORTCUTS
+#
+
 set-alias py python
 set-alias ipy ipython
 function gst { git status @args }
@@ -41,6 +46,18 @@ if ($IsWindows) {
     set-alias bash C:\msys64\usr\bin\bash.exe
 }
 
+if ($python_venv_dir -ne $null) {
+    function venv-activate {
+	param($env_name)
+	. "$python_venv_dir\$env_name\Scripts\activate.ps1"
+    }
+}
+
+
+#
+# UTILITIES
+#
+
 function Format-HumanReadable {
     param([int64] $n)
 
@@ -63,7 +80,7 @@ function Format-HumanReadable {
     }
 }
 
-function Get-ChildItemHumanReadable {
+function Format-ChildItemHumanReadable {
     $properties = @(
 	@{name="UnixMode"; expression={$_.UnixMode}; width=12}
 	@{name="LastWriteTime"; expression={$_.LastWriteTime}; alignment="Right"; width=23}
@@ -78,29 +95,25 @@ function Get-ChildItemHumanReadable {
       Format-Table -Property $properties -GroupBy @{name="Directory"
 						    expression={$_.PSParentPath | Convert-Path}}
 }
-set-alias ll Get-ChildItemHumanReadable
+
+set-alias ll Format-ChildItemHumanReadable
 set-alias l  Get-ChildItem
+
 
 function Get-DiskUsage {
     param(
 	[parameter(valueFromPipeline)]
-	[string[]] $path
+	[string[]] $Path = "."
     )
     process {
-	foreach ($p in $path) {
-	    $size = (du -sh $p).split()[0]
-	    [pscustomobject] @{DiskUsage=$size; Path=$p}
+	foreach ($p in (get-item $Path)) {
+	    $size, $dir = (du -sh $p).split()
+	    [pscustomobject] @{DiskUsage=$size; Path=$(resolve-path $p -relative)}
 	}
     }
 }
 set-alias gdu Get-DiskUsage
 
-if ($python_venv_dir -ne $null) {
-    function venv-activate {
-	param($env_name)
-	. "$python_venv_dir\$env_name\Scripts\activate.ps1"
-    }
-}
 
 function Get-CrossProduct {
     [CmdletBinding()]
@@ -127,9 +140,16 @@ function Get-CrossProduct {
 }
 set-alias cross Get-CrossProduct
 
+
+#
+# SHELL CONFIGURATION
+#
+
 # For readline style line editing. 
 #Import-Module PSReadLine
 Set-PSReadLineOption -EditMode Emacs
+# disable Predictive IntelliSense
+Set-PSReadLineOption -PredictionSource None
 
 # Prompt (posh-git module needs to be installed)
 function prompt {
