@@ -649,11 +649,6 @@
   (use-package scad-mode
     :defer)
 #+END_SRC
-** Gitignore
-#+BEGIN_SRC emacs-lisp
-  (use-package gitignore-mode
-    :defer)
-#+END_SRC
 
 ** Powershell
 #+BEGIN_SRC emacs-lisp
