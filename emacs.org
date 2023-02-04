@@ -53,46 +53,6 @@
 #+END_SRC
   
 * Appearance
-** Start as maximized window
-#+BEGIN_SRC emacs-lisp
-  (add-to-list 'default-frame-alist '(fullscreen . maximized))
-#+END_SRC
-** Line numbers
-#+begin_src emacs-lisp
-  (if (version<= "26.0.50" emacs-version)
-      (global-display-line-numbers-mode)
-    (global-linum-mode t))
-#+end_src
-
-** TODO Theme
-#+BEGIN_SRC emacs-lisp
-  ;; To load custom theme
-  ;;(load "~/emacs-themes/fternoon-theme-source-code.el")
-  ;;(load-theme 'afternoon t)
-
-  (load-theme 'tango-dark)
-
-  ;; Custom background (re-evaluate only first 2 lines to overwrite)
-  (setq my-custom-background "#300028")
-  (set-background-color my-custom-background) ;; Only sets current frame.
-  ;; For future frames.
-  (add-hook 'after-make-frame-functions
-	    (lambda (frame)
-	      (select-frame frame)
-	      (set-background-color my-custom-background)))
-
-  ;; BUG: When using as daemon and open emacs in terminal using
-  ;; "emacsclient -c" background is very bright blue or red.
-
-  ;; Custom highigh background, default is too bright.
-  ;; swiper-line-face inherits from highlight
-  (set-face-attribute 'highlight nil :background "#807000")
-
-  ;; show-paren-mode match background is too bright, not seeing the delimiter.
-  (set-face-background 'show-paren-match "#990000")
-  (set-face-foreground 'show-paren-match "#ccccff")
-#+END_SRC
-   
 ** Highlight current line
 #+BEGIN_SRC emacs-lisp
   (use-package hl-line
@@ -100,66 +60,6 @@
     (set-face-background 'hl-line "#402040")
     (set-face-foreground 'highlight nil)
     (global-hl-line-mode 1))
-#+END_SRC
-
-** Font and its size
-#+BEGIN_SRC emacs-lisp
-  (setq my-custom-font nil)
-  (setq my-custom-font-size nil)
-
-  (defun set-font (font)
-    (set-face-attribute 'default nil :font font))
-
-  (defun set-font-size (font-size)
-    (set-face-attribute 'default nil :height font-size))
-  
-  (add-hook 'after-make-frame-functions
-	    (lambda (frame)
-	      (select-frame frame)
-	      (if my-custom-font
-		  (set-font my-custom-font))
-	      (if my-custom-font-size
-		  (set-font-size my-custom-font-size))))
-
-  ;; The following function should be called for font configuration.
-  (defun configure-font (font)
-    (setq my-custom-font font)
-    (set-font font))
-
-  (defun configure-font-size (font-size)
-    "Font size is around 110."
-    (setq my-custom-font-size font-size)
-    (set-font-size font-size))
-#+END_SRC
-
-** Hide tool bar
-#+BEGIN_SRC emacs-lisp
-  (tool-bar-mode -1)
-#+END_SRC
-
-** Hide menu bar
-#+BEGIN_SRC emacs-lisp
-  (menu-bar-mode 0)
-#+END_SRC
-
-** Hide Scroll bar 
-#+BEGIN_SRC emacs-lisp
-  ;; Wrong way:
-  ;; because display-graphic-p returns always nil when started as daemon.
-  ;; (when (display-graphic-p) 
-  ;;   (scroll-bar-mode -1))
-
-  ;; scroll-bar-mode is void when opened in terminal mode. 
-  (when (boundp 'scroll-bar-mode)
-    (scroll-bar-mode -1))
-
-  ;; Hide minibuffer scroll bar
-  (set-window-scroll-bars (minibuffer-window) nil nil)
-#+END_SRC
-
-** Do not open startup GNU Emacs buffer
-#+BEGIN_SRC emacs-lisp
-  (setq inhibit-startup-screen t)
 #+END_SRC
 
 ** Golden ratio windows
@@ -170,13 +70,6 @@
     (golden-ratio-mode 1))
 #+end_src
 
-** TODO Highlight indentation
-#+begin_src emacs-lisp
-  ;; This is not good, only counts spaces.
-  ;;(add-hook 'prog-mode-hook #'highlight-indentation-mode)
-
-  ;; Find a good package.
-#+end_src
 ** TODO Highlight uncommitted changes
 #+BEGIN_SRC emacs-lisp
   ;; Highigh uncommitted changes on the fringe
@@ -192,11 +85,6 @@
 #+END_SRC
 
 * Functionality
-** Auto-fill mode for text buffers
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'text-mode-hook 'turn-on-auto-fill)
-#+END_SRC
-
 ** Aggressive fill paragraph mode
 #+BEGIN_SRC emacs-lisp
   ;; (use-package aggressive-fill-paragraph
@@ -210,17 +98,6 @@
   ;; (load "~/Documents/repos/scroll-animation.el/scroll-animation.el")
 #+END_SRC
   
-** On the fly spell check
-#+BEGIN_SRC emacs-lisp
-  ;; On the fly spell check for text mode (requires ispell program, e.g. GNU Aspell)
-  (dolist (hook '(text-mode-hook))
-    (add-hook hook (lambda ()
-                     (flyspell-buffer)
-                     (flyspell-mode 1))))
-  (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
-    (add-hook hook (lambda () (flyspell-mode -1))))
-#+END_SRC
-
 ** Company completion (core only)
 #+BEGIN_SRC emacs-lisp
   (use-package company
@@ -231,28 +108,12 @@
     (add-hook 'after-init-hook #'global-company-mode))
 #+END_SRC
 
-** Camelcase as separate words 
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'prog-mode-hook 'subword-mode)
-#+END_SRC
-
-** Confirm closing
-#+BEGIN_SRC emacs-lisp
-  (setq confirm-kill-emacs 'y-or-n-p)
-#+END_SRC
-
 ** Rainbow delimiters
 #+begin_src emacs-lisp
   (use-package rainbow-delimiters
     :init
     (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 #+end_src
-
-** Show matching parenthesis
-#+BEGIN_SRC emacs-lisp
-  (show-paren-mode t)
-  (setq show-paren-delay 0.0)
-#+END_SRC
 
 ** TODO Smartparens
 #+begin_src emacs-lisp
@@ -266,11 +127,6 @@
 
   ;; TODO: Find a better package. smartparens is too aggressive. 
 #+end_src
-** All backups to a specific directory
-#+BEGIN_SRC emacs-lisp
-  (setq backup-directory-alist `(("." . "~/emacs-tmp")))
-#+END_SRC
-
 ** Which-key (display possible keys while typing a command)
 #+BEGIN_SRC emacs-lisp
   (use-package which-key
@@ -324,44 +180,6 @@
 	   ("C-c V" . 'ivy-pop-view)))
 #+END_SRC
 
-** Switch to new window after creation, delete window after killing buffer
-#+BEGIN_SRC emacs-lisp
-  (defun hrs/split-window-below-and-switch ()
-    "Split the window horizontally, then switch to the new pane."
-    (interactive)
-    (split-window-below)
-    (balance-windows)
-    (other-window 1))
-
-  (defun hrs/split-window-right-and-switch ()
-    "Split the window vertically, then switch to the new pane."
-    (interactive)
-    (split-window-right)
-    (balance-windows)
-    (other-window 1))
-
-  (defun delete-window-and-balance ()
-    "Balance windows after invoking C-x 0."
-    (interactive)
-    (delete-window)
-    (balance-windows))
-
-  (defun kill-buffer-and-delete-window ()
-    "Delete current window after killing buffer, if there are more than 1 windows."
-    (interactive)
-    (kill-buffer)
-    (if (> (count-windows) 1)
-	(delete-window-and-balance)))
-
-  (global-set-key (kbd "C-x 2") 'hrs/split-window-below-and-switch)
-  (global-set-key (kbd "C-x 3") 'hrs/split-window-right-and-switch)
-  (global-set-key (kbd "C-x 0") 'delete-window-and-balance)
-  (global-set-key (kbd "C-x j") 'kill-buffer-and-delete-window)
-#+END_SRC
-
-#+RESULTS:
-: kill-buffer-and-delete-window
-
 ** On-the-fly syntax check
 #+BEGIN_SRC emacs-lisp
   ;; Use flymake whenever is possible. It is built-in.
@@ -372,7 +190,7 @@
   ;; The config makes flake8 to ignore several anoying warnings. 
 
 
-  ;; Old setup, not useing flycheck anymore.
+  ;; Old setup, not using flycheck anymore.
 
   ;;(use-package flycheck
   ;;  :init (global-flycheck-mode))
@@ -387,32 +205,6 @@
     :defer
     :config
     (dumb-jump-mode))
-#+END_SRC
-
-** Enable mouse in terminal
-#+BEGIN_SRC emacs-lisp
-  (xterm-mouse-mode t)
-#+END_SRC
-
-** Recent files
-#+BEGIN_SRC emacs-lisp
-  ;; ivy, counsel, swiper handles this
-
-  ;; (recentf-mode 1)
-  ;; (setq recentf-max-menu-items 25)
-  ;; (setq recentf-max-saved-items 25)
-  ;; (global-set-key "\C-x\ \M-f" 'recentf-open-files)
-
-  ;; ;; Save recent file list every 5 min in case of abrupt exit.
-  ;; (defun recentf-save-list-without-message ()
-  ;;   (let ((inhibit-message t))
-  ;;     (recentf-save-list)))
-
-  ;; (run-at-time nil (* 5 60) 'recentf-save-list-without-message)
-
-  ;; ;; Exclude internal recentf file.
-  ;; (add-to-list 'recentf-exclude (expand-file-name recentf-save-file))
-  ;; (recentf-cleanup)
 #+END_SRC
 
 ** Restart emacs from within
@@ -539,16 +331,6 @@
     :config
     (move-text-default-bindings))
 #+end_src
-** Home directory on Windows
-#+BEGIN_SRC emacs-lisp
-  ;; On windows 10 default home directory for emacs is C:\Users\canaknesil\AppData\Roaming
-  ;; Changing it to default home directory outside emacs.
-  ;; Note that when emacs is starting it uses the old home to look for .emacs file.
-
-  (when (eq system-type 'windows-nt)
-    (setenv "EMACS_HOME" (getenv "Home"))
-    (setenv "Home" (getenv "UserProfile")))
-#+END_SRC
 ** ESUP - Emacs Start Up Profiler
 #+BEGIN_SRC emacs-lisp
   (use-package esup
@@ -556,11 +338,6 @@
     :pin melpa)
 #+END_SRC
 * Programming languages & Modes
-** Verilog
-#+BEGIN_SRC emacs-lisp
-  (setq verilog-auto-newline nil)
-#+END_SRC
-   
 ** Julia
 #+BEGIN_SRC emacs-lisp
   ;; Old way
@@ -608,12 +385,6 @@
 #+BEGIN_SRC emacs-lisp
   (use-package markdown-mode
     :defer)
-#+END_SRC
-
-** Dired
-#+BEGIN_SRC emacs-lisp
-  ;; Dired ls options
-  (setq-default dired-listing-switches "-alh")
 #+END_SRC
 
 ** Python
