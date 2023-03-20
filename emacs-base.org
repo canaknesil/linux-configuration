@@ -51,7 +51,7 @@
 		   (lambda (frame)
 		     (select-frame frame)
 		     (when (display-graphic-p)
-		       (set-background-color "#2d2017")))))
+		       (set-background-color "#001800")))))
 	((not (display-graphic-p)) (set-face-background 'default "#1c1c1c"))
 	((display-graphic-p) (set-face-background 'default "#300028")))
 
