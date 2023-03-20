@@ -15,25 +15,46 @@
     (global-linum-mode t))
 #+end_src
 
-** TODO Theme
+** Theme
 #+BEGIN_SRC emacs-lisp
   ;; To load custom theme
-  ;;(load "~/emacs-themes/fternoon-theme-source-code.el")
+  ;;(load "~/emacs-themes/afternoon-theme-source-code.el")
   ;;(load-theme 'afternoon t)
 
   (load-theme 'tango-dark)
 
-  ;; Custom background (re-evaluate only first 2 lines to overwrite)
-  (setq my-custom-background "#300028")
-  (set-background-color my-custom-background) ;; Only sets current frame.
-  ;; For future frames.
-  (add-hook 'after-make-frame-functions
-	    (lambda (frame)
-	      (select-frame frame)
-	      (set-background-color my-custom-background)))
+  ;; Beware that terminals use a smaller number of colors
+  ;; (list-colors-display). If a non-supported color is entered, it is
+  ;; replaced with the smallest-distanced supported color.
 
-  ;; BUG: When using as daemon and open emacs in terminal using
-  ;; "emacsclient -c" background is very bright blue or red.
+
+  ;; The following way of setting custom background is bad. It works
+  ;; with x-display and with daemon but not with terminal display. When
+  ;; running emacs from terminal (emacs -nw)
+  ;; tty-run-terminal-initialization is called after the init file,
+  ;; which sets the background to default via frame-set-background-mode.
+
+  ;; Custom background (re-evaluate only first 2 lines to overwrite)
+  ;;(setq my-custom-background "#300028")
+  ;;(set-background-color my-custom-background) ;; Only sets current frame.
+  ;; For future frames.
+  ;; (add-hook 'after-make-frame-functions
+  ;; 	  (lambda (frame)
+  ;; 	    (select-frame frame)
+  ;; 	    (set-background-color my-custom-background)))
+
+
+  ;; Custom background
+  (cond ((daemonp)
+	 (set-face-background 'default "#1c1c1c") ;; daemon in terminal (emacsclient -nw)
+	 (add-hook 'after-make-frame-functions    ;; daemon as window (emacsclient -c)
+		   (lambda (frame)
+		     (select-frame frame)
+		     (when (display-graphic-p)
+		       (set-background-color "#2d2017")))))
+	((not (display-graphic-p)) (set-face-background 'default "#1c1c1c"))
+	((display-graphic-p) (set-face-background 'default "#300028")))
+
 
   ;; Custom highigh background, default is too bright.
   ;; swiper-line-face inherits from highlight
@@ -114,9 +135,10 @@
 
 
 * Functionality
-** Auto-fill mode for text buffers
+** Line wrap for text buffers
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'text-mode-hook 'turn-on-auto-fill)
+  ;;(add-hook 'text-mode-hook 'turn-on-auto-fill)
+  (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 #+END_SRC
 
 ** On the fly spell check
