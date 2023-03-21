@@ -3,11 +3,12 @@
 #+STARTUP: content
 #+OPTIONS: toc:nil
 
-* Appearance
+* Appearance & Functionality
 ** Start as maximized window
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'default-frame-alist '(fullscreen . maximized))
 #+END_SRC
+
 ** Line numbers
 #+begin_src emacs-lisp
   (if (version<= "26.0.50" emacs-version)
@@ -133,8 +134,6 @@
   ;; Find a good package.
 #+end_src
 
-
-* Functionality
 ** Line wrap for text buffers
 #+BEGIN_SRC emacs-lisp
   ;;(add-hook 'text-mode-hook 'turn-on-auto-fill)
@@ -237,16 +236,19 @@
   ;; (recentf-cleanup)
 #+END_SRC
 
-** Home directory on Windows
+** TODO Home directory on Windows
 #+BEGIN_SRC emacs-lisp
   ;; On windows 10 default home directory for emacs is C:\Users\canaknesil\AppData\Roaming
   ;; Changing it to default home directory outside emacs.
   ;; Note that when emacs is starting it uses the old home to look for .emacs file.
 
+  ;; Verify !
+
   (when (eq system-type 'windows-nt)
     (setenv "EMACS_HOME" (getenv "Home"))
     (setenv "Home" (getenv "UserProfile")))
 #+END_SRC
+
 
 * Programming languages & Modes
 ** Verilog

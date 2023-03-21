@@ -51,8 +51,9 @@
 
   (setq load-prefer-newer t)
 #+END_SRC
-  
-* Appearance
+
+
+* Appearance & Functionality
 ** Highlight current line
 #+BEGIN_SRC emacs-lisp
   (use-package hl-line
@@ -84,7 +85,6 @@
   ;; while still using margin mode with terminal.
 #+END_SRC
 
-* Functionality
 ** Aggressive fill paragraph mode
 #+BEGIN_SRC emacs-lisp
   ;; (use-package aggressive-fill-paragraph
@@ -337,6 +337,8 @@
     :defer
     :pin melpa)
 #+END_SRC
+
+
 * Programming languages & Modes
 ** Julia
 #+BEGIN_SRC emacs-lisp
@@ -439,16 +441,10 @@
     :defer)
 #+END_SRC
 
+
 * Shortcut commands
 #+BEGIN_SRC emacs-lisp
-  ;; Byte compile and load the elisp buffer
-  (define-key emacs-lisp-mode-map (kbd "C-c C-c")
-    'emacs-lisp-byte-compile-and-load)
 
-  ;; Run .emacs
-  (defun reload-config ()
-    (interactive)
-    (load-file "~/.emacs"))
 #+END_SRC
 
 
