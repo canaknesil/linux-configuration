@@ -1,2 +1,3 @@
 *~
-*.el
+/emacs-base.el
+/emacs.el
