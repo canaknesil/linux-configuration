@@ -63,6 +63,17 @@
     (global-hl-line-mode 1))
 #+END_SRC
 
+** TODO Highlight indentation
+#+BEGIN_SRC emacs-lisp
+  ;; highlight-indent-guides doesn't work with empty lines.
+  ;; (use-package highlight-indent-guides
+  ;;   :defer
+  ;;   :init
+  ;;   (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+  ;;   :config
+  ;;   (customize-set-variable 'highlight-indent-guides-method 'character))
+#+END_SRC
+
 ** TODO Golden ratio windows
 #+begin_src emacs-lisp
   ;; (use-package golden-ratio
