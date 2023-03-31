@@ -56,6 +56,10 @@
 * Appearance & Functionality
 ** Highlight current line
 #+BEGIN_SRC emacs-lisp
+  ;; hl-line.el is not loaded unless it is invoked (see. autoloading),
+  ;; thus the face 'hl-line isn't defined before hl-line.el is
+  ;; loaded. use-package makes sure hl-line.el is loaded before
+  ;; configuring the face.
   (use-package hl-line
     :config
     (set-face-background 'hl-line "#402040")
