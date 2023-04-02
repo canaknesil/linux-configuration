@@ -167,6 +167,7 @@
 #+BEGIN_SRC emacs-lisp
   ;;(add-hook 'text-mode-hook 'turn-on-auto-fill)
   (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
+  (add-hook 'prog-mode-hook 'turn-on-visual-line-mode)
 #+END_SRC
 
 ** On the fly spell check
