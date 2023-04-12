@@ -354,6 +354,12 @@
   (setq-default dired-listing-switches "-alh")
 #+END_SRC
 
+** Vivado XDC
+#+BEGIN_SRC emacs-lisp
+  ;; Open in Tcl mode
+  (add-to-list 'auto-mode-alist '("\\.xdc\\'" . tcl-mode))
+#+END_SRC
+
 
 * Shortcut commands
 #+BEGIN_SRC emacs-lisp
