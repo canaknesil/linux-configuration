@@ -159,8 +159,11 @@
 
 ** Disable beeping
 #+begin_src emacs-lisp
-  ;; Visible bell instead of rather than sound.
-  (setq visible-bell t)
+  ;; Visible bell instead of sound.
+  ;;(setq visible-bell t)
+
+  ;; Disable bell sound
+  (setq ring-bell-function (lambda ()))
 #+end_src
 
 ** Line wrap for text buffers
