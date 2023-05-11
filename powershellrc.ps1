@@ -9,7 +9,12 @@
 
 
 if ($linux_configuration_proj_dir -ne $null) {
-
+    if ($IsWindows) {
+	# Windows doesn't have sheband (#!) to execute scripts.
+	# $env:Path = "${env:Path};$linux_configuration_proj_dir\bin"
+    } else {
+	$env:PATH = "${env:PATH}:$linux_configuration_proj_dir/bin"
+    }
 }
 
 
@@ -26,11 +31,12 @@ function ca { conda activate @args }
 set-alias x invoke-item
 
 function e { emacs -nw @args }
-if ($IsWindows) {
-    set-alias ec emacsclientw
-} else {
-    set-alias ec emacsclient 
-}
+# Planning to implement a script "ec" to run emacs client.
+# if ($IsWindows) {
+#     set-alias ec emacsclientw
+# } else {
+#     set-alias ec emacsclient 
+#}
 
 #function matlab { matlab -nodisplay @args } # This does not work.
 #function octave { octave-cli @args } # I don't have octave yet. 
