@@ -10,7 +10,7 @@
 
 if ($linux_configuration_proj_dir -ne $null) {
     if ($IsWindows) {
-	# Windows doesn't have sheband (#!) to execute scripts.
+	# Windows doesn't have shebang (#!) to execute scripts.
 	# $env:Path = "${env:Path};$linux_configuration_proj_dir\bin"
     } else {
 	$env:PATH = "${env:PATH}:$linux_configuration_proj_dir/bin"
@@ -183,4 +183,10 @@ function prompt {
     "${debug}PS `e[33m${user}@${hostname_str}`e[0m `e[94m${cwd}`e[0m`e[32m${git_prompt_str}`e[0m`n`e[90m${last_char}`e[0m"
 }
 # For colors: https://en.wikipedia.org/wiki/ANSI_escape_code
+
+
+echo "Executed Linux Configuration profile."
+if ($linux_configuration_proj_dir -ne $null) {
+    echo "$linux_configuration_proj_dir/powershellrc.ps1"
+}
 
