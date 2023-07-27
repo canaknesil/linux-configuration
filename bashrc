@@ -25,6 +25,11 @@ h () {
   history | grep $@
 }
 
+# TODO: test this function
+# run () {
+#   $@ & disown $1
+# }
+
 # Ignore case during completion on bash
 if [ -n "$BASH_VERSION" ]; then
   bind "set completion-ignore-case on"

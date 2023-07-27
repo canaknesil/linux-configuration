@@ -12,6 +12,9 @@ if ($linux_configuration_proj_dir -ne $null) {
     if ($IsWindows) {
 	# Windows doesn't have shebang (#!) to execute scripts.
 	# $env:Path = "${env:Path};$linux_configuration_proj_dir\bin"
+
+	function hello { bash "$linux_configuration_proj_dir/bin/hello" @args }
+	function e     { bash "$linux_configuration_proj_dir/bin/e"     @args }
     } else {
 	$env:PATH = "${env:PATH}:$linux_configuration_proj_dir/bin"
     }
@@ -29,14 +32,6 @@ function ca { conda activate @args }
 #set-alias Remove-Item trash # requires trash-cli
 #set-alias rm trash
 set-alias x invoke-item
-
-function e { emacs -nw @args }
-# Planning to implement a script "ec" to run emacs client.
-# if ($IsWindows) {
-#     set-alias ec emacsclientw
-# } else {
-#     set-alias ec emacsclient 
-#}
 
 #function matlab { matlab -nodisplay @args } # This does not work.
 #function octave { octave-cli @args } # I don't have octave yet. 

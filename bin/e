@@ -1,0 +1,74 @@
+#! /bin/bash
+
+FILES=$@
+
+if [ ! ${FILES[*]} ]; then
+   echo '1) emacs -nw          # New terminal instance.'
+   echo
+   echo '2) emacs              # New X instance, wait.'
+   echo
+   echo '3) emacsclient -nw    # New terminal frame as client.'
+   echo
+   echo '4) emacsclient -c     # New X frame as client, wait.'
+   echo
+   echo '5) emacsclient -c -n  # New X frame as client, do not wait.'
+   echo
+else
+   echo '1) emacs -nw <file>          # New terminal instance.'
+   echo
+   echo '2) emacs <file>              # New X instance, wait.'
+   echo
+   echo '3) emacsclient -nw <file>    # New terminal frame as client.'
+   echo
+   echo '4) emacsclient -c <file>     # New X frame as client, wait.'
+   echo
+   echo '5) emacsclient -c -n <file>  # New X frame as client, do not wait.'
+   echo
+   echo '6) emacsclient <file>        # Open file in last created frame (X or terminal).'
+   echo '                             # If no frames were created, create a terminal frame.'
+   echo '                             # Wait.'
+   echo
+   echo '7) emacsclient -n <file>     # Open file in last created frame (X or terminal).'
+   echo '                             # Do not wait.'
+   echo '                             # Warning: If no frames were created, file is opened in server frame and stays hidden.'
+   echo
+fi
+
+echo -n 'Select an option (empty space to abort): '
+read OPTION
+
+if [ ! "$OPTION" ]; then
+   exit
+fi
+
+if [ "$(command -v emacsclientw)" ]; then
+   ec=emacsclientw
+else
+   ec=emacsclient
+fi
+
+if [ ! ${FILES[*]} ]; then
+   case $OPTION in
+      1) exec emacs -nw;;
+      2) exec emacs;;
+      3) exec $ec -a "" -nw;;
+      4) exec $ec -a "" -c;;
+      5) exec $ec -a "" -c -n;;
+      *) echo 'Invalid option' $OPTION;;
+   esac
+else
+   case $OPTION in
+      1) exec emacs -nw $FILES;;
+      2) exec emacs $FILES;;
+      3) exec $ec -a "" -nw $FILES;;
+      4) exec $ec -a "" -c $FILES;;
+      5) exec $ec -a "" -c -n $FILES;;
+      6) exec $ec -a "" $FILES;;
+      7) exec $ec -a "" -n $FILES;;
+      *) echo 'Invalid option' $OPTION;;
+   esac
+fi
+
+
+
+
