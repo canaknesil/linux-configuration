@@ -32,6 +32,14 @@ else
    echo '                             # Do not wait.'
    echo '                             # Warning: If no frames were created, file is opened in server frame and stays hidden.'
    echo
+   echo '8) custom                    # Open file in last created frame (X or terminal).'
+   echo '                             # Wait.'
+   echo '                             # If no frames were created, create one.'
+   echo
+   echo '9) custom                    # Open file in last created frame (X or terminal).'
+   echo '                             # Do not wait.'
+   echo '                             # If no frames were created, create one.'
+   echo
 fi
 
 echo -n 'Select an option (empty space to abort): '
@@ -65,6 +73,22 @@ else
       5) exec $ec -a "" -c -n $FILES;;
       6) exec $ec -a "" $FILES;;
       7) exec $ec -a "" -n $FILES;;
+      8) n_frames=$(emacsclient -e '(seq-length (frame-list))' 2>/dev/null)
+	 if [ ! $n_frames ]; then
+             $ec -a "" -c  $FILES
+	 elif [ $n_frames -lt 2 ]; then
+	     $ec -a "" -c  $FILES
+	 else
+	     $ec -a "" $FILES
+	 fi;;
+      9) n_frames=$($emacsclient -e '(seq-length (frame-list))' 2>/dev/null)
+	 if [ ! $n_frames ]; then
+             $ec -a "" -c -n $FILES
+	 elif [ $n_frames -lt 2 ]; then
+	     $ec -a "" -c -n $FILES
+	 else
+	     $ec -a "" -n $FILES
+	 fi;;
       *) echo 'Invalid option' $OPTION;;
    esac
 fi
