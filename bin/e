@@ -111,7 +111,7 @@ if [ "$OPTARG_CLIENT" = YES ]; then
 	#
 	
 	# e --client --terminal
-	exec $ec -a "" -nw $FILES
+	$ec -a "" -nw $FILES
 	
     else
 	if [ "$OPTARG_NEW_FRAME" = YES ]; then
@@ -171,23 +171,22 @@ else
     if [ "$OPTARG_TERMINAL" = YES ]; then
 	if [ "$OPTARG_BIND" = YES ]; then
 	    # e --terminal --bind
-	    exec emacs -nw $FILES
+	    emacs -nw $FILES
 	else
 	    # e --terminal
-	    exec emacs -nw $FILES 2>&1 >/dev/null & disown
-	    # BUG: Above command leaves Powershell console corrupted on Windows.
-	    #      Enter key, arrow keys, etc. produces letters.
+	    emacs -nw $FILES 2>&1 >/dev/null & disown
+	    # BUG: On Windows, above command leavs the shell currupted.
+	    # Enter and arrow keys produce letters.
 	fi
     else
 	if [ "$OPTARG_BIND" = YES ]; then
 	    # e --bind
-	    exec emacs $FILES
+	    emacs $FILES
 	else
 	    # e
-	    exec emacs $FILES 2>&1 >/dev/null & disown
-	    # BUG: Above command leaves Powershell console corrupted on Windows.
-	    #      Enter key, arrow keys, etc. produces letters.
-
+	    emacs $FILES 2>&1 >/dev/null & disown
+	    # BUG: On Windows, above command leavs the shell currupted.
+	    # Enter and arrow keys produce letters.
 	fi
     fi
     
