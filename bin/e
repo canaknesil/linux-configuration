@@ -1,53 +1,87 @@
 #! /bin/bash
 
-FILES=$@
 
-if [ ! ${FILES[*]} ]; then
-   echo '1) emacs -nw          # New terminal instance.'
-   echo
-   echo '2) emacs              # New X instance, wait.'
-   echo
-   echo '3) emacsclient -nw    # New terminal frame as client.'
-   echo
-   echo '4) emacsclient -c     # New X frame as client, wait.'
-   echo
-   echo '5) emacsclient -c -n  # New X frame as client, do not wait.'
-   echo
-else
-   echo '1) emacs -nw <file>          # New terminal instance.'
-   echo
-   echo '2) emacs <file>              # New X instance, wait.'
-   echo
-   echo '3) emacsclient -nw <file>    # New terminal frame as client.'
-   echo
-   echo '4) emacsclient -c <file>     # New X frame as client, wait.'
-   echo
-   echo '5) emacsclient -c -n <file>  # New X frame as client, do not wait.'
-   echo
-   echo '6) emacsclient <file>        # Open file in last created frame (X or terminal).'
-   echo '                             # If no frames were created, create a terminal frame.'
-   echo '                             # Wait.'
-   echo
-   echo '7) emacsclient -n <file>     # Open file in last created frame (X or terminal).'
-   echo '                             # Do not wait.'
-   echo '                             # Warning: If no frames were created, file is opened in server frame and stays hidden.'
-   echo
-   echo '8) custom                    # Open file in last created frame (X or terminal).'
-   echo '                             # Wait.'
-   echo '                             # If no frames were created, create one.'
-   echo
-   echo '9) custom                    # Open file in last created frame (X or terminal).'
-   echo '                             # Do not wait.'
-   echo '                             # If no frames were created, create one.'
-   echo
+HELP_STR="Usage:
+  e -h|--help
+  Display help message
+
+  e [--terminal] [--bind] [FILES...]
+  New Emacs instance.
+
+  e --client --terminal [FILES...]
+  New Emacs client frame in terminal.
+
+  e --client --new-frame [--bind] [FILES...]
+  New Emacs client frame in X.
+
+  e --client [--bind] FILES...
+  Open files in the most recently created frame.
+  Create new frame if necessary.
+
+Options:
+  --bind          Wait for Emacs to finish, either by quiting, or via C-#.
+                  If not specified, return immediatelly.
+
+  --client        Start Emacs as client. Start daemon if not running.
+                  If not specified, start a new Emacs instance.
+
+  -h, --help      Display help message and exit.
+
+  --new-frame     Always create a new frame.
+
+  --terminal      Start new frame in terminal.
+                  If not specified, start new frames in X."
+
+
+POSITIONAL_ARGS=()
+
+while [[ $# -gt 0 ]]; do
+    case $1 in
+	--client)
+	    OPTARG_CLIENT=YES
+	    shift
+	    ;;
+	# --display)
+	#     OPTARG_DISPLAY="$2"
+	#     shift
+	#     shift
+	#     ;;
+	--terminal)
+	    OPTARG_TERMINAL=YES
+	    shift
+	    ;;
+	--bind)
+	    OPTARG_BIND=YES
+	    shift
+	    ;;
+	--new-frame)
+	    OPTARG_NEW_FRAME=YES
+	    shift
+	    ;;
+	-h|--help)
+	    OPTARG_HELP=YES
+	    shift
+	    ;;
+	-*|--*)
+	    echo "Unknown option $1"
+	    echo "$HELP_STR"
+	    exit 1
+	    ;;
+	*)
+	    POSITIONAL_ARGS+=("$1") # save positional arg
+	    shift
+	    ;;
+    esac
+done
+
+FILES=$POSITIONAL_ARGS
+
+
+if [ "$OPTARG_HELP" = YES ]; then
+    echo "$HELP_STR"
+    exit
 fi
 
-echo -n 'Select an option (empty space to abort): '
-read OPTION
-
-if [ ! "$OPTION" ]; then
-   exit
-fi
 
 if [ "$(command -v emacsclientw)" ]; then
    ec=emacsclientw
@@ -55,44 +89,88 @@ else
    ec=emacsclient
 fi
 
-if [ ! ${FILES[*]} ]; then
-   case $OPTION in
-      1) exec emacs -nw;;
-      2) exec emacs;;
-      3) exec $ec -a "" -nw;;
-      4) exec $ec -a "" -c;;
-      5) exec $ec -a "" -c -n;;
-      *) echo 'Invalid option' $OPTION;;
-   esac
+
+if [ "$OPTARG_CLIENT" = YES ]; then
+    if [ "$OPTARG_TERMINAL" = YES ]; then
+
+	#
+	# New Emacs client frame in terminal.
+	#
+	
+	# e --client --terminal
+	exec $ec -a "" -nw $FILES
+	
+    elif [ "$OPTARG_DISPLAY" = x ]; then
+	if [ "$OPTARG_NEW_FRAME" = YES ]; then
+
+	    #
+	    # New Emacs client frame in X.
+	    #
+
+	    if [ "$OPTARG_BIND" = YES ]; then
+		# e --client --new-frame --bind
+		$ec -a "" -c $FILES
+	    else
+		# e --client --new-frame
+		$ec -a "" -c -n $FILES
+	    fi
+	    
+	else
+
+	    #
+	    # Open files in the most recently created frame. Create new frame if necessary.
+	    #
+
+	    if [ "${FILES[*]" ]; then
+		n_frames=$(emacsclient -e '(seq-length (frame-list))' 2>/dev/null)
+		if [ "$OPTARG_BIND" = YES ]; then
+		    # e --client --bind
+		    if [ ! $n_frames ]; then
+			$ec -a "" -c  $FILES
+		    elif [ $n_frames -lt 2 ]; then
+			$ec -a "" -c  $FILES
+		    else
+			$ec -a "" $FILES
+		    fi
+		else
+		    # e --client
+		    if [ ! $n_frames ]; then
+			$ec -a "" -c -n $FILES
+ 		    elif [ $n_frames -lt 2 ]; then
+ 			$ec -a "" -c -n $FILES
+ 		    else
+			    $ec -a "" -n $FILES
+ 		    fi
+		fi
+	    else
+		echo "No file is specified. Doing nothing."
+		exit 1
+	    fi
+	    
+	fi
+    fi
 else
-   case $OPTION in
-      1) exec emacs -nw $FILES;;
-      2) exec emacs $FILES;;
-      3) exec $ec -a "" -nw $FILES;;
-      4) exec $ec -a "" -c $FILES;;
-      5) exec $ec -a "" -c -n $FILES;;
-      6) exec $ec -a "" $FILES;;
-      7) exec $ec -a "" -n $FILES;;
-      8) n_frames=$(emacsclient -e '(seq-length (frame-list))' 2>/dev/null)
-	 if [ ! $n_frames ]; then
-             $ec -a "" -c  $FILES
-	 elif [ $n_frames -lt 2 ]; then
-	     $ec -a "" -c  $FILES
-	 else
-	     $ec -a "" $FILES
-	 fi;;
-      9) n_frames=$($emacsclient -e '(seq-length (frame-list))' 2>/dev/null)
-	 if [ ! $n_frames ]; then
-             $ec -a "" -c -n $FILES
-	 elif [ $n_frames -lt 2 ]; then
-	     $ec -a "" -c -n $FILES
-	 else
-	     $ec -a "" -n $FILES
-	 fi;;
-      *) echo 'Invalid option' $OPTION;;
-   esac
+    
+    # 
+    # New Emacs instance.
+    #
+    
+    if [ "$OPTARG_TERMINAL" = YES ]; then
+	if [ "$OPTARG_BIND" = YES ]; then
+	    # e --terminal --bind
+	    exec emacs -nw $FILES
+	else
+	    # e --terminal
+	    exec emacs -nw $FILES 2>&1 >/dev/null & disown
+	fi
+    else
+	if [ "$OPTARG_BIND" = YES ]; then
+	    # e --bind
+	    exec emacs $FILES
+	else
+	    # e
+	    exec emacs $FILES 2>&1 >/dev/null & disown
+	fi
+    fi
+    
 fi
-
-
-
-
