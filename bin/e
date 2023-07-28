@@ -89,6 +89,19 @@ else
    ec=emacsclient
 fi
 
+# From Emacs manual: due to limitations of MS-Windows, Emacs cannot
+# have both GUI and text-mode frames in the same session. It also
+# cannot open text-mode frames on more than a single Command Prompt
+# window, because each Windows program can have only one console at
+# any given time. For these reasons, if you invoke emacsclient with
+# the -c option, and the Emacs server runs in a text-mode session,
+# Emacs will always create a new text-mode frame in the same Command
+# Prompt window where it was started; a GUI frame will be created only
+# if the server runs in a GUI session. Similarly, if you invoke
+# emacsclient with the -t option, Emacs will create a GUI frame if the
+# server runs in a GUI session, or a text-mode frame when the session
+# runs in text mode in a Command Prompt window.
+
 
 if [ "$OPTARG_CLIENT" = YES ]; then
     if [ "$OPTARG_TERMINAL" = YES ]; then
@@ -100,7 +113,7 @@ if [ "$OPTARG_CLIENT" = YES ]; then
 	# e --client --terminal
 	exec $ec -a "" -nw $FILES
 	
-    elif [ "$OPTARG_DISPLAY" = x ]; then
+    else
 	if [ "$OPTARG_NEW_FRAME" = YES ]; then
 
 	    #
@@ -121,7 +134,7 @@ if [ "$OPTARG_CLIENT" = YES ]; then
 	    # Open files in the most recently created frame. Create new frame if necessary.
 	    #
 
-	    if [ "${FILES[*]" ]; then
+	    if [ "${FILES[*]}" ]; then
 		n_frames=$(emacsclient -e '(seq-length (frame-list))' 2>/dev/null)
 		if [ "$OPTARG_BIND" = YES ]; then
 		    # e --client --bind
@@ -139,7 +152,7 @@ if [ "$OPTARG_CLIENT" = YES ]; then
  		    elif [ $n_frames -lt 2 ]; then
  			$ec -a "" -c -n $FILES
  		    else
-			    $ec -a "" -n $FILES
+			$ec -a "" -n $FILES
  		    fi
 		fi
 	    else
@@ -162,6 +175,8 @@ else
 	else
 	    # e --terminal
 	    exec emacs -nw $FILES 2>&1 >/dev/null & disown
+	    # BUG: Above command leaves Powershell console corrupted on Windows.
+	    #      Enter key, arrow keys, etc. produces letters.
 	fi
     else
 	if [ "$OPTARG_BIND" = YES ]; then
@@ -170,6 +185,9 @@ else
 	else
 	    # e
 	    exec emacs $FILES 2>&1 >/dev/null & disown
+	    # BUG: Above command leaves Powershell console corrupted on Windows.
+	    #      Enter key, arrow keys, etc. produces letters.
+
 	fi
     fi
     
