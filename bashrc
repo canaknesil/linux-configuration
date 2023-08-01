@@ -2,7 +2,12 @@
 # Use this script as such:
 #
 # LINUX_CONFIGURATION_PROJ_DIR=~/seperate-programs/linux-configuration
-# . $LINUX_CONFIGURATION_PROJ_DIR/bashrc
+# . $LINUX_CONFIGURATION_PROJ_DIR/bashrc\
+#
+# Used in combination with $LINUX_CONFIGURATION_PROJ_DIR/profile
+#
+# Use "profile" rather than "bashrc" whenever possible so that
+# programs started outside shell can have the configuration.
 #
 
 alias e="emacs -nw"

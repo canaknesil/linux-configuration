@@ -5,6 +5,11 @@
 # PYTHON_VENV_DIR=~/.venv
 # . $LINUX_CONFIGURATION_PROJ_DIR/profile
 #
+# Used in combination with $LINUX_CONFIGURATION_PROJ_DIR/bashrc
+#
+# Use "profile" rather than "bashrc" whenever possible so that
+# programs started outside shell can have the configuration.
+#
 
 export PATH=$PATH:~/bin
 if [ -n "$LINUX_CONFIGURATION_PROJ_DIR" ]; then

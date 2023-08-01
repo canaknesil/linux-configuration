@@ -1,23 +1,53 @@
-#
 # Use this script as such:
-#
-# $linux_configuration_proj_dir = "c:\Users\canaknesil\StandalonePrograms\linux-configuration"
-# . "$linux_configuration_proj_dir\powershellrc.ps1"
-#
-# Create HOME environment variable on Windows.
-#
 
+# $linux_configuration_proj_dir = "c:\Users\canaknesil\StandalonePrograms\linux-configuration"
+# $linux_configuration_msys2_dir = "c:\msys64"
+# $linux_configuration_python_env_dir = "c:\Users\canaknesil\.venv"
+# . "$linux_configuration_proj_dir\powershellrc.ps1"
+
+# Windows: Create HOME environment variable.
+
+# Windows: Create file association for .sh files to be run by Bash,
+# either by "Open with..." UI, or editing the registery. This is
+# required if shell scripts are desired to be run as executable.
+
+
+#
+# ENVIRONMENT SETUP
+#
 
 if ($linux_configuration_proj_dir -ne $null) {
     if ($IsWindows) {
-	# Windows doesn't have shebang (#!) to execute scripts.
-	# $env:Path = "${env:Path};$linux_configuration_proj_dir\bin"
+	$env:Path = "${env:Path};$linux_configuration_proj_dir\bin-windows"
 
-	function hello { bash "$linux_configuration_proj_dir/bin/hello" @args }
-	function e     { bash "$linux_configuration_proj_dir/bin/e"     @args }
+	# Windows doesn't have shebang (#!) to execute scripts. Only
+	# files with extensions specified in PATHEXT environment
+	# variable can be run as it is, given they have the necessary
+	# file association. File associations can be set either via
+	# the "Open with..." UI, or editing the registery.  Within
+	# powershell, .ps1 scripts can also be executed by name.
+
+	# $env:PATHEXT = "${env:PATHEXT};.SH"
     } else {
 	$env:PATH = "${env:PATH}:$linux_configuration_proj_dir/bin"
     }
+}
+
+if ($IsWindows -And ($linux_configuration_msys2_dir -ne $null)) {
+    # There are a few complications of adding msys2 bin to
+    # Path. Adding to beginning make unix commands that have a
+    # different Windows implementation, such as "tree",
+    # accessible. But, prevents programs accessing Windows version of
+    # some commands, for example Emacs runs properly only with Gpg4win
+    # and not with Msys2 version of gpg. As a solution, adding msys2
+    # bin to the end of Path, and defining an alias or a function for
+    # each Msys2 command that I prefer.
+    
+    $env:Path = "$env:Path;$linux_configuration_msys2_dir/usr/bin"
+
+    # Bash and Zsh requires HOME environment variable.
+    set-alias bash "$linux_configuration_msys2_dir/usr/bin/bash.exe"
+    set-alias tree "$linux_configuration_msys2_dir/usr/bin/tree.exe"
 }
 
 
@@ -27,11 +57,13 @@ if ($linux_configuration_proj_dir -ne $null) {
 
 set-alias py python
 set-alias ipy ipython
-function gst { git status @args }
-function ca { conda activate @args }
 #set-alias Remove-Item trash # requires trash-cli
 #set-alias rm trash
 set-alias x invoke-item
+set-alias e start-emacs
+
+function gst { git status @args }
+function ca { conda activate @args }
 
 #function matlab { matlab -nodisplay @args } # This does not work.
 #function octave { octave-cli @args } # I don't have octave yet. 
@@ -42,15 +74,10 @@ function down { pushd "$env:HOME/Downloads" }
 function doc  { pushd "$env:HOME/Documents" }
 
 
-if ($IsWindows) {
-    # Bash and Zsh requires HOME environment variable.
-    set-alias bash C:\msys64\usr\bin\bash.exe
-}
-
-if ($python_venv_dir -ne $null) {
+if ($linux_configuration_python_venv_dir -ne $null) {
     function venv-activate {
 	param($env_name)
-	. "$python_venv_dir\$env_name\Scripts\activate.ps1"
+	. "$linux_configuration_python_venv_dir\$env_name\Scripts\activate.ps1"
     }
 }
 
