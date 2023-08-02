@@ -5,8 +5,11 @@ HELP_STR="Usage:
   start-emacs -h|--help
   Display help message
 
-  start-emacs [--terminal] [--bind] [FILES...]
-  New Emacs instance.
+  start-emacs --terminal [FILES...]
+  New Emacs instance in terminal.
+
+  start-emacs [--bind] [FILES...]
+  New Emacs instance in X.
 
   start-emacs --client --terminal [FILES...]
   New Emacs client frame in terminal.
@@ -87,7 +90,7 @@ fi
 
 
 if [ "$(command -v emacsclientw)" ]; then
-   ec=emacsclientw
+   ec=emacsclientw # emacsclient as GUI app (on windows)
 else
    ec=emacsclient
 fi
@@ -183,31 +186,33 @@ if [ "$OPTARG_CLIENT" = YES ]; then
 	fi
     fi
 else
-    
-    # 
-    # New Emacs instance.
-    #
-    
     if [ "$OPTARG_TERMINAL" = YES ]; then
-	if [ "$OPTARG_BIND" = YES ]; then
-	    # e --terminal --bind
-	    emacs -nw $FILES
-	else
-	    # e --terminal
-	    emacs -nw $FILES 2>&1 >/dev/null & disown
-	    # BUG: On Windows, above command leavs the shell currupted.
-	    # Enter and arrow keys produce letters.
-	fi
+
+	# 
+	# New Emacs instance in terminal.
+	#
+	
+	# e --terminal
+	emacs -nw $FILES
+	
     else
+
+	# 
+	# New Emacs instance in X.
+	#
+	
 	if [ "$OPTARG_BIND" = YES ]; then
 	    # e --bind
 	    emacs $FILES
 	else
 	    # e
-	    emacs $FILES 2>&1 >/dev/null & disown
-	    # BUG: On Windows, above command leavs the shell currupted.
-	    # Enter and arrow keys produce letters.
+	    if [ "$(command -v runemacs)" ]; then
+		runemacs $FILES
+	    else
+		emacs $FILES 2>&1 >/dev/null & disown
+		# On Windows, above command leavs the shell currupted.
+	    fi
 	fi
+	
     fi
-    
 fi
