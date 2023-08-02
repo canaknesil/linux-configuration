@@ -28,6 +28,9 @@ if ($linux_configuration_proj_dir -ne $null) {
 	# powershell, .ps1 scripts can also be executed by name.
 
 	# $env:PATHEXT = "${env:PATHEXT};.SH"
+    } elseif ($IsLinux) {
+	$env:Path = "${env:Path};$linux_configuration_proj_dir/bin-linux"
+	$env:Path = "${env:Path};$linux_configuration_proj_dir/bin"
     } else {
 	$env:PATH = "${env:PATH}:$linux_configuration_proj_dir/bin"
     }
