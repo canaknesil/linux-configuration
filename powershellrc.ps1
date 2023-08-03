@@ -51,6 +51,7 @@ if ($IsWindows -And ($linux_configuration_msys2_dir -ne $null)) {
     # Bash and Zsh requires HOME environment variable.
     set-alias bash "$linux_configuration_msys2_dir/usr/bin/bash.exe"
     set-alias tree "$linux_configuration_msys2_dir/usr/bin/tree.exe"
+    set-alias cat  "$linux_configuration_msys2_dir/usr/bin/cat.exe"
 }
 
 
