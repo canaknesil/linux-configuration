@@ -6,22 +6,21 @@
 # . $LINUX_CONFIGURATION_PROJ_DIR/profile
 #
 # Used in combination with $LINUX_CONFIGURATION_PROJ_DIR/bashrc
+#                       or $LINUX_CONFIGURATION_PROJ_DIR/powershellrc.ps1
 #
-# Use "profile" rather than "bashrc" whenever possible so that
-# programs started outside shell can have the configuration.
+# Use "profile" rather than "bashrc", or similar, whenever possible
+# so that programs started outside shell can have the configuration.
 #
 
-export PATH=$PATH:~/bin
+
 if [ -n "$LINUX_CONFIGURATION_PROJ_DIR" ]; then
+    export PATH=$PATH:$LINUX_CONFIGURATION_PROJ_DIR/bin-linux
     export PATH=$PATH:$LINUX_CONFIGURATION_PROJ_DIR/bin
 fi
 
 
 if [ -n "$PYTHON_VENV_DIR" ]; then
     export WORKON_HOME=$PYTHON_VENV_DIR # For emacs elpy pyvenv-* commands.
-    venv-activate() {
-	. $PYTHON_VENV_DIR/$1/bin/activate
-    }
 fi
 
 

@@ -29,10 +29,11 @@ if ($linux_configuration_proj_dir -ne $null) {
 
 	# $env:PATHEXT = "${env:PATHEXT};.SH"
     } elseif ($IsLinux) {
-	$env:Path = "${env:Path};$linux_configuration_proj_dir/bin-linux"
-	$env:Path = "${env:Path};$linux_configuration_proj_dir/bin"
+	# Done in $linux_configuration_proj_dir/profile
+	#$env:Path = "${env:Path}:$linux_configuration_proj_dir/bin-linux"
+	#$env:Path = "${env:Path}:$linux_configuration_proj_dir/bin"
     } else {
-	$env:PATH = "${env:PATH}:$linux_configuration_proj_dir/bin"
+	#$env:PATH = "${env:PATH}:$linux_configuration_proj_dir/bin"
     }
 }
 
@@ -68,6 +69,13 @@ set-alias e start-emacs
 
 function gst { git status @args }
 function ca { conda activate @args }
+function path {
+    if ($IsWindows) {
+	$env:Path -replace ";", "`n"
+    } else {
+	$env:PATH -replace ":", "`n"
+    }
+}
 
 #function matlab { matlab -nodisplay @args } # This does not work.
 #function octave { octave-cli @args } # I don't have octave yet. 

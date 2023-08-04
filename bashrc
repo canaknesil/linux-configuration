@@ -30,6 +30,12 @@ h () {
   history | grep $@
 }
 
+if [ -n "$PYTHON_VENV_DIR" ]; then
+    venv-activate() {
+	. $PYTHON_VENV_DIR/$1/bin/activate
+    }
+fi
+
 # TODO: test this function
 # run () {
 #   $@ & disown $1
