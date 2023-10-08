@@ -1,5 +1,8 @@
 #! /bin/bash
 
+# Written by Can Aknesil 
+# https://github.com/canaknesil/
+
 
 HELP_STR="Usage:
   start-emacs -h|--help
