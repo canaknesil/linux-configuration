@@ -3,6 +3,37 @@
 #+STARTUP: content
 #+OPTIONS: toc:nil
 
+Emacs configuration is divided into two files:
+
+emacs-base.org : Configuration that does not depend on additional
+packages. Can be used when a basic, fast configuration is desired,
+e.g. on a Raspberry Pi.
+
+emacs.org : Remaining of the configuration that depends on additional
+packages. Should be used in addition to emacs-base.org for full
+configuration.
+
+* Usage of emacs-base.org and emacs.org
+On Windows, Gpg4win must be installed and accessible. Emacs does not
+work correctly with GnuPG installed via MSYS2.
+
+First, start Emacs with emacs-base.org only. Run M-x
+package-refresh-contents. And exit.
+
+Second, start Emacs with both emacs-base.org and emacs.org. Packages
+will installed automatically.
+
+Example .emacs file:
+
+#+BEGIN_SRC emacs-lisp
+  ;;(org-babel-load-file "~/Programs/linux-configuration/emacs-base.org")
+  ;;(org-babel-load-file "~/Programs/linux-configuration/emacs.org")
+
+  ;;(configure-font "Cascadia Code")
+  ;;(configure-font-size 110)
+#+END_SRC
+
+
 * Appearance & Functionality
 ** Home directory on Windows
 #+BEGIN_SRC emacs-lisp
