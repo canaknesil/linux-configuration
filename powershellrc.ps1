@@ -2,7 +2,7 @@
 
 # $linux_configuration_proj_dir = "c:\Users\canaknesil\StandalonePrograms\linux-configuration"
 # $linux_configuration_msys2_dir = "c:\msys64"
-# $linux_configuration_python_env_dir = "c:\Users\canaknesil\.venv"
+# $linux_configuration_python_venv_dir = "c:\Users\canaknesil\.venv"
 # . "$linux_configuration_proj_dir\powershellrc.ps1"
 
 # Windows: Create HOME environment variable.
