@@ -39,14 +39,15 @@ if ($linux_configuration_proj_dir -ne $null) {
 
 if ($IsWindows -And ($linux_configuration_msys2_dir -ne $null)) {
     # There are a few complications of adding msys2 bin to
-    # Path. Adding to beginning make unix commands that have a
-    # different Windows implementation, such as "tree",
-    # accessible. But, prevents programs accessing Windows version of
-    # some commands, for example Emacs runs properly only with Gpg4win
-    # and not with Msys2 version of gpg. As a solution, adding msys2
-    # bin to the end of Path, and defining an alias or a function for
-    # each Msys2 command that I prefer.
-    
+    # Path. Adding to the beginning makes unix commands that have a
+    # different Windows implementation, such as "tree", accessible,
+    # but prevents programs accessing the Windows versions. For
+    # example Emacs runs properly only with Gpg4win and not with Msys2
+    # version of gpg. A solution is adding msys2 bin to the end of
+    # Path, and defining an alias or a function for each Msys2 command
+    # that I prefer.
+
+    $env:Path = "$env:Path;$linux_configuration_msys2_dir/ucrt64/bin"
     $env:Path = "$env:Path;$linux_configuration_msys2_dir/usr/bin"
 
     # Bash and Zsh requires HOME environment variable.
