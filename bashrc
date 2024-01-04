@@ -2,7 +2,7 @@
 # Use this script as such:
 #
 # LINUX_CONFIGURATION_PROJ_DIR=~/seperate-programs/linux-configuration
-# . $LINUX_CONFIGURATION_PROJ_DIR/bashrc\
+# . $LINUX_CONFIGURATION_PROJ_DIR/bashrc
 #
 # Used in combination with $LINUX_CONFIGURATION_PROJ_DIR/profile
 #
@@ -10,21 +10,19 @@
 # programs started outside shell can have the configuration.
 #
 
-alias e="emacs -nw"
+alias e="start-emacs"
 alias matlab='matlab -nodisplay'
 alias octave="octave-cli"
 alias julia='julia --color=yes'
 alias sdcv="sdcv --utf8-input --utf8-output --color"
 alias l='ls -alhF' # --color=never doen't work on mac.
 # alias rm="trash" # requires trash-cli
-alias py='python3'
-alias ipy='ipython3'
 alias ca='conda activate'
+alias gst='git status'
 
-alias desktop="pushd ~/Desktop"
-alias desk='desktop'
-alias downloads="pushd ~/Downloads"
-alias down='downloads'
+alias desk="pushd ~/Desktop"
+alias down="pushd ~/Downloads"
+alias doc='pushd ~/Documents'
 
 h () {
   history | grep $@

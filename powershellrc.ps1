@@ -54,6 +54,7 @@ if ($IsWindows -And ($linux_configuration_msys2_dir -ne $null)) {
     set-alias bash "$linux_configuration_msys2_dir/usr/bin/bash.exe"
     set-alias tree "$linux_configuration_msys2_dir/usr/bin/tree.exe"
     set-alias cat  "$linux_configuration_msys2_dir/usr/bin/cat.exe"
+    set-alias diff "$linux_configuration_msys2_dir/usr/bin/diff.exe"
 }
 
 
@@ -61,8 +62,6 @@ if ($IsWindows -And ($linux_configuration_msys2_dir -ne $null)) {
 # ALIAS AND SHORTCUTS
 #
 
-set-alias py python
-set-alias ipy ipython
 #set-alias Remove-Item trash # requires trash-cli
 #set-alias rm trash
 set-alias x invoke-item
