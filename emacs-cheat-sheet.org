@@ -1,0 +1,90 @@
+
+Keep it simple and to the basics unless it's necessary.
+
+* Help
+
+C-h k describe-key
+C-h c describe-key-briefly
+C-h f describe-function
+C-h v describe-variable
+C-h o describe-symbol
+
+* Undo
+
+C-/
+C-x u
+C-_   undo
+
+* Canceling
+
+C-g
+ESC ESC ESC keyboard-quit
+
+* Navigation
+
+C-f forward-char
+C-b backward-char
+C-n next-line
+C-p previous-line
+
+C-a move-beginning-of-line
+C-e move-end-of-line
+
+M-f forward-word
+M-b backward-word
+
+M-< beginning-of-buffer
+M-> end-of-buffer
+
+C-v scroll-up-command
+M-v scroll-down-command
+
+M-g M-g goto-line
+
+* Erasing Text
+
+BACKSPACE delete-backward-char
+C-d delete-char
+C-k kill-line
+
+M-BACKSPACE backward-kill-word
+M-d kill-word
+
+* Blank lines and whitespace
+
+C-o open-line
+C-x C-o delete-blank-lines
+
+* Files
+
+C-x C-f find-file
+C-x C-s save-buffer
+
+* Inside minibuffer
+
+M-p previous-history-element
+M-n next-history-element
+
+* Repetition and keyboard macro
+
+C-u <n> [<n>...] <command>
+C-x z [z...] repeat
+
+* Word count
+
+M-= count-words-region
+M-x count-words
+
+
+* TODO
+
+A better way to scroll/find/go to a location outside the
+window. Scrolling is only useful when I want to skim/scan a file top
+to bottom, otherwise it is very distracting and tiring.
+
+Push and pop location in a unified way. Return from xref definition,
+return from previous mark, etc.
+
+Stop Ivy matching when necessary. For example, there is an existing
+file design-top.v, typing C-x C-f top.v ENTER opens design-top.v
+rather than creating top.v.
