@@ -375,6 +375,11 @@ Example .emacs file:
   ;; (recentf-cleanup)
 #+END_SRC
 
+** Delete selection when inserting text
+#+BEGIN_SRC emacs-lisp
+  (delete-selection-mode 1)
+#+END_SRC
+
 
 * Programming languages & Modes
 ** Verilog

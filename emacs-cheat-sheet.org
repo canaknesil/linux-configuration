@@ -43,6 +43,12 @@ M-v scroll-down-command
 
 M-g M-g goto-line
 
+** Ring navigation
+
+C-SPC C-SPC (push to mark ring)
+C-u C-SPC (return to last mark)
+C-x C-SPC pop-global-mark
+
 * Erasing Text
 
 BACKSPACE delete-backward-char
@@ -56,6 +62,18 @@ M-d kill-word
 
 C-o open-line
 C-x C-o delete-blank-lines
+
+* Region (selection)
+
+C-SPC set-mark-command
+C-x C-x exchange-mark-and-point
+
+M-h mark-paragraph
+C-M-h mark-defun
+C-x h mark-whole-buffer
+
+C-w kill-region
+M-w kill-ring-save
 
 * Files
 
@@ -98,6 +116,9 @@ in manual.
 
 Run C-h m in Help and Helpful mode and check mode specific key
 bindings.
+
+Separate "selection" and "adding a location to mark ring". I don't
+want the mark to be saved every time text is selected.
 
 Stop Ivy matching when necessary. For example, there is an existing
 file design-top.v, typing C-x C-f top.v ENTER opens design-top.v
