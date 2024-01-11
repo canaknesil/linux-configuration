@@ -10,12 +10,12 @@
 # programs started outside shell can have the configuration.
 #
 
-alias e="start-emacs"
+alias e="start-emacs --client"
 alias matlab='matlab -nodisplay'
 alias octave="octave-cli"
 alias julia='julia --color=yes'
 alias sdcv="sdcv --utf8-input --utf8-output --color"
-alias l='ls -alhF' # --color=never doen't work on mac.
+alias l='ls -alhF --color=never' # --color=never doen't work on mac, redefine the alias
 # alias rm="trash" # requires trash-cli
 alias ca='conda activate'
 alias gst='git status'

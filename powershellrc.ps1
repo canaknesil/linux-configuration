@@ -65,8 +65,8 @@ if ($IsWindows -And ($linux_configuration_msys2_dir -ne $null)) {
 #set-alias Remove-Item trash # requires trash-cli
 #set-alias rm trash
 set-alias x invoke-item
-set-alias e start-emacs
 
+function e { start-emacs --client @args }
 function gst { git status @args }
 function ca { conda activate @args }
 function path {
@@ -186,7 +186,7 @@ set-alias cross Get-CrossProduct
 #
 
 # For readline style line editing. 
-#Import-Module PSReadLine
+#Import-Module PSReadLine # Enabled by default
 Set-PSReadLineOption -EditMode Emacs
 # disable Predictive IntelliSense
 Set-PSReadLineOption -PredictionSource None
