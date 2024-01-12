@@ -34,28 +34,7 @@ Example .emacs file:
 #+END_SRC
 
 
-* Appearance & Functionality
-** Home directory on Windows
-#+BEGIN_SRC emacs-lisp
-  ;; On Windows, if HOME environment variable is not defined, it is
-  ;; automatically set to the user-specific application data directory,
-  ;; where .emacs is expected to be. The actual location depends on the
-  ;; Windows version. This can be overwritten by defining HOME
-  ;; environment variable.
-
-  ;; On Windows, the default directory at Emacs start-up depends on from
-  ;; where it is started. find-file starts from the default
-  ;; firectory. Changing it to the home directory.
-
-  (when (eq system-type 'windows-nt)
-    ;; In case HOME is not defined, save the old value and redefine it
-    ;; to the correct location.
-    (setenv "EMACS_HOME" (getenv "Home"))
-    (setenv "Home" (getenv "UserProfile"))
-    ;; Set the default-directory to home.
-    (setq default-directory "~/"))
-#+END_SRC
-
+* Appearance
 ** Start as maximized window
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'default-frame-alist '(fullscreen . maximized))
@@ -173,11 +152,6 @@ Example .emacs file:
   (set-window-scroll-bars (minibuffer-window) nil nil)
 #+END_SRC
 
-** Do not open startup GNU Emacs buffer
-#+BEGIN_SRC emacs-lisp
-  (setq inhibit-startup-screen t)
-#+END_SRC
-
 ** TODO Highlight indentation
 #+begin_src emacs-lisp
   ;; This is not good, only counts spaces.
@@ -188,6 +162,46 @@ Example .emacs file:
   ;; Find a good package.
 #+end_src
 
+** Line wrap for text buffers
+#+BEGIN_SRC emacs-lisp
+  ;;(add-hook 'text-mode-hook 'turn-on-auto-fill)
+  (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
+  (add-hook 'prog-mode-hook 'turn-on-visual-line-mode)
+#+END_SRC
+
+** Show matching parenthesis
+#+BEGIN_SRC emacs-lisp
+  (show-paren-mode t)
+  (setq show-paren-delay 0.0)
+#+END_SRC
+
+
+* Functionality
+** Home directory on Windows
+#+BEGIN_SRC emacs-lisp
+  ;; On Windows, if HOME environment variable is not defined, it is
+  ;; automatically set to the user-specific application data directory,
+  ;; where .emacs is expected to be. The actual location depends on the
+  ;; Windows version. This can be overwritten by defining HOME
+  ;; environment variable.
+
+  ;; On Windows, the default directory at Emacs start-up depends on from
+  ;; where it is started. find-file starts from the default
+  ;; firectory. Changing it to the home directory.
+
+  (when (eq system-type 'windows-nt)
+    ;; In case HOME is not defined, save the old value and redefine it
+    ;; to the correct location.
+    (setenv "EMACS_HOME" (getenv "Home"))
+    (setenv "Home" (getenv "UserProfile"))
+    ;; Set the default-directory to home.
+    (setq default-directory "~/"))
+#+END_SRC
+** Do not open startup GNU Emacs buffer
+#+BEGIN_SRC emacs-lisp
+  (setq inhibit-startup-screen t)
+#+END_SRC
+
 ** Disable beeping
 #+begin_src emacs-lisp
   ;; Visible bell instead of sound.
@@ -196,13 +210,6 @@ Example .emacs file:
   ;; Disable bell sound
   (setq ring-bell-function (lambda ()))
 #+end_src
-
-** Line wrap for text buffers
-#+BEGIN_SRC emacs-lisp
-  ;;(add-hook 'text-mode-hook 'turn-on-auto-fill)
-  (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
-  (add-hook 'prog-mode-hook 'turn-on-visual-line-mode)
-#+END_SRC
 
 ** On the fly spell check
 #+BEGIN_SRC emacs-lisp
@@ -300,12 +307,6 @@ Example .emacs file:
   (global-set-key (kbd "C-x C-c") 'can/delete-frame)
 #+END_SRC
 
-** Show matching parenthesis
-#+BEGIN_SRC emacs-lisp
-  (show-paren-mode t)
-  (setq show-paren-delay 0.0)
-#+END_SRC
-
 ** All backups to a specific directory
 #+BEGIN_SRC emacs-lisp
   (setq backup-directory-alist `(("." . "~/emacs-tmp")))
@@ -378,6 +379,30 @@ Example .emacs file:
 ** Delete selection when inserting text
 #+BEGIN_SRC emacs-lisp
   (delete-selection-mode 1)
+#+END_SRC
+
+** Preserve point location when scrolling
+#+BEGIN_SRC emacs-lisp
+  (setq scroll-preserve-screen-position 1)
+#+END_SRC
+
+** Scroll margin
+#+BEGIN_SRC emacs-lisp
+  ;; Leave a number of lines on top or bottom when using C-l.  Also the
+  ;; automatic scrolling is triggered when the point is this much close
+  ;; to the top or the bottom.
+
+  ;; Disadvantage: This prevents the point to move from one window to
+  ;; other in follow-mode.
+
+  ;; Disadvantage: Clicking to the lines at margin triggers
+  ;; autoscrolling, which is distracting.
+
+  ;;(setq scroll-margin 2)
+
+
+  ;; Only cpeficying margin for C-l.
+  (setq recenter-positions '(middle 3 -3))
 #+END_SRC
 
 

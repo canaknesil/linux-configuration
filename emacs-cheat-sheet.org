@@ -1,7 +1,9 @@
 
 Keep it simple and to the basics unless it's necessary.
 
-* Help
+* When in trouble
+
+** Help
 
 C-h k describe-key
 C-h c describe-key-briefly
@@ -11,18 +13,21 @@ C-h o describe-symbol
 C-h P describe-package
 C-h m describe-mode
 
-* Undo
+** Undo
 
 C-/
 C-x u
 C-_   undo
 
-* Canceling
+** Canceling
 
 C-g
 ESC ESC ESC keyboard-quit
 
+
 * Navigation
+
+** Basic navigation
 
 C-f forward-char
 C-b backward-char
@@ -41,6 +46,9 @@ M-> end-of-buffer
 C-v scroll-up-command
 M-v scroll-down-command
 
+C-l recenter-top-bottom
+C-M-l reposition-window
+
 M-g M-g goto-line
 
 ** Ring navigation
@@ -49,21 +57,52 @@ C-SPC C-SPC (push to mark ring)
 C-u C-SPC (return to last mark)
 C-x C-SPC pop-global-mark
 
-* Erasing Text
+** Follow mode
+
+M-x follow-mode
+
+** Narrowing
+
+See the manual.
+
+** View Mode
+
+See the manual.
+
+
+* Basic editing
+
+** Deletion, killing, and yanking
 
 BACKSPACE delete-backward-char
 C-d delete-char
+
 C-k kill-line
+C-SHIFT-BACKSPACE kill-whole-line
 
 M-BACKSPACE backward-kill-word
 M-d kill-word
 
-* Blank lines and whitespace
+C-M-k kill-sexp
+
+C-w kill-region
+M-w kill-ring-save
+
+C-y yank
+M-y yank-pop
+C-u C-y (yank and leave point at the beginning)
+C-u M-y (yank-pop and leave point at the beginning)
+
+** Blank lines and whitespace
 
 C-o open-line
-C-x C-o delete-blank-lines
 
-* Region (selection)
+M-\ delete-horizontal-space
+M-SPC just-one-space
+C-x C-o delete-blank-lines
+M-^ delete-indentation
+
+** Region (selection)
 
 C-SPC set-mark-command
 C-x C-x exchange-mark-and-point
@@ -72,8 +111,37 @@ M-h mark-paragraph
 C-M-h mark-defun
 C-x h mark-whole-buffer
 
-C-w kill-region
-M-w kill-ring-save
+
+* Smart editing
+
+** Smart insertion
+
+C-x r N rectangle-number-lines
+C-u C-x r N (rectangle-number-lines custom initial number and format string)
+
+** Repetition, and keyboard macro
+
+C-u <n> [<n>...] <command>
+C-x z [z...] repeat
+
+** Rectangles
+
+C-x r t string-rectangle
+
+C-x r k kill-rectangle
+C-x r c clear-rectangle
+
+C-x r M-w copy-rectangle-as-kill
+C-x r y yank-rectangle
+
+** Registers
+
+See the manual.
+
+** Bookmarks
+
+See the manual.
+
 
 * Files
 
@@ -85,12 +153,9 @@ C-x C-s save-buffer
 M-p previous-history-element
 M-n next-history-element
 
-* Repetition and keyboard macro
+* Miscellaneous 
 
-C-u <n> [<n>...] <command>
-C-x z [z...] repeat
-
-* Word count
+** Word count
 
 M-= count-words-region
 M-x count-words
@@ -123,3 +188,7 @@ want the mark to be saved every time text is selected.
 Stop Ivy matching when necessary. For example, there is an existing
 file design-top.v, typing C-x C-f top.v ENTER opens design-top.v
 rather than creating top.v.
+
+Save as another file with single command.
+
+Change tiling of windows from vertical to horizontal and vice versa.
