@@ -1,3 +1,7 @@
+#+TITLE: Emacs Cheat Sheet
+#+AUTHOR: Can Aknesil
+#+STARTUP: content
+#+OPTIONS: toc:nil
 
 Keep it simple and to the basics unless it's necessary.
 
@@ -50,6 +54,22 @@ C-l recenter-top-bottom
 C-M-l reposition-window
 
 M-g M-g goto-line
+
+** Search
+
+C-s isearch-forward
+C-r isearch-backward
+C-s C-s (repeat previous search)
+C-r C-r (repeat previous search)
+
+M-s w isearch-forward-word
+M-s _ isearch-forward-symbol
+M-s . isearch-forward-symbol-at-point
+
+C-M-s isearch-forward-regexp
+C-M-r isearch-backward-regexp
+
+M-r isearch-toggle-regexp (within isearch)
 
 ** Ring navigation
 
@@ -148,10 +168,18 @@ See the manual.
 C-x C-f find-file
 C-x C-s save-buffer
 
+
 * Inside minibuffer
+
+** General
 
 M-p previous-history-element
 M-n next-history-element
+
+** Ivy
+
+M-r ivy-toggle-regexp-quote
+
 
 * Miscellaneous 
 
@@ -192,3 +220,13 @@ rather than creating top.v.
 Save as another file with single command.
 
 Change tiling of windows from vertical to horizontal and vice versa.
+
+Swiper commands. swiper-thing-at-point
+
+Avy.
+
+highlight-regexp and unhighlight-regexp
+
+Emacs pull request scroll-margin > 0 together with follow-mode.
+
+Syntax of regular expressions.
