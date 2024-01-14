@@ -155,12 +155,10 @@
 #+END_SRC
 
 ** Ivy, swiper, and counsel setup
-   Ivy (better minibuffer completion)
-   Swiper (better i-r-search)
-   Counsel (better usage of Ivy)
-
 #+BEGIN_SRC emacs-lisp
   ;; Ivy: a generic completion mechanism for Emacs.
+  ;; Replaces completing-read-function with ivy-completing-read.
+
   (use-package ivy
     ;; don't defer
     :config
@@ -175,14 +173,27 @@
 	  '((t . ivy--regex-ignore-order))) ; ignore order of space separated words.
     )
 
+
   ;; Swiper: an Ivy-enhanced alternative to Isearch.
-  (use-package swiper
-    :defer
-    :bind (("C-s" . 'swiper-isearch)
-	   ("C-r" . 'swiper-isearch-backward)))
+
+  ;; Disadvantage: Not interoperable with other search commands. For
+  ;; example, query-replace or occur can be run from isearch minibuffer,
+  ;; while not from swiper.
+
+  ;; Disadvantage: Doesn't support all isearch features, such as isearch
+  ;; word and symbol search.
+
+  ;; (use-package swiper
+  ;;   :defer
+  ;;   :bind (("C-s" . 'swiper-isearch)
+  ;; 	 ("C-r" . 'swiper-isearch-backward)))
+
 
   ;; Counsel: a collection of Ivy-enhanced versions of common Emacs
   ;; commands.
+
+  ;; Ivy alone seems enough.
+
   ;; (use-package counsel
   ;;   :defer
   ;;   :bind (("M-x" . 'counsel-M-x)
@@ -195,7 +206,7 @@
 
 ** On-the-fly syntax check
 #+BEGIN_SRC emacs-lisp
-  ;; Use flymake whenever is possible. It is built-in.
+  ;; Using flyspell. It is built-in.
 
   ;; Use flake8 python package. Elpy uses it.
   ;; Flake8 configuration is at linux-configuration/flake8.

@@ -6,7 +6,6 @@
 Keep it simple and to the basics unless it's necessary.
 
 * When in trouble
-
 ** Help
 
 C-h k describe-key
@@ -23,6 +22,8 @@ C-/
 C-x u
 C-_   undo
 
+C-? undo-redo
+
 ** Canceling
 
 C-g
@@ -30,7 +31,6 @@ ESC ESC ESC keyboard-quit
 
 
 * Navigation
-
 ** Basic navigation
 
 C-f forward-char
@@ -71,6 +71,8 @@ C-M-r isearch-backward-regexp
 
 M-r isearch-toggle-regexp (within isearch)
 
+M-s o occur
+
 ** Ring navigation
 
 C-SPC C-SPC (push to mark ring)
@@ -91,7 +93,6 @@ See the manual.
 
 
 * Basic editing
-
 ** Deletion, killing, and yanking
 
 BACKSPACE delete-backward-char
@@ -113,15 +114,6 @@ M-y yank-pop
 C-u C-y (yank and leave point at the beginning)
 C-u M-y (yank-pop and leave point at the beginning)
 
-** Blank lines and whitespace
-
-C-o open-line
-
-M-\ delete-horizontal-space
-M-SPC just-one-space
-C-x C-o delete-blank-lines
-M-^ delete-indentation
-
 ** Region (selection)
 
 C-SPC set-mark-command
@@ -133,7 +125,14 @@ C-x h mark-whole-buffer
 
 
 * Smart editing
+** Blank lines and whitespace
 
+C-o open-line
+
+M-\ delete-horizontal-space
+M-SPC just-one-space
+C-x C-o delete-blank-lines
+M-^ delete-indentation
 
 ** Replacement
 
@@ -153,6 +152,10 @@ C-u C-x r N (rectangle-number-lines custom initial number and format string)
 C-u <n> [<n>...] <command>
 C-x z [z...] repeat
 
+C-x ( kmacro-start-macro
+C-x ) kmacro-end-macro
+C-x e [e...] kmacro-end-and-call-macro
+
 ** Rectangles
 
 C-x r t string-rectangle
@@ -162,6 +165,20 @@ C-x r c clear-rectangle
 
 C-x r M-w copy-rectangle-as-kill
 C-x r y yank-rectangle
+
+** Correcting spelling
+
+M-$ ispell-word
+M-x ispell
+M-x ispell-comments-and-strings
+
+** Transposing text
+
+See the manual.
+
+** Case conversion
+
+See the manual.
 
 ** Registers
 
@@ -175,11 +192,18 @@ See the manual.
 * Files
 
 C-x C-f find-file
+C-x C-r find-file-read-only
+C-x C-v find-alternate-file
+C-x 4 f find-file-other-window
+C-x 5 f find-file-other-frame
+
 C-x C-s save-buffer
+C-x C-w write-file
+
+M-x revert-buffer
 
 
 * Inside minibuffer
-
 ** General
 
 M-p previous-history-element
@@ -239,3 +263,12 @@ highlight-regexp and unhighlight-regexp
 Emacs pull request scroll-margin > 0 together with follow-mode.
 
 Syntax of regular expressions.
+
+C-s for all project (like grep -r)
+
+Switch to *occur* buffer after creation.
+
+Quitting temporary windows, such as help, with q.
+
+write-file replaces the buffer with the buffer that visits the new
+file. Keep both buffers.

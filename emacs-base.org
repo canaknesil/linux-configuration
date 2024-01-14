@@ -213,11 +213,13 @@ Example .emacs file:
 
 ** On the fly spell check
 #+BEGIN_SRC emacs-lisp
-  ;; On the fly spell check for text mode (requires ispell program, e.g. GNU Aspell)
+  ;; Requires an external spell checker, e.g. GNU Aspell.
+
+  ;; On the fly spell check for text 
   (dolist (hook '(text-mode-hook))
     (add-hook hook (lambda ()
-                     (flyspell-buffer)
-                     (flyspell-mode 1))))
+		     (flyspell-buffer)
+		     (flyspell-mode 1))))
   (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
     (add-hook hook (lambda () (flyspell-mode -1))))
 #+END_SRC
