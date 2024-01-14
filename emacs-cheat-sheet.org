@@ -134,6 +134,15 @@ C-x h mark-whole-buffer
 
 * Smart editing
 
+
+** Replacement
+
+M-x replace-string
+M-% query-replace
+
+M-x replace-regexp
+C-M-% query-replace-regexp
+
 ** Smart insertion
 
 C-x r N rectangle-number-lines
