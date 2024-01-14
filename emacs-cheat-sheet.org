@@ -201,7 +201,10 @@ C-x C-s save-buffer
 C-x C-w write-file
 
 M-x revert-buffer
+M-x auto-revert-mode
 
+M-x recover-file
+M-x recover-session
 
 * Inside minibuffer
 ** General

@@ -314,6 +314,11 @@ Example .emacs file:
   (setq backup-directory-alist `(("." . "~/emacs-tmp")))
 #+END_SRC
 
+** Auto-save no message
+#+BEGIN_SRC emacs-lisp
+  (setq auto-save-no-message t)
+#+END_SRC
+
 ** Switch to new window after creation, delete window after killing buffer
 #+BEGIN_SRC emacs-lisp
   (defun hrs/split-window-below-and-switch ()
