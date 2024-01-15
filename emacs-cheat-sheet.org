@@ -206,6 +206,15 @@ M-x auto-revert-mode
 M-x recover-file
 M-x recover-session
 
+M-x diff
+M-x ediff
+M-x diff-backup
+M-x diff-buffer-with-file
+M-x diff-buffers
+
+M-x smerge-mode
+
+
 * Inside minibuffer
 ** General
 
