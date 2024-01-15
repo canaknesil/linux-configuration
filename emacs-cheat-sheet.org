@@ -83,6 +83,11 @@ C-x C-SPC pop-global-mark
 
 M-x follow-mode
 
+** Line truncation and visual line mode
+
+C-x x t toggle-truncate-lines
+M-x visual-line-mode
+
 ** Narrowing
 
 See the manual.
@@ -171,6 +176,10 @@ C-x r y yank-rectangle
 M-$ ispell-word
 M-x ispell
 M-x ispell-comments-and-strings
+
+** Highlighting
+
+See the manual.
 
 ** Transposing text
 
@@ -298,3 +307,5 @@ type "buffer" and press ENTER, the completion suggests "buffers". The
 ENTER selects the undesired suggestion rather than opening a new
 line. One option is to hit SPACE and then ENTER, which leaves a
 training space to the previous line.
+
+Collapsing functions, etc., similar to org-mode sections.
