@@ -181,6 +181,10 @@ M-x ispell-comments-and-strings
 
 See the manual.
 
+** Accumulating text
+
+See the manual.
+
 ** Transposing text
 
 See the manual.
@@ -210,6 +214,9 @@ C-x 5 f find-file-other-frame
 C-x C-s save-buffer
 C-x C-w write-file
 
+C-x i insert-file
+M-x write-region
+
 M-x revert-buffer
 M-x auto-revert-mode
 
@@ -225,6 +232,10 @@ M-x diff-buffer-with-file
 M-x diff-buffers
 
 M-x smerge-mode
+
+** File name cache
+
+See the manual.
 
 
 * Inside minibuffer

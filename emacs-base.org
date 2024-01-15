@@ -364,7 +364,7 @@ Example .emacs file:
 
 ** Recent files
 #+BEGIN_SRC emacs-lisp
-  ;; ivy, counsel, swiper handles this
+  ;; ivy-switch-buffer handles this
 
   ;; (recentf-mode 1)
   ;; (setq recentf-max-menu-items 25)
