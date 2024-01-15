@@ -190,6 +190,7 @@ See the manual.
 
 
 * Files
+** Basic file handling
 
 C-x C-f find-file
 C-x C-r find-file-read-only
@@ -205,6 +206,8 @@ M-x auto-revert-mode
 
 M-x recover-file
 M-x recover-session
+
+** Diff and merging
 
 M-x diff
 M-x ediff
@@ -284,3 +287,14 @@ Quitting temporary windows, such as help, with q.
 
 write-file replaces the buffer with the buffer that visits the new
 file. Keep both buffers.
+
+ediff control panel opens as a new frame, rather than a secondary echo
+area/minibuffer.
+
+Make read-only buffer writable and vice versa.
+
+Easier way to cancel completion when tying. For example, I want to
+type "buffer" and press ENTER, the completion suggests "buffers". The
+ENTER selects the undesired suggestion rather than opening a new
+line. One option is to hit SPACE and then ENTER, which leaves a
+training space to the previous line.
