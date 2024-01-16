@@ -50,6 +50,10 @@ M-> end-of-buffer
 C-v scroll-up-command
 M-v scroll-down-command
 
+C-M-v scroll-other-window
+C-M-SHIFT-v scroll-other-window-down
+C-M-SHIFT-l recenter-other-window
+
 C-l recenter-top-bottom
 C-M-l reposition-window
 
@@ -79,6 +83,29 @@ C-x C-SPC pop-global-mark
 
 M-g M-g goto-line
 
+C-x 4 . xref-find-definitions-other-window
+
+** Files
+
+C-x C-f find-file
+C-x C-r find-file-read-only
+C-x C-v find-alternate-file
+C-x 4 f find-file-other-window
+C-x 4 r find-file-read-only-other-window
+C-x 5 f find-file-other-frame
+
+C-x C-s save-buffer
+C-x C-w write-file
+
+C-x i insert-file
+M-x write-region
+
+M-x revert-buffer
+M-x auto-revert-mode
+
+M-x recover-file
+M-x recover-session
+
 ** Buffers
 
 C-x b switch-to-buffer
@@ -94,6 +121,19 @@ C-x C-q read-only-mode
 
 C-x k kill-buffer
 M-x kill-some-buffers
+
+** Windows
+
+C-x 0 delete-window
+C-x 1 delete-other-window
+C-x 2 split-window-below
+C-x 3 split-window-right
+C-x 4 0 kill-buffer-and-window
+
+C-x o other-window
+
+C-x 4 4 other-window-prefix
+C-x 4 1 same-window-prefix
 
 ** Indirect buffers
 
@@ -174,7 +214,7 @@ C-u C-x r N (rectangle-number-lines custom initial number and format string)
 
 ** Repetition, and keyboard macro
 
-C-u <n> [<n>...] <command>
+C-u <n>... <command>
 C-x z [z...] repeat
 
 C-x ( kmacro-start-macro
@@ -223,25 +263,6 @@ See the manual.
 
 
 * Files
-** Basic file handling
-
-C-x C-f find-file
-C-x C-r find-file-read-only
-C-x C-v find-alternate-file
-C-x 4 f find-file-other-window
-C-x 5 f find-file-other-frame
-
-C-x C-s save-buffer
-C-x C-w write-file
-
-C-x i insert-file
-M-x write-region
-
-M-x revert-buffer
-M-x auto-revert-mode
-
-M-x recover-file
-M-x recover-session
 
 ** Diff and merging
 

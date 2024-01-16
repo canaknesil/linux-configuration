@@ -341,17 +341,18 @@ Example .emacs file:
     (delete-window)
     (balance-windows))
 
-  (defun kill-buffer-and-delete-window ()
-    "Delete current window after killing buffer, if there are more than 1 windows."
-    (interactive)
-    (kill-buffer)
-    (if (> (count-windows) 1)
-	(delete-window-and-balance)))
+  ;; Not needed. C-x 4 0 kill-buffer-and-window does the job.
+  ;; (defun kill-buffer-and-delete-window ()
+  ;;   "Delete current window after killing buffer, if there are more than 1 windows."
+  ;;   (interactive)
+  ;;   (kill-buffer)
+  ;;   (if (> (count-windows) 1)
+  ;;       (delete-window-and-balance)))
 
   (global-set-key (kbd "C-x 2") 'hrs/split-window-below-and-switch)
   (global-set-key (kbd "C-x 3") 'hrs/split-window-right-and-switch)
   (global-set-key (kbd "C-x 0") 'delete-window-and-balance)
-  (global-set-key (kbd "C-x j") 'kill-buffer-and-delete-window)
+  ;;(global-set-key (kbd "C-x j") 'kill-buffer-and-delete-window)
 #+END_SRC
 
 #+RESULTS:

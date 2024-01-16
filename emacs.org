@@ -154,8 +154,13 @@
     (global-set-key (kbd "C-h k") #'helpful-key))
 #+END_SRC
 
-** Ivy, swiper, and counsel setup
+** Minibuffer completion
 #+BEGIN_SRC emacs-lisp
+  ;; Builtin alternatives are icomplete mode and fido mode.
+  ;;(icomplete-mode 1)
+  ;;(icomplete-vertical-mode 1)
+
+
   ;; Ivy: a generic completion mechanism for Emacs.
   ;; Replaces completing-read-function with ivy-completing-read.
 
