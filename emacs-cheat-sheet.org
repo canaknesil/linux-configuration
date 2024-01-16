@@ -53,8 +53,6 @@ M-v scroll-down-command
 C-l recenter-top-bottom
 C-M-l reposition-window
 
-M-g M-g goto-line
-
 ** Search
 
 C-s isearch-forward
@@ -73,11 +71,33 @@ M-r isearch-toggle-regexp (within isearch)
 
 M-s o occur
 
-** Ring navigation
+** Ring navigation (go to and back)
 
 C-SPC C-SPC (push to mark ring)
 C-u C-SPC (return to last mark)
 C-x C-SPC pop-global-mark
+
+M-g M-g goto-line
+
+** Buffers
+
+C-x b switch-to-buffer
+C-x 4 b switch-to-buffer-other-window
+C-x 5 b switch-to-buffer-other-frame
+C-x LEFT previous-buffer
+C-x RIGHT next-buffer
+
+C-x C-b list-buffers
+C-u C-x C-b (list only file visiting buffers)
+
+C-x C-q read-only-mode
+
+C-x k kill-buffer
+M-x kill-some-buffers
+
+** Indirect buffers
+
+See the manual.
 
 ** Follow mode
 
@@ -320,3 +340,12 @@ line. One option is to hit SPACE and then ENTER, which leaves a
 training space to the previous line.
 
 Collapsing functions, etc., similar to org-mode sections.
+
+Sometimes when the point is at the end of a line, the line shifts
+right by one column (line number included). Prevent it. In org-mode.
+
+goto-line in another buffer.
+
+Many commands opens a buffer in other window but not move to it, such
+as list-buffers. Moving to the newly opened buffer is often the
+desired behavior.
