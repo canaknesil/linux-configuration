@@ -84,6 +84,7 @@ C-x C-SPC pop-global-mark
 M-g M-g goto-line
 
 C-x 4 . xref-find-definitions-other-window
+C-x 5 . xref-find-definitions-other-frame
 
 ** Files
 
@@ -93,6 +94,7 @@ C-x C-v find-alternate-file
 C-x 4 f find-file-other-window
 C-x 4 r find-file-read-only-other-window
 C-x 5 f find-file-other-frame
+C-x 5 r find-file-read-only-other-frame
 
 C-x C-s save-buffer
 C-x C-w write-file
@@ -147,6 +149,22 @@ C-x SHIFT-DOWN windmove-delete-down
 
 C-c LEFT winner-undo
 C-c RIGHT winner-redo
+
+** Frames
+
+C-x 5 2 make-frame-command
+C-x 5 c clone-frame
+
+C-x 5 0 delete-frame
+C-z suspend-frame
+
+C-x 5 o other-frame
+C-x 5 1 delete-other-frames
+
+C-x 5 5 other-frame-prefix
+
+M-F10 toggle-frame-maximized
+F11 toggle-frame-fullscreen
 
 ** Indirect buffers
 
@@ -389,3 +407,6 @@ Set Emacs C source directory.
 Documentation page Choosing a "Window for Displaying a Buffer":
 
 https://www.gnu.org/software/emacs/manual/html_node/elisp/Choosing-Window.html
+
+undelete-frame-mode (version 29 or higher) to undelete recently
+deleted frames with C-x 5 u.
