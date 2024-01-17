@@ -319,6 +319,24 @@ Example .emacs file:
   (setq auto-save-no-message t)
 #+END_SRC
 
+** Move to, delete, or swap with another window directionally with windmove
+#+BEGIN_SRC emacs-lisp
+  ;; default key bindings are SHIFT-{left, right, up, down}.
+  (windmove-default-keybindings)
+
+  ;; default keybindings are C-x SHIFT-{left, right, up, down}.
+  (windmove-delete-default-keybindings)
+
+  ;; default keybindings are SUPER-{left, right, up, down}.
+  ;; Altering with C-SHIFT-{left, right, up, down}.
+  (windmove-swap-states-default-keybindings '(control shift))
+#+END_SRC
+
+** Restore window configuration with winner mode
+#+BEGIN_SRC emacs-lisp
+  (winner-mode 1)
+#+END_SRC
+
 ** Switch to new window after creation, delete window after killing buffer
 #+BEGIN_SRC emacs-lisp
   (defun hrs/split-window-below-and-switch ()

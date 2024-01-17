@@ -146,12 +146,15 @@
 
 ** Helpful (better help buffers)
 #+BEGIN_SRC emacs-lisp
+  ;; helpful is not good at window choice to display *helpful* buffers.
+
   (use-package helpful
     ;; don't defer
     :config
-    (global-set-key (kbd "C-h f") #'helpful-callable)
-    (global-set-key (kbd "C-h v") #'helpful-variable)
-    (global-set-key (kbd "C-h k") #'helpful-key))
+    ;;(global-set-key (kbd "C-h f") #'helpful-callable)
+    ;;(global-set-key (kbd "C-h v") #'helpful-variable)
+    ;;(global-set-key (kbd "C-h k") #'helpful-key)
+    )
 #+END_SRC
 
 ** Minibuffer completion

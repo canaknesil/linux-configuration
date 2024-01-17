@@ -135,6 +135,19 @@ C-x o other-window
 C-x 4 4 other-window-prefix
 C-x 4 1 same-window-prefix
 
+SHIFT-LEFT windmove-left
+SHIFT-RIGHT windmove-right
+SHIFT-UP windmove-up
+SHIFT-DOWN windmove-down
+
+C-x SHIFT-LEFT windmove-delete-left
+C-x SHIFT-RIGHT windmove-delete-right
+C-x SHIFT-UP windmove-delete-up
+C-x SHIFT-DOWN windmove-delete-down
+
+C-c LEFT winner-undo
+C-c RIGHT winner-redo
+
 ** Indirect buffers
 
 See the manual.
@@ -370,3 +383,9 @@ goto-line in another buffer.
 Many commands opens a buffer in other window but not move to it, such
 as list-buffers. Moving to the newly opened buffer is often the
 desired behavior.
+
+Set Emacs C source directory.
+
+Documentation page Choosing a "Window for Displaying a Buffer":
+
+https://www.gnu.org/software/emacs/manual/html_node/elisp/Choosing-Window.html
