@@ -325,11 +325,13 @@ Example .emacs file:
   (windmove-default-keybindings)
 
   ;; default keybindings are C-x SHIFT-{left, right, up, down}.
-  (windmove-delete-default-keybindings)
+  (if (version<= "28.1" emacs-version)
+      (windmove-delete-default-keybindings))
 
   ;; default keybindings are SUPER-{left, right, up, down}.
   ;; Altering with C-SHIFT-{left, right, up, down}.
-  (windmove-swap-states-default-keybindings '(control shift))
+  (if (version<= "28.1" emacs-version)
+      (windmove-swap-states-default-keybindings '(control shift)))
 #+END_SRC
 
 ** Restore window configuration with winner mode
