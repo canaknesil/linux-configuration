@@ -166,6 +166,14 @@ C-x 5 5 other-frame-prefix
 M-F10 toggle-frame-maximized
 F11 toggle-frame-fullscreen
 
+** Tab lines
+
+See the manual.
+
+** Tab bars
+
+See the manual.
+
 ** Indirect buffers
 
 See the manual.
@@ -184,6 +192,10 @@ M-x visual-line-mode
 See the manual.
 
 ** View Mode
+
+See the manual.
+
+** Speedbar
 
 See the manual.
 
@@ -267,6 +279,11 @@ C-x r y yank-rectangle
 M-$ ispell-word
 M-x ispell
 M-x ispell-comments-and-strings
+
+** Overwrite mode (Insert)
+
+M-x overwrite-mode
+M-x binary-overwrite-mode
 
 ** Highlighting
 
@@ -410,3 +427,11 @@ https://www.gnu.org/software/emacs/manual/html_node/elisp/Choosing-Window.html
 
 undelete-frame-mode (version 29 or higher) to undelete recently
 deleted frames with C-x 5 u.
+
+Desktop library to save and restore sessions.
+
+Some messages in echo area disappears after some seconds. Disable this
+so that I can take as much time as possible when reading it.
+
+Configure tab bars (similar to i3 workspaces) not to use the bar but
+be accessible via commands.

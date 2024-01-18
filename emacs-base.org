@@ -99,32 +99,42 @@ Example .emacs file:
 
 ** Font and its size
 #+BEGIN_SRC emacs-lisp
-  (setq my-custom-font nil)
-  (setq my-custom-font-size nil)
+  ;; My old way of setting font and font size
 
-  (defun set-font (font)
-    (set-face-attribute 'default nil :font font))
+  ;; (setq my-custom-font nil)
+  ;; (setq my-custom-font-size nil)
 
-  (defun set-font-size (font-size)
-    (set-face-attribute 'default nil :height font-size))
-  
-  (add-hook 'after-make-frame-functions
-	    (lambda (frame)
-	      (select-frame frame)
-	      (if my-custom-font
-		  (set-font my-custom-font))
-	      (if my-custom-font-size
-		  (set-font-size my-custom-font-size))))
+  ;; (defun set-font (font)
+  ;;   (set-face-attribute 'default nil :font font))
 
-  ;; The following function should be called for font configuration.
+  ;; (defun set-font-size (font-size)
+  ;;   (set-face-attribute 'default nil :height font-size))
+
+  ;; (add-hook 'after-make-frame-functions
+  ;; 	  (lambda (frame)
+  ;; 	    (select-frame frame)
+  ;; 	    (if my-custom-font
+  ;; 		(set-font my-custom-font))
+  ;; 	    (if my-custom-font-size
+  ;; 		(set-font-size my-custom-font-size))))
+
+  ;; ;; The following function should be called for font configuration.
+  ;; (defun configure-font (font)
+  ;;   (setq my-custom-font font)
+  ;;   (set-font font))
+
+  ;; (defun configure-font-size (font-size)
+  ;;   "Font size is around 110."
+  ;;   (setq my-custom-font-size font-size)
+  ;;   (set-font-size font-size))
+
+
+  ;; Font configuration given in Emacs manual
   (defun configure-font (font)
-    (setq my-custom-font font)
-    (set-font font))
+    (add-to-list 'default-frame-alist (cons 'font font)))
 
-  (defun configure-font-size (font-size)
-    "Font size is around 110."
-    (setq my-custom-font-size font-size)
-    (set-font-size font-size))
+  ;; Usage example (font=Cascadia Code, fontsize=10):
+  ;; (configure-font "Cascadia Code-10")
 #+END_SRC
 
 ** Hide tool bar
