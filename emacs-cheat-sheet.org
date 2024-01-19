@@ -236,10 +236,22 @@ C-x h mark-whole-buffer
 ** Blank lines and whitespace
 
 C-o open-line
+C-M-o split-line
 
 M-\ delete-horizontal-space
 M-SPC just-one-space
 C-x C-o delete-blank-lines
+M-^ delete-indentation
+
+** Indentation
+
+TAB indent-for-tab-command
+M-m back-to-indentation
+C-q TAB (insert TAB character)
+
+C-M-\ indent-region
+
+M-x indent-relative
 M-^ delete-indentation
 
 ** Replacement
@@ -435,3 +447,8 @@ so that I can take as much time as possible when reading it.
 
 Configure tab bars (similar to i3 workspaces) not to use the bar but
 be accessible via commands.
+
+Non-agressive paranthesis insertion. For example, I don't want the
+closing paranthesis to be inserted after I type the openning
+paranthesis; but I want emacs to put closing paranthesis to the third
+line, put the point to the second line and indent.
