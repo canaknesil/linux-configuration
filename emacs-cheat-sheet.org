@@ -44,6 +44,9 @@ C-e move-end-of-line
 M-f forward-word
 M-b backward-word
 
+M-} forward-paragraph
+M-{ backword-paragraph
+
 M-< beginning-of-buffer
 M-> end-of-buffer
 
@@ -292,10 +295,32 @@ M-$ ispell-word
 M-x ispell
 M-x ispell-comments-and-strings
 
+** Filling text
+
+M-q fill-paragraph
+M-x fill-region
+M-x fill-region-as-paragraph
+
+C-x . set-fill-prefix
+
+M-x center-line
+M-x center-region
+M-x center-paragraph
+
 ** Overwrite mode (Insert)
 
 M-x overwrite-mode
 M-x binary-overwrite-mode
+
+** Case conversion
+
+M-l downcase-word
+M-u upcase-word
+M-c capitalize-word
+
+C-x C-l downcase-region
+C-x C-u upcase-region
+M-x capitalize-region
 
 ** Highlighting
 
@@ -309,15 +334,15 @@ See the manual.
 
 See the manual.
 
-** Case conversion
-
-See the manual.
-
 ** Registers
 
 See the manual.
 
 ** Bookmarks
+
+See the manual.
+
+** Pages
 
 See the manual.
 
@@ -418,7 +443,8 @@ Easier way to cancel completion when tying. For example, I want to
 type "buffer" and press ENTER, the completion suggests "buffers". The
 ENTER selects the undesired suggestion rather than opening a new
 line. One option is to hit SPACE and then ENTER, which leaves a
-training space to the previous line.
+training space to the previous line. Solution: Insert new line with
+C-j.
 
 Collapsing functions, etc., similar to org-mode sections.
 
@@ -452,3 +478,11 @@ Non-agressive paranthesis insertion. For example, I don't want the
 closing paranthesis to be inserted after I type the openning
 paranthesis; but I want emacs to put closing paranthesis to the third
 line, put the point to the second line and indent.
+
+Double spaces ends an Emacs sentence, which I don't use. I use a dot
+followed by a single space. Make sentence commands recognize my
+sentences. But this would have a disadvantage because there would be
+no way to distinguish sentece endings and abreviations, etc.
+
+Text alighment left (default with M-q), center, and right. Solution
+for center: M-x center-{line,region,paragraph}.
