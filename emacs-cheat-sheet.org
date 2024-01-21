@@ -47,6 +47,16 @@ M-b backward-word
 M-} forward-paragraph
 M-{ backword-paragraph
 
+C-M-a beginning-of-defun
+C-M-e end-of-defun
+
+C-M-f forward-sexp
+C-M-b backward-sexp
+C-M-n forward-list
+C-M-p backward-list
+C-M-u backward-up-list
+C-M-d down-list
+
 M-< beginning-of-buffer
 M-> end-of-buffer
 
@@ -77,6 +87,8 @@ C-M-r isearch-backward-regexp
 M-r isearch-toggle-regexp (within isearch)
 
 M-s o occur
+
+M-g i imenu
 
 ** Ring navigation (go to and back)
 
@@ -253,6 +265,7 @@ M-m back-to-indentation
 C-q TAB (insert TAB character)
 
 C-M-\ indent-region
+C-M-q prog-indent-sexp
 
 M-x indent-relative
 M-^ delete-indentation
@@ -321,6 +334,10 @@ M-c capitalize-word
 C-x C-l downcase-region
 C-x C-u upcase-region
 M-x capitalize-region
+
+** Parentheses
+
+M-x check-parens
 
 ** Highlighting
 
@@ -486,7 +503,7 @@ so that I can take as much time as possible when reading it.
 Configure tab bars (similar to i3 workspaces) not to use the bar but
 be accessible via commands.
 
-Non-agressive paranthesis insertion. For example, I don't want the
+Non-agressive parenthesis insertion. For example, I don't want the
 closing paranthesis to be inserted after I type the openning
 paranthesis; but I want emacs to put closing paranthesis to the third
 line, put the point to the second line and indent.

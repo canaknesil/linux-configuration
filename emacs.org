@@ -126,6 +126,10 @@
 
 ** TODO Smartparens
 #+begin_src emacs-lisp
+  ;; Built-in electric pair mode is too agressive.
+
+  ;; smartparens package is also too agressive.
+
   ;; (use-package smartparens
   ;;   :config
   ;;   ;;(require 'smartparens-config) ; Enable default configuration
@@ -133,8 +137,6 @@
   ;;   (setq sp-highlight-pair-overlay nil)
   ;;   (setq sp-highlight-wrap-overlay nil)
   ;;   (setq sp-highlight-wrap-tag-overlay nil))
-
-  ;; TODO: Find a better package. smartparens is too aggressive. 
 #+end_src
 ** Which-key (display possible keys while typing a command)
 #+BEGIN_SRC emacs-lisp
