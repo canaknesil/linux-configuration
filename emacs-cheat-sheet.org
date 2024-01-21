@@ -346,6 +346,18 @@ See the manual.
 
 See the manual.
 
+** Enriched text
+
+See the manual.
+
+** Text-based tables
+
+See the manual.
+
+** Two-column editing
+
+See the manual.
+
 
 * Files
 
@@ -486,3 +498,12 @@ no way to distinguish sentece endings and abreviations, etc.
 
 Text alighment left (default with M-q), center, and right. Solution
 for center: M-x center-{line,region,paragraph}.
+
+Company vs builting completion.
+
+Outline mode vs org mode.
+
+Org mode manual.
+
+Tex mode vs auctex.
+
