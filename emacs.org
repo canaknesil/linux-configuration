@@ -193,10 +193,11 @@
   ;; Disadvantage: Doesn't support all isearch features, such as isearch
   ;; word and symbol search.
 
-  ;; (use-package swiper
-  ;;   :defer
-  ;;   :bind (("C-s" . 'swiper-isearch)
-  ;; 	 ("C-r" . 'swiper-isearch-backward)))
+  (use-package swiper
+    :defer
+    ;; :bind (("C-s" . 'swiper-isearch)
+    ;; 	 ("C-r" . 'swiper-isearch-backward))
+    )
 
 
   ;; Counsel: a collection of Ivy-enhanced versions of common Emacs

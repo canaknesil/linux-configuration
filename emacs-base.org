@@ -237,6 +237,8 @@ Example .emacs file:
 ** CamelCase as separate words 
 #+BEGIN_SRC emacs-lisp
   (add-hook 'prog-mode-hook 'subword-mode)
+
+  ;; Opposite of subword-mode is superword-mode.
 #+END_SRC
 
 ** Confirm closing

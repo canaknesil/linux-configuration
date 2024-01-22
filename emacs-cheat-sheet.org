@@ -5,8 +5,10 @@
 
 Keep it simple and to the basics unless it's necessary.
 
+Made according to Emacs manual version 29.1.
+
 * When in trouble
-** Help
+** Help and documentation lookup
 
 C-h k describe-key
 C-h c describe-key-briefly
@@ -15,6 +17,11 @@ C-h v describe-variable
 C-h o describe-symbol
 C-h P describe-package
 C-h m describe-mode
+
+M-x eldoc-doc-buffer
+
+C-h S info-lookup-symbol
+M-x info-lookup-file
 
 ** Undo
 
@@ -31,7 +38,7 @@ ESC ESC ESC keyboard-quit
 
 
 * Navigation
-** Basic navigation
+** Basic motion
 
 C-f forward-char
 C-b backward-char
@@ -43,6 +50,9 @@ C-e move-end-of-line
 
 M-f forward-word
 M-b backward-word
+
+M-a backward-sentence
+M-e forward-sentence
 
 M-} forward-paragraph
 M-{ backword-paragraph
@@ -59,6 +69,8 @@ C-M-d down-list
 
 M-< beginning-of-buffer
 M-> end-of-buffer
+
+** Basic scrolling
 
 C-v scroll-up-command
 M-v scroll-down-command
@@ -100,6 +112,10 @@ M-g M-g goto-line
 
 C-x 4 . xref-find-definitions-other-window
 C-x 5 . xref-find-definitions-other-frame
+
+** Semantic mode
+
+See the manual.
 
 ** Files
 
@@ -257,6 +273,7 @@ M-\ delete-horizontal-space
 M-SPC just-one-space
 C-x C-o delete-blank-lines
 M-^ delete-indentation
+M-x delete-trailing-whitespace
 
 ** Indentation
 
@@ -320,6 +337,21 @@ M-x center-line
 M-x center-region
 M-x center-paragraph
 
+** Comments
+
+M-; comment-dwin
+C-x C-; comment-line
+C-u M-; comment-kill
+
+M-x comment-region
+M-x uncomment-region
+
+M-j indent-new-comment-line
+
+** Completion
+
+C-M-i completion-at-point
+
 ** Overwrite mode (Insert)
 
 M-x overwrite-mode
@@ -338,6 +370,10 @@ M-x capitalize-region
 ** Parentheses
 
 M-x check-parens
+
+** Hideshow
+
+See the manual.
 
 ** Highlighting
 
@@ -377,7 +413,6 @@ See the manual.
 
 
 * Files
-
 ** Diff and merging
 
 M-x diff
@@ -475,6 +510,11 @@ line. One option is to hit SPACE and then ENTER, which leaves a
 training space to the previous line. Solution: Insert new line with
 C-j.
 
+Alternatively, only use M-p, M-n, M-ENTER to navigate and select in
+completion list, as with the default completion built-in Emacs. This
+will also enable moving cursor up and down when the completion list is
+open.
+
 Collapsing functions, etc., similar to org-mode sections.
 
 Sometimes when the point is at the end of a line, the line shifts
@@ -524,3 +564,12 @@ Org mode manual.
 
 Tex mode vs auctex.
 
+Make M-; insert the comment after a single space, rather than a
+TAB-like distance.
+
+Which-key mode doesn't work with Ivy. Builtin feature for which-key?
+
+Disable electric layout mode for any buffer. Some modes, such as C and
+Verilog, enables this by default, which is very anoying.
+
+Hideshow mode vs selective display vs outline mode vs foldout package.
