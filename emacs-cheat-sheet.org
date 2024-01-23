@@ -102,6 +102,19 @@ M-s o occur
 
 M-g i imenu
 
+** Grep
+
+M-x grep
+M-x find-grep
+
+M-x lgrep
+M-x rgrep
+M-x zrgrep
+
+M-x kill-grep
+
+For grep buffer commands, see the manual.
+
 ** Ring navigation (go to and back)
 
 C-SPC C-SPC (push to mark ring)
@@ -437,6 +450,29 @@ M-n next-history-element
 ** Ivy
 
 M-r ivy-toggle-regexp-quote
+
+
+* Interractive programming
+** Compilation
+
+M-x compile
+M-x recompile
+M-x kill-compilation
+
+For compilation mode commands, see the manual.
+
+** Lisp execution
+
+M-x load-file
+M-x load-library
+
+** Flymake
+
+See the manual.
+
+** Running debuggers
+
+See the manual.
 
 
 * Miscellaneous 

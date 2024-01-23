@@ -217,7 +217,7 @@
 
 ** On-the-fly syntax check
 #+BEGIN_SRC emacs-lisp
-  ;; Using flyspell. It is built-in.
+  ;; Using flymake. It is built-in.
 
   ;; Use flake8 python package. Elpy uses it.
   ;; Flake8 configuration is at linux-configuration/flake8.
