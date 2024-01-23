@@ -253,14 +253,16 @@
 
 ** Projectile
 #+begin_src emacs-lisp
-  (use-package projectile
-    ;; don't defer
-    :config
-    (projectile-mode +1)
-    ;; Recommended keymap prefix on macOS
-    ;;(define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
-    ;; Recommended keymap prefix on Windows/Linux
-    (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
+  ;; Built-in project does the job.
+
+  ;; (use-package projectile
+  ;;   ;; don't defer
+  ;;   :config
+  ;;   (projectile-mode +1)
+  ;;   ;; Recommended keymap prefix on macOS
+  ;;   ;;(define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+  ;;   ;; Recommended keymap prefix on Windows/Linux
+  ;;   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 #+end_src
 ** Treemacs
 #+begin_src emacs-lisp
@@ -357,9 +359,9 @@
   ;;   :after (treemacs evil)
   ;;   :ensure t)
 
-  (use-package treemacs-projectile
-    :after (treemacs projectile)
-    :ensure t)
+  ;; (use-package treemacs-projectile
+  ;;   :after (treemacs projectile)
+  ;;   :ensure t)
 
   (use-package treemacs-icons-dired
     :hook (dired-mode . treemacs-icons-dired-enable-once)

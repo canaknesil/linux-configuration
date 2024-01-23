@@ -102,6 +102,12 @@ M-s o occur
 
 M-g i imenu
 
+C-x p g project-find-regexp
+
+M-x project-search
+
+M-x fileloop-continue
+
 ** Grep
 
 M-x grep
@@ -123,12 +129,37 @@ C-x C-SPC pop-global-mark
 
 M-g M-g goto-line
 
+M-. xref-find-definitions
+C-u M-. (xref-find-definitions with custom identifier)
+C-M-. xref-find-apropos
 C-x 4 . xref-find-definitions-other-window
 C-x 5 . xref-find-definitions-other-frame
+
+M-? xref-find-references
+C-u M-? (xref-find-references with custom identifier)
+
+r
+M-x xref-query-replace-in-results
+
+M-, xref-go-back
+C-M-, xref-go-forward
+
+For xref buffer commands, see the manual.
 
 ** Semantic mode
 
 See the manual.
+
+** Diff and merging
+
+M-x diff
+M-x ediff
+M-x diff-backup
+M-x diff-buffer-with-file
+M-x diff-buffers
+
+C-x v = vc-diff
+C-x v D vc-root-diff
 
 ** Files
 
@@ -139,6 +170,8 @@ C-x 4 f find-file-other-window
 C-x 4 r find-file-read-only-other-window
 C-x 5 f find-file-other-frame
 C-x 5 r find-file-read-only-other-frame
+
+C-x p f project-find-file
 
 C-x C-s save-buffer
 C-x C-w write-file
@@ -152,6 +185,10 @@ M-x auto-revert-mode
 M-x recover-file
 M-x recover-session
 
+** File name cache
+
+See the manual.
+
 ** Buffers
 
 C-x b switch-to-buffer
@@ -160,13 +197,27 @@ C-x 5 b switch-to-buffer-other-frame
 C-x LEFT previous-buffer
 C-x RIGHT next-buffer
 
+C-x p b project-switch-buffer
+
 C-x C-b list-buffers
+C-x p C-b project-list-buffers
+
 C-u C-x C-b (list only file visiting buffers)
 
 C-x C-q read-only-mode
 
 C-x k kill-buffer
 M-x kill-some-buffers
+C-x p k project-kill-buffers
+
+** Projcets
+
+C-x p p project-switch-project
+M-x project-forget-project
+
+** Emacs development environment
+
+See the manual.
 
 ** Windows
 
@@ -218,6 +269,10 @@ See the manual.
 
 See the manual.
 
+** Speedbar
+
+See the manual.
+
 ** Indirect buffers
 
 See the manual.
@@ -239,12 +294,8 @@ See the manual.
 
 See the manual.
 
-** Speedbar
 
-See the manual.
-
-
-* Basic editing
+* Editing
 ** Deletion, killing, and yanking
 
 BACKSPACE delete-backward-char
@@ -275,8 +326,6 @@ M-h mark-paragraph
 C-M-h mark-defun
 C-x h mark-whole-buffer
 
-
-* Smart editing
 ** Blank lines and whitespace
 
 C-o open-line
@@ -307,6 +356,10 @@ M-% query-replace
 
 M-x replace-regexp
 C-M-% query-replace-regexp
+
+C-x p r project-query-replace-regexp
+
+M-x xref-find-references-and-replace
 
 ** Smart insertion
 
@@ -408,6 +461,10 @@ See the manual.
 
 See the manual.
 
+** Merging
+
+M-x smerge-mode
+
 ** Pages
 
 See the manual.
@@ -421,25 +478,6 @@ See the manual.
 See the manual.
 
 ** Two-column editing
-
-See the manual.
-
-
-* Files
-** Diff and merging
-
-M-x diff
-M-x ediff
-M-x diff-backup
-M-x diff-buffer-with-file
-M-x diff-buffers
-
-C-x v = vc-diff
-C-x v D vc-root-diff
-
-M-x smerge-mode
-
-** File name cache
 
 See the manual.
 
@@ -461,6 +499,8 @@ M-r ivy-toggle-regexp-quote
 M-x compile
 M-x recompile
 M-x kill-compilation
+
+C-x p c project-compile
 
 For compilation mode commands, see the manual.
 
@@ -491,6 +531,7 @@ See the manual.
 ** Running debuggers
 
 See the manual.
+
 
 * Version control
 ** VC
