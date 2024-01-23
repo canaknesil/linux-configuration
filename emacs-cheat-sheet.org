@@ -434,6 +434,9 @@ M-x diff-backup
 M-x diff-buffer-with-file
 M-x diff-buffers
 
+C-x v = vc-diff
+C-x v D vc-root-diff
+
 M-x smerge-mode
 
 ** File name cache
@@ -466,11 +469,31 @@ For compilation mode commands, see the manual.
 M-x load-file
 M-x load-library
 
+M-: eval-expression
+C-x C-e eval-last-sexp
+C-M-x eval-defun
+M-x eval-region
+M-x eval-buffer
+
+M-x lisp-interaction-mode
+M-x scratch-buffer
+C-j eval-print-last-sexp
+
+M-x ielm
+
+M-x run-lisp
+M-x run-scheme
+
 ** Flymake
 
 See the manual.
 
 ** Running debuggers
+
+See the manual.
+
+* Version control
+** VC
 
 See the manual.
 
@@ -492,17 +515,13 @@ to bottom, otherwise it is very distracting and tiring.
 Push and pop location in a unified way. Return from xref definition,
 return from previous mark, etc.
 
-Better navigation between help buffers, forward and backward. It's not
-desired that a second help buffer opens in the other window.
+Better navigation between helpful buffers, forward and backward. It's
+not desired that a second help buffer opens in the other window. Help
+buffers don't have this problem.
 
-Goto help at point, like 'M-.'. And return, like 'M-,'. Bind
-helpful-at-point.
+Goto help at point, like 'M-.'. And return, like 'M-,'.
 
-Check help-* and helpful-* functions. help and helpful mode commands
-in manual.
-
-Run C-h m in Help and Helpful mode and check mode specific key
-bindings.
+Run C-h m in Help/Helpful buffer and check mode specific key bindings.
 
 Separate "selection" and "adding a location to mark ring". I don't
 want the mark to be saved every time text is selected.
@@ -513,9 +532,14 @@ rather than creating top.v.
 
 Save as another file with single command.
 
+write-file replaces the buffer with the buffer that visits the new
+file. Keep both buffers.
+
 Change tiling of windows from vertical to horizontal and vice versa.
 
 Swiper commands. swiper-thing-at-point
+
+Isearch forward and backward together.
 
 Avy.
 
@@ -527,17 +551,19 @@ Syntax of regular expressions.
 
 C-s for all project (like grep -r)
 
+Many commands opens a buffer in other window but not move to it, such
+as list-buffers. Moving to the newly opened buffer is often the
+desired behavior.
+
 Switch to *occur* buffer after creation.
+
+Documentation page Choosing a "Window for Displaying a Buffer":
+https://www.gnu.org/software/emacs/manual/html_node/elisp/Choosing-Window.html
 
 Quitting temporary windows, such as help, with q.
 
-write-file replaces the buffer with the buffer that visits the new
-file. Keep both buffers.
-
 ediff control panel opens as a new frame, rather than a secondary echo
 area/minibuffer.
-
-Make read-only buffer writable and vice versa.
 
 Easier way to cancel completion when tying. For example, I want to
 type "buffer" and press ENTER, the completion suggests "buffers". The
@@ -551,22 +577,12 @@ completion list, as with the default completion built-in Emacs. This
 will also enable moving cursor up and down when the completion list is
 open.
 
-Collapsing functions, etc., similar to org-mode sections.
-
 Sometimes when the point is at the end of a line, the line shifts
 right by one column (line number included). Prevent it. In org-mode.
 
 goto-line in another buffer.
 
-Many commands opens a buffer in other window but not move to it, such
-as list-buffers. Moving to the newly opened buffer is often the
-desired behavior.
-
 Set Emacs C source directory.
-
-Documentation page Choosing a "Window for Displaying a Buffer":
-
-https://www.gnu.org/software/emacs/manual/html_node/elisp/Choosing-Window.html
 
 undelete-frame-mode (version 29 or higher) to undelete recently
 deleted frames with C-x 5 u.
@@ -574,20 +590,16 @@ deleted frames with C-x 5 u.
 Desktop library to save and restore sessions.
 
 Some messages in echo area disappears after some seconds. Disable this
-so that I can take as much time as possible when reading it.
+(or extend the duration) so that I can take as much time as possible
+when reading it.
 
-Configure tab bars (similar to i3 workspaces) not to use the bar but
-be accessible via commands.
+Configure/learn tab bars (similar to i3 workspaces) not to use the bar
+but be accessible via commands.
 
 Non-agressive parenthesis insertion. For example, I don't want the
 closing paranthesis to be inserted after I type the openning
 paranthesis; but I want emacs to put closing paranthesis to the third
 line, put the point to the second line and indent.
-
-Double spaces ends an Emacs sentence, which I don't use. I use a dot
-followed by a single space. Make sentence commands recognize my
-sentences. But this would have a disadvantage because there would be
-no way to distinguish sentece endings and abreviations, etc.
 
 Text alighment left (default with M-q), center, and right. Solution
 for center: M-x center-{line,region,paragraph}.
@@ -606,6 +618,16 @@ TAB-like distance.
 Which-key mode doesn't work with Ivy. Builtin feature for which-key?
 
 Disable electric layout mode for any buffer. Some modes, such as C and
-Verilog, enables this by default, which is very anoying.
+Verilog, enables this by default, which is very annoying.
 
 Hideshow mode vs selective display vs outline mode vs foldout package.
+
+Built-in version control (VC) vs projectile.
+
+Built-in project commands vs projectile.
+
+diff-hl mode to highlight uncommited changes in the margin. Is there a
+built-in method?
+
+Treemacs vs built-in speedbar.
+
