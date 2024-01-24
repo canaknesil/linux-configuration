@@ -197,9 +197,21 @@ M-x auto-revert-mode
 M-x recover-file
 M-x recover-session
 
+** Find file at point (ffap)
+
+See the manual.
+
 ** File name cache
 
 See the manual.
+
+** Clickable links
+
+M-x goto-address-mode
+C-c ENTER goto-address-at-point
+
+M-x browse-url
+M-x browse-url-at-point
 
 ** Directories
 
@@ -668,6 +680,9 @@ For printing .org files, see the manual.
 
 For PostScript hardcopy, see the manual.
 
+** Web browsing
+
+See the manual.
 
 
 * TODO
