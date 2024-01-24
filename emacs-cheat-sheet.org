@@ -36,6 +36,11 @@ C-? undo-redo
 C-g
 ESC ESC ESC keyboard-quit
 
+** Quitting
+
+C-x C-c save-buffers-kill-terminal
+M-x kill-emacs
+
 
 * Navigation
 ** Basic motion
@@ -106,8 +111,6 @@ C-x p g project-find-regexp
 
 M-x project-search
 
-M-x fileloop-continue
-
 ** Grep
 
 M-x grep
@@ -145,6 +148,15 @@ M-, xref-go-back
 C-M-, xref-go-forward
 
 For xref buffer commands, see the manual.
+
+** Recursive editing
+
+C-M-c exit-recursive-edit
+C-] abort-recursive-edit
+
+M-x top-level
+
+M-x fileloop-continue
 
 ** Semantic mode
 
@@ -188,6 +200,19 @@ M-x recover-session
 ** File name cache
 
 See the manual.
+
+** Directories
+
+C-x C-d list-directory
+
+C-x d dired
+C-x 4 d dired-other-window
+C-x 5 d dired-other-frame
+C-x C-j dired-jump
+C-x 4 C-j dired-jump-other-window
+C-u ... (invoke dired with custom switches to ls)
+
+For dired buffer commands, see the manual.
 
 ** Buffers
 
@@ -261,6 +286,10 @@ C-x 5 5 other-frame-prefix
 M-F10 toggle-frame-maximized
 F11 toggle-frame-fullscreen
 
+** Saving Emacs sessions
+
+See the manual.
+
 ** Tab lines
 
 See the manual.
@@ -317,6 +346,11 @@ M-y yank-pop
 C-u C-y (yank and leave point at the beginning)
 C-u M-y (yank-pop and leave point at the beginning)
 
+** Overwrite mode (Insert)
+
+M-x overwrite-mode
+M-x binary-overwrite-mode
+
 ** Region (selection)
 
 C-SPC set-mark-command
@@ -360,11 +394,6 @@ C-M-% query-replace-regexp
 C-x p r project-query-replace-regexp
 
 M-x xref-find-references-and-replace
-
-** Smart insertion
-
-C-x r N rectangle-number-lines
-C-u C-x r N (rectangle-number-lines custom initial number and format string)
 
 ** Repetition, and keyboard macro
 
@@ -414,14 +443,18 @@ M-x uncomment-region
 
 M-j indent-new-comment-line
 
+** Smart insertion
+
+C-x r N rectangle-number-lines
+C-u C-x r N (rectangle-number-lines custom initial number and format string)
+
 ** Completion
 
 C-M-i completion-at-point
 
-** Overwrite mode (Insert)
+** Abbrevs
 
-M-x overwrite-mode
-M-x binary-overwrite-mode
+See the manual.
 
 ** Case conversion
 
@@ -433,6 +466,23 @@ C-x C-l downcase-region
 C-x C-u upcase-region
 M-x capitalize-region
 
+** Sorting text
+
+M-x sort-lines
+C-u M-x sort-lines (sort-lines in descending order)
+M-x sort-paragraphs
+M-x sort-fields
+C-u <n> M-x sort-fields (sort acc. to nth field)
+M-x sort-columns
+C-u M-x sort-columns (sort-columns in descending order)
+M-x sort-numeric-fields
+
+M-x reverse-region
+
+** Transposing text
+
+See the manual.
+
 ** Parentheses
 
 M-x check-parens
@@ -441,15 +491,19 @@ M-x check-parens
 
 See the manual.
 
+** Binary files
+
+M-x hexl-find-file
+M-x hexl-mode
+C-c C-c (in hexl mode, leave)
+
+For hexl mode commands, see the manual.
+
 ** Highlighting
 
 See the manual.
 
 ** Accumulating text
-
-See the manual.
-
-** Transposing text
 
 See the manual.
 
@@ -524,6 +578,29 @@ M-x ielm
 M-x run-lisp
 M-x run-scheme
 
+** Running shell commands
+
+M-! shell-command
+C-u M-! (insert output of shell-command to point)
+M-| shell-command-on-region
+M-& async-shell-command
+
+M-x shell
+
+For shell buffer commands, see the manual.
+
+M-x term
+C-c C-j term-line-mode
+C-c C-k term-char-mode
+
+C-c C-c (in term char mode, sends C-c to terminal)
+C-c <char> (in term char mode, acts as C-x <char>)
+C-c <key> (in term char mode, C-c is escape character for emacs commands)
+
+C-c C-q term-pager-toggle
+
+M-x serial-term
+
 ** Flymake
 
 See the manual.
@@ -539,12 +616,58 @@ See the manual.
 See the manual.
 
 
+* Organization
+** Calendar and diary
+
+M-x calendar
+C-u M-x calendar (invoke calendar with custom date)
+
+For calendar commands, see the manual.
+
+For diary, see the manual.
+
+** Sending and reading mail
+
+See the manual.
+
+** Reading and posting news
+
+See the manual.
+
+
 * Miscellaneous 
 
 ** Word count
 
 M-= count-words-region
 M-x count-words
+
+** Document viewing (PDF, OpenDocument, Microsoft Office, etc.)
+
+See the manual.
+
+** Emacs server
+
+M-x server-start
+
+C-x # server-edit
+M-x server-edit-abort
+
+M-x kill-emacs
+
+** Printing
+
+M-x print-buffer
+M-x lpr-buffer
+M-x print-region
+M-x lpr-region
+
+M-x htmlfontify-buffer
+
+For printing .org files, see the manual.
+
+For PostScript hardcopy, see the manual.
+
 
 
 * TODO
@@ -555,6 +678,9 @@ to bottom, otherwise it is very distracting and tiring.
 
 Push and pop location in a unified way. Return from xref definition,
 return from previous mark, etc.
+
+Built-in features as alternative to helpful features, such as list of
+references, source code, etc.
 
 Better navigation between helpful buffers, forward and backward. It's
 not desired that a second help buffer opens in the other window. Help
@@ -628,7 +754,9 @@ Set Emacs C source directory.
 undelete-frame-mode (version 29 or higher) to undelete recently
 deleted frames with C-x 5 u.
 
-Desktop library to save and restore sessions.
+Desktop library to save and restore sessions. I don't want automatic
+restoring at startup. I only want the option to call smt like
+restore-session in case I unintentionally quit Emacs, or kill frame.
 
 Some messages in echo area disappears after some seconds. Disable this
 (or extend the duration) so that I can take as much time as possible
@@ -672,3 +800,12 @@ built-in method?
 
 Treemacs vs built-in speedbar.
 
+Don't highlight spelling errors when mouse is on it.
+
+Update start-emacs according to emacsclient options in
+manual. --reuse-frame
+
+Built-in method for kill buffers when killing frame?
+
+Revise emacs.org to replace features provided via packages with
+built-in ones.
