@@ -590,6 +590,15 @@ M-x ielm
 M-x run-lisp
 M-x run-scheme
 
+** Variables
+
+M-x set-variable
+M-n (insert the old value when using set-variable)
+
+M-x make-local-variable
+M-x make-variable-buffer-local
+M-x kill-local-variable
+
 ** Running shell commands
 
 M-! shell-command
@@ -612,6 +621,24 @@ C-c <key> (in term char mode, C-c is escape character for emacs commands)
 C-c C-q term-pager-toggle
 
 M-x serial-term
+
+** Packages
+
+M-x list-packages
+
+For packages buffer commands, see the manual.
+
+M-x package-install
+M-x package-upgrade
+M-x package-upgrade-all
+
+M-x package-refresh-contents
+
+M-x package-import-keyring
+
+** Customize
+
+See the manual.
 
 ** Flymake
 
