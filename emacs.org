@@ -195,8 +195,9 @@
 
   (use-package swiper
     :defer
-    ;; :bind (("C-s" . 'swiper-isearch)
-    ;; 	 ("C-r" . 'swiper-isearch-backward))
+    :bind (("C-s" . 'swiper-isearch)
+	   ("C-r" . 'swiper-isearch-backward)
+	   ("M-s ." . 'swiper-isearch-thing-at-point))
     )
 
 

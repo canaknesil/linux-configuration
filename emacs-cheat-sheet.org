@@ -1,9 +1,7 @@
 #+TITLE: Emacs Cheat Sheet
 #+AUTHOR: Can Aknesil
 #+STARTUP: content
-#+OPTIONS: toc:nil
-
-Keep it simple and to the basics unless it's necessary.
+#+OPTIONS: toc:nil \n:t
 
 Made according to Emacs manual version 29.1.
 
@@ -17,6 +15,8 @@ C-h v describe-variable
 C-h o describe-symbol
 C-h P describe-package
 C-h m describe-mode
+C-h b describe-bindings
+C-h l view-lossage
 
 M-x eldoc-doc-buffer
 
@@ -35,6 +35,7 @@ C-? undo-redo
 
 C-g
 ESC ESC ESC keyboard-quit
+C-g C-g (emergency escape in case first C-g didn't respond)
 
 ** Quitting
 
@@ -281,6 +282,8 @@ C-x SHIFT-DOWN windmove-delete-down
 
 C-c LEFT winner-undo
 C-c RIGHT winner-redo
+
+M-x window-swap-states
 
 ** Frames
 
@@ -599,6 +602,47 @@ M-x make-local-variable
 M-x make-variable-buffer-local
 M-x kill-local-variable
 
+** Local variables per file/directory/connection
+
+See the manual.
+
+** Key bindings
+
+M-x keymap-global-set
+M-x keymap-global-unset
+M-x keymap-local-set
+M-x keymap-local-unset
+
+In Init file, use keymap-global-set and keymap-set.
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-z") 'shell)
+
+  (add-hook 'texinfo-mode-hook
+	    (lambda ()
+	      (keymap-set texinfo-mode-map "C-c p" 'backward-paragraph)))
+#+END_SRC
+
+C-<key> (Control-<key>)
+C-x c <key>
+
+M-<key> (Meta-<key>)
+C-x m <key>
+
+S-<key> (Shift-<key>)
+C-x S <key>
+
+H-<key> (Hyper-<key>)
+C-x @ h <key>
+
+s-<key> (Super-<key>)
+C-x @ s <key>
+
+A-<key> (Alt-<key>)
+C-x @ a <key>
+
+For disabling a command, see the manual.
+
 ** Running shell commands
 
 M-! shell-command
@@ -635,6 +679,8 @@ M-x package-upgrade-all
 M-x package-refresh-contents
 
 M-x package-import-keyring
+
+For use-package, see the manual.
 
 ** Customize
 
@@ -721,58 +767,9 @@ to bottom, otherwise it is very distracting and tiring.
 Push and pop location in a unified way. Return from xref definition,
 return from previous mark, etc.
 
-Built-in features as alternative to helpful features, such as list of
-references, source code, etc.
-
-Better navigation between helpful buffers, forward and backward. It's
-not desired that a second help buffer opens in the other window. Help
-buffers don't have this problem.
-
-Goto help at point, like 'M-.'. And return, like 'M-,'.
-
-Run C-h m in Help/Helpful buffer and check mode specific key bindings.
-
-Separate "selection" and "adding a location to mark ring". I don't
-want the mark to be saved every time text is selected.
-
 Stop Ivy matching when necessary. For example, there is an existing
 file design-top.v, typing C-x C-f top.v ENTER opens design-top.v
 rather than creating top.v.
-
-Save as another file with single command.
-
-write-file replaces the buffer with the buffer that visits the new
-file. Keep both buffers.
-
-Change tiling of windows from vertical to horizontal and vice versa.
-
-Swiper commands. swiper-thing-at-point
-
-Isearch forward and backward together.
-
-Avy.
-
-highlight-regexp and unhighlight-regexp
-
-Emacs pull request scroll-margin > 0 together with follow-mode.
-
-Syntax of regular expressions.
-
-C-s for all project (like grep -r)
-
-Many commands opens a buffer in other window but not move to it, such
-as list-buffers. Moving to the newly opened buffer is often the
-desired behavior.
-
-Switch to *occur* buffer after creation.
-
-Documentation page Choosing a "Window for Displaying a Buffer":
-https://www.gnu.org/software/emacs/manual/html_node/elisp/Choosing-Window.html
-
-Quitting temporary windows, such as help, with q.
-
-ediff control panel opens as a new frame, rather than a secondary echo
-area/minibuffer.
 
 Easier way to cancel completion when tying. For example, I want to
 type "buffer" and press ENTER, the completion suggests "buffers". The
@@ -785,6 +782,34 @@ Alternatively, only use M-p, M-n, M-ENTER to navigate and select in
 completion list, as with the default completion built-in Emacs. This
 will also enable moving cursor up and down when the completion list is
 open.
+
+Save as another file with single command.
+
+write-file replaces the buffer with the buffer that visits the new
+file. Keep both buffers.
+
+Change tiling of windows from vertical to horizontal and vice
+versa. Try: transpose-frame package
+
+Avy.
+
+highlight-regexp and unhighlight-regexp
+
+Emacs pull request scroll-margin > 0 together with follow-mode.
+
+Syntax of regular expressions.
+
+Many commands opens a buffer in other window but not move to it, such
+as list-buffers. Moving to the newly opened buffer is often the
+desired behavior.
+
+Switch to *occur* buffer after creation.
+
+Documentation page Choosing a "Window for Displaying a Buffer":
+https://www.gnu.org/software/emacs/manual/html_node/elisp/Choosing-Window.html
+
+ediff control panel opens as a new frame, rather than a secondary echo
+area/minibuffer.
 
 Sometimes when the point is at the end of a line, the line shifts
 right by one column (line number included). Prevent it. In org-mode.
@@ -815,7 +840,7 @@ line, put the point to the second line and indent.
 Text alighment left (default with M-q), center, and right. Solution
 for center: M-x center-{line,region,paragraph}.
 
-Company vs builting completion.
+Company vs builtin completion.
 
 Outline mode vs org mode.
 
@@ -851,3 +876,31 @@ Built-in method for kill buffers when killing frame?
 
 Revise emacs.org to replace features provided via packages with
 built-in ones.
+
+Re-define custom key bindings in form C-c <char>. This is reserved for
+users and Emacs won't overwrite it in the future releases.
+
+setq vs setq-default in init file. Check each modified variable
+weather they are global or buffer local.
+
+Parent-child mode tree.
+
+
+* DONE
+
+Built-in features as alternative to helpful features, such as list of
+references, source code, etc. Solution: Clicking the source file
+brings you there. Use M-? xref-find-references to find references once
+in the source file.
+
+Goto help at point, like 'M-.'. And return, like 'M-,'. Solution: When
+help commands are invoked, the default entry is usually the thing at
+point.
+
+Isearch forward and backward together. Solution: swiper, or go to
+beginning of buffer and search from there. Afterwords return with C-u
+C-SPACE.
+
+Key sequence to string to be used in keymap(-global)-set. Solution:
+C-h c
+
