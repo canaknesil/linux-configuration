@@ -851,8 +851,6 @@ Tex mode vs auctex.
 Make M-; insert the comment after a single space, rather than a
 TAB-like distance.
 
-Which-key mode doesn't work with Ivy. Builtin feature for which-key?
-
 Disable electric layout mode for any buffer. Some modes, such as C and
 Verilog, enables this by default, which is very annoying.
 
@@ -884,6 +882,8 @@ setq vs setq-default in init file. Check each modified variable
 weather they are global or buffer local.
 
 Parent-child mode tree.
+
+Is dumb-jump necessary?
 
 
 * DONE

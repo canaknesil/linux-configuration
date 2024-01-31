@@ -111,17 +111,17 @@
 #+BEGIN_SRC emacs-lisp
   (use-package company
     :defer
+    :hook
+    (after-init . global-company-mode)
     :config
-    (setq company-idle-delay 0)
-    :init
-    (add-hook 'after-init-hook #'global-company-mode))
+    (setq company-idle-delay 0))
 #+END_SRC
 
 ** Rainbow delimiters
 #+begin_src emacs-lisp
   (use-package rainbow-delimiters
-    :init
-    (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+    :hook
+    (prog-mode rainbow-delimiters-mode))
 #+end_src
 
 ** TODO Smartparens
@@ -151,8 +151,7 @@
   ;; helpful is not good at window choice to display *helpful* buffers.
 
   (use-package helpful
-    ;; don't defer
-    :config
+    :defer
     ;;(global-set-key (kbd "C-h f") #'helpful-callable)
     ;;(global-set-key (kbd "C-h v") #'helpful-variable)
     ;;(global-set-key (kbd "C-h k") #'helpful-key)
@@ -216,6 +215,13 @@
   ;; 	 ("C-c V" . 'ivy-pop-view)))
 #+END_SRC
 
+** Show keybindings with M-x
+#+begin_src emacs-lisp
+  (use-package amx
+    ;; don't defer
+    :config
+    (amx-mode 1))
+#+end_src
 ** On-the-fly syntax check
 #+BEGIN_SRC emacs-lisp
   ;; Using flymake. It is built-in.
@@ -234,17 +240,32 @@
   ;; Using pylint for Python syntax checking.
   ;; Configuration is in ~/.pylintrc
 #+END_SRC
+** Avy
+#+BEGIN_SRC emacs-lisp
+  (use-package avy
+    ;; don't defer
+    :config
+    (avy-setup-default) ;; binds avy-isearch
+    :bind
+    (("C-:" . avy-goto-char)
+     ("C-'" . avy-goto-char-2)
+     ("M-g f" . avy-goto-line)
+     ("M-g w" . avy-goto-word-1)))   
+#+END_SRC
 
 ** Dumb Jump (jump to definition)
 #+BEGIN_SRC emacs-lisp
   (use-package dumb-jump
     :defer
+    :commands dumb-jump-xref-activate
     :init
     (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
 #+END_SRC
 
-** Restart emacs from within
+** TODO Restart emacs from within
 #+BEGIN_SRC emacs-lisp
+  ;; Test this feature with Emacs server.
+
   (use-package restart-emacs
     :defer
     :config
@@ -409,16 +430,19 @@
     :defer)
 #+END_SRC
 
-** LaTeX
+** TODO LaTeX
 #+BEGIN_SRC emacs-lisp
-  (use-package auctex ; latex support for company
-    :defer t ; This line is needed (for some reason)
-    :config
-    (setq TeX-auto-save t)
-    (setq TeX-parse-self t)
-    (setq-default TeX-master nil))
-  (use-package auctex-latexmk
-    :defer) ;; latexmk support for auctex
+  ;; Make it work.
+
+  ;; (use-package auctex ; latex support for company
+  ;;   ;;:defer ;; This line is needed (for some reason)
+  ;;   :config
+  ;;   (setq TeX-auto-save t)
+  ;;   (setq TeX-parse-self t)
+  ;;   (setq-default TeX-master nil))
+
+  ;; (use-package auctex-latexmk
+  ;;   :defer) ;; latexmk support for auctex
 #+END_SRC
 
 ** Org Mode
@@ -451,8 +475,6 @@
 #+BEGIN_SRC emacs-lisp
   (use-package elpy
     :defer
-    :init
-    ;;(elpy-enable)
     :config
     (elpy-enable)
     ;; Fall back to completion via shell.
