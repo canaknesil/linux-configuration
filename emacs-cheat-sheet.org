@@ -181,6 +181,8 @@ M-x diff-buffers
 C-x v = vc-diff
 C-x v D vc-root-diff
 
+M-x smerge-mode
+
 ** Files
 
 C-x C-f find-file
@@ -889,6 +891,10 @@ weather they are global or buffer local.
 Parent-child mode tree.
 
 Is dumb-jump necessary?
+
+When selecting an identifier, also highlight others.
+
+Open files read-only with emacs-start.
 
 
 * DONE
