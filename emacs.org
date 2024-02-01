@@ -114,14 +114,29 @@
     :hook
     (after-init . global-company-mode)
     :config
-    (setq company-idle-delay 0))
+    (setq company-idle-delay 0)
+
+    ;; Custom key bindings
+    ;; Assuming C-g is always bound to company-abort.
+    (keymap-set company-active-map "C-n" "C-g C-n")
+    (keymap-set company-active-map "M-n" #'company-select-next)
+    (keymap-set company-active-map "C-p" "C-g C-p")
+    (keymap-set company-active-map "M-p" #'company-select-previous)
+    (keymap-set company-active-map "RET" "C-g <return>")
+    (keymap-set company-active-map "<return>" "C-g <return>")
+    (keymap-set company-active-map "M-RET" #'company-complete-selection)
+    (keymap-set company-active-map "M-<return>" #'company-complete-selection)
+    )
 #+END_SRC
 
-** Rainbow delimiters
+** TODO Rainbow delimiters
 #+begin_src emacs-lisp
-  (use-package rainbow-delimiters
-    :hook
-    (prog-mode rainbow-delimiters-mode))
+  ;; Loading this packages causes the following error:
+  ;; Lisp nesting exceeds ‘max-lisp-eval-depth’
+
+  ;; (use-package rainbow-delimiters
+  ;;   :hook
+  ;;   (prog-mode rainbow-delimiters-mode))
 #+end_src
 
 ** TODO Smartparens

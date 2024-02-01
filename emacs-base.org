@@ -331,6 +331,21 @@ Example .emacs file:
   (setq auto-save-no-message t)
 #+END_SRC
 
+** TODO Save as (write-file and keep old buffer)
+#+BEGIN_SRC emacs-lisp
+  ;; Details need to be thought. E.g., what happens with an existing
+  ;; file as the new file.
+
+  ;; (defun can/write-file-new-buffer (filename)
+  ;;   (interactive "FWrite file with new buffer: ")
+  ;;   (let ((old-name (buffer-file-name)))
+  ;;     (if old-name
+  ;; 	(progn
+  ;; 	  (find-file filename)
+  ;; 	  (insert-file old-name))
+  ;;       (message "Buffer is not visiting any file."))))
+#+END_SRC
+
 ** Move to, delete, or swap with another window directionally with windmove
 #+BEGIN_SRC emacs-lisp
   ;; default key bindings are SHIFT-{left, right, up, down}.

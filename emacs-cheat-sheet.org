@@ -569,7 +569,7 @@ M-n next-history-element
 ** Ivy
 
 M-r ivy-toggle-regexp-quote
-
+C-M-j ivy-immediate-done
 
 * Interractive programming
 ** Compilation
@@ -769,33 +769,15 @@ See the manual.
 
 * TODO
 
-A better way to scroll/find/go to a location outside the
-window. Scrolling is only useful when I want to skim/scan a file top
-to bottom, otherwise it is very distracting and tiring.
-
 Push and pop location in a unified way. Return from xref definition,
 return from previous mark, etc.
 
-Stop Ivy matching when necessary. For example, there is an existing
-file design-top.v, typing C-x C-f top.v ENTER opens design-top.v
-rather than creating top.v.
+Completion pop-up location sometimes cover the text I read. If aborted
+with C-g, it still pops up after restarting typing.
 
-Easier way to cancel completion when tying. For example, I want to
-type "buffer" and press ENTER, the completion suggests "buffers". The
-ENTER selects the undesired suggestion rather than opening a new
-line. One option is to hit SPACE and then ENTER, which leaves a
-training space to the previous line. Solution: Insert new line with
-C-j.
-
-Alternatively, only use M-p, M-n, M-ENTER to navigate and select in
-completion list, as with the default completion built-in Emacs. This
-will also enable moving cursor up and down when the completion list is
-open.
-
-Save as another file with single command.
-
-write-file replaces the buffer with the buffer that visits the new
-file. Keep both buffers.
+Save as another file with single command. write-file reuses the
+current buffer. Have another command that keeps the old buffer. For
+now use file-file followed by insert-file.
 
 Change tiling of windows from vertical to horizontal and vice
 versa. Try: transpose-frame package
@@ -896,8 +878,18 @@ When selecting an identifier, also highlight others.
 
 Open files read-only with emacs-start.
 
+Are auto-compile and prefer new necessary?
+
+Page forward/backward etc. It is useful to navigate in the help buffer
+created via C-h m.
+
 
 * DONE
+
+A better way to scroll/find/go to a location outside the
+window. Scrolling is only useful when I want to skim/scan a file top
+to bottom, otherwise it is very distracting and tiring. Solution:
+forward and backward search.
 
 Built-in features as alternative to helpful features, such as list of
 references, source code, etc. Solution: Clicking the source file
@@ -914,4 +906,15 @@ C-SPACE.
 
 Key sequence to string to be used in keymap(-global)-set. Solution:
 C-h c
+
+Stop Ivy matching when necessary. For example, there is an existing
+file design-top.v, typing C-x C-f top.v ENTER opens design-top.v
+rather than creating top.v. Solution: C-M-j
+
+Easier way to cancel completion when tying. For example, I want to
+type "buffer" and press ENTER, the completion suggests "buffers". The
+ENTER selects the undesired suggestion rather than opening a new
+line. One option is to hit SPACE and then ENTER, which leaves a
+training space to the previous line. Solution: using M-p, M-n, M-RET
+in company buffer.
 
