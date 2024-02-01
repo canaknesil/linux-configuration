@@ -294,6 +294,15 @@ C-c RIGHT winner-redo
 
 M-x window-swap-states
 
+** Transform frame (package)
+
+M-x transpose-frame
+M-x flip-frame
+M-x flop-frame
+M-x rotate-frame
+M-x rotate-frame-clockwise
+M-x rotate-frame-anticlockwise
+
 ** Frames
 
 C-x 5 2 make-frame-command
@@ -775,13 +784,6 @@ return from previous mark, etc.
 Completion pop-up location sometimes cover the text I read. If aborted
 with C-g, it still pops up after restarting typing.
 
-Save as another file with single command. write-file reuses the
-current buffer. Have another command that keeps the old buffer. For
-now use file-file followed by insert-file.
-
-Change tiling of windows from vertical to horizontal and vice
-versa. Try: transpose-frame package
-
 highlight-regexp and unhighlight-regexp
 
 Emacs pull request scroll-margin > 0 together with follow-mode.
@@ -802,10 +804,6 @@ area/minibuffer.
 
 Sometimes when the point is at the end of a line, the line shifts
 right by one column (line number included). Prevent it. In org-mode.
-
-goto-line in another buffer.
-
-Set Emacs C source directory.
 
 undelete-frame-mode (version 29 or higher) to undelete recently
 deleted frames with C-x 5 u.
@@ -829,10 +827,6 @@ line, put the point to the second line and indent.
 Text alighment left (default with M-q), center, and right. Solution
 for center: M-x center-{line,region,paragraph}.
 
-Company vs builtin completion.
-
-Outline mode vs org mode.
-
 Org mode manual.
 
 Tex mode vs auctex.
@@ -845,27 +839,16 @@ Verilog, enables this by default, which is very annoying.
 
 Hideshow mode vs selective display vs outline mode vs foldout package.
 
-Built-in version control (VC) vs projectile.
+Treemacs vs built-in speedbar. 
 
-Built-in project commands vs projectile.
-
-diff-hl mode to highlight uncommited changes in the margin. Is there a
-built-in method?
-
-Treemacs vs built-in speedbar.
-
-Don't highlight spelling errors when mouse is on it.
+Don't highlight spelling errors when mouse is on it. Try: change face
+or mouse hover to a less visible one.
 
 Update start-emacs according to emacsclient options in
 manual. --reuse-frame
 
-Built-in method for kill buffers when killing frame?
-
 Revise emacs.org to replace features provided via packages with
 built-in ones.
-
-Re-define custom key bindings in form C-c <char>. This is reserved for
-users and Emacs won't overwrite it in the future releases.
 
 setq vs setq-default in init file. Check each modified variable
 weather they are global or buffer local.
@@ -917,4 +900,15 @@ ENTER selects the undesired suggestion rather than opening a new
 line. One option is to hit SPACE and then ENTER, which leaves a
 training space to the previous line. Solution: using M-p, M-n, M-RET
 in company buffer.
+
+Save as another file with single command. write-file reuses the
+current buffer. Not an important improvement. Either do
+mark-whole-buffer followed by find-file and yand. Or find-file and
+than insert-file.
+
+Change tiling of windows from vertical to horizontal and vice
+versa. Solution: transpose-frame package
+
+goto-line in another buffer. Buffer and number should be entered
+anyway. Use compile buffers if necessary.
 

@@ -3,6 +3,9 @@
 #+STARTUP: content
 #+OPTIONS: toc:nil
 
+The configuration in emacs-base.org and emacs.org works with Emacs
+version 29.1.
+
 Emacs configuration is divided into two files:
 
 emacs-base.org : Configuration that does not depend on additional
@@ -175,8 +178,13 @@ Example .emacs file:
 ** Line wrap for text buffers
 #+BEGIN_SRC emacs-lisp
   ;;(add-hook 'text-mode-hook 'turn-on-auto-fill)
+
+  (defun turn-on-visual-line-mode ()
+    (visual-line-mode 1))
+
   (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
   (add-hook 'prog-mode-hook 'turn-on-visual-line-mode)
+  (add-hook 'org-mode-hook 'turn-on-visual-line-mode)
 #+END_SRC
 
 ** Show matching parenthesis
@@ -223,7 +231,8 @@ Example .emacs file:
 
 ** On the fly spell check
 #+BEGIN_SRC emacs-lisp
-  ;; Requires an external spell checker, e.g. GNU Aspell.
+  ;; Requires an external spell checker, e.g. aspell.
+  ;; Also requires a dictionary, e.g. aspell-en.
 
   ;; On the fly spell check for text 
   (dolist (hook '(text-mode-hook))

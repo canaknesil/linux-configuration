@@ -78,57 +78,11 @@
   ;;   (customize-set-variable 'highlight-indent-guides-method 'character))
 #+END_SRC
 
-** TODO Golden ratio windows
-#+begin_src emacs-lisp
-  ;; (use-package golden-ratio
-  ;;   ;; don't defer
-  ;;   :config
-  ;;   (golden-ratio-mode 1))
-
-  ;; Not working with treemacs !!!
-#+end_src
-
-** TODO Highlight uncommitted changes
-#+BEGIN_SRC emacs-lisp
-  ;; Highigh uncommitted changes on the fringe
-  (use-package diff-hl
-    ;; don't defer
-    :config
-    (global-diff-hl-mode))
-
-  ;; Fringe does not work on terminal.
-  ;; display-graphic-p returns always nil when started as daemon.
-  ;; Find a way to enable fringe mode for X, even using as daemon,
-  ;; while still using margin mode with terminal.
-#+END_SRC
-
 ** TODO Scroll animation
 #+BEGIN_SRC emacs-lisp
   ;; (load "~/Documents/repos/scroll-animation.el/scroll-animation.el")
 #+END_SRC
   
-** Company completion (core only)
-#+BEGIN_SRC emacs-lisp
-  (use-package company
-    :defer
-    :hook
-    (after-init . global-company-mode)
-    :config
-    (setq company-idle-delay 0)
-
-    ;; Custom key bindings
-    ;; Assuming C-g is always bound to company-abort.
-    (keymap-set company-active-map "C-n" "C-g C-n")
-    (keymap-set company-active-map "M-n" #'company-select-next)
-    (keymap-set company-active-map "C-p" "C-g C-p")
-    (keymap-set company-active-map "M-p" #'company-select-previous)
-    (keymap-set company-active-map "RET" "C-g <return>")
-    (keymap-set company-active-map "<return>" "C-g <return>")
-    (keymap-set company-active-map "M-RET" #'company-complete-selection)
-    (keymap-set company-active-map "M-<return>" #'company-complete-selection)
-    )
-#+END_SRC
-
 ** TODO Rainbow delimiters
 #+begin_src emacs-lisp
   ;; Loading this packages causes the following error:
@@ -152,90 +106,6 @@
   ;;   (setq sp-highlight-pair-overlay nil)
   ;;   (setq sp-highlight-wrap-overlay nil)
   ;;   (setq sp-highlight-wrap-tag-overlay nil))
-#+end_src
-** Which-key (display possible keys while typing a command)
-#+BEGIN_SRC emacs-lisp
-  (use-package which-key
-    ;; don't defer
-    :config
-    (which-key-mode))
-#+END_SRC
-
-** Helpful (better help buffers)
-#+BEGIN_SRC emacs-lisp
-  ;; helpful is not good at window choice to display *helpful* buffers.
-
-  (use-package helpful
-    :defer
-    ;;(global-set-key (kbd "C-h f") #'helpful-callable)
-    ;;(global-set-key (kbd "C-h v") #'helpful-variable)
-    ;;(global-set-key (kbd "C-h k") #'helpful-key)
-    )
-#+END_SRC
-
-** Minibuffer completion
-#+BEGIN_SRC emacs-lisp
-  ;; Builtin alternatives are icomplete mode and fido mode.
-  ;;(icomplete-mode 1)
-  ;;(icomplete-vertical-mode 1)
-
-
-  ;; Ivy: a generic completion mechanism for Emacs.
-  ;; Replaces completing-read-function with ivy-completing-read.
-
-  (use-package ivy
-    ;; don't defer
-    :config
-    (ivy-mode 1)
-    ;; Recommended config for new users
-    (setq ivy-use-virtual-buffers t)
-    (setq ivy-count-format "(%d/%d) ")
-    ;; Additional config from me
-    (setq ivy-height 20)
-    (setq ivy-fixed-height-minibuffer t)
-    (setq ivy-re-builders-alist
-	  '((t . ivy--regex-ignore-order))) ; ignore order of space separated words.
-    )
-
-
-  ;; Swiper: an Ivy-enhanced alternative to Isearch.
-
-  ;; Disadvantage: Not interoperable with other search commands. For
-  ;; example, query-replace or occur can be run from isearch minibuffer,
-  ;; while not from swiper.
-
-  ;; Disadvantage: Doesn't support all isearch features, such as isearch
-  ;; word and symbol search.
-
-  (use-package swiper
-    :defer
-    :bind (("C-s" . 'swiper-isearch)
-	   ("C-r" . 'swiper-isearch-backward)
-	   ("M-s ." . 'swiper-isearch-thing-at-point))
-    )
-
-
-  ;; Counsel: a collection of Ivy-enhanced versions of common Emacs
-  ;; commands.
-
-  ;; Ivy alone seems enough.
-
-  ;; (use-package counsel
-  ;;   :defer
-  ;;   :bind (("M-x" . 'counsel-M-x)
-  ;; 	 ("C-x C-f" . 'counsel-find-file)
-  ;; 	 ("M-y" . 'counsel-yank-pop)
-  ;; 	 ("C-x b" . 'ivy-switch-buffer)
-  ;; 	 ("C-c v" . 'ivy-push-view)
-  ;; 	 ("C-c V" . 'ivy-pop-view)))
-#+END_SRC
-
-** Show keybindings with M-x
-#+begin_src emacs-lisp
-  (use-package amx
-    ;; don't defer
-    :config
-    (amx-mode 1))
 #+end_src
 ** On-the-fly syntax check
 #+BEGIN_SRC emacs-lisp
@@ -268,6 +138,65 @@
      ("M-g w" . avy-goto-word-1)))   
 #+END_SRC
 
+** Move text
+#+begin_src emacs-lisp
+  (use-package move-text
+    ;; don't defer
+    :config
+    (move-text-default-bindings))
+#+end_src
+** TODO Highlight uncommitted changes
+#+BEGIN_SRC emacs-lisp
+  ;; Highigh uncommitted changes on the fringe
+  (use-package diff-hl
+    ;; don't defer
+    :config
+    (global-diff-hl-mode))
+
+  ;; Fringe does not work on terminal.
+  ;; display-graphic-p returns always nil when started as daemon.
+  ;; Find a way to enable fringe mode for X, even using as daemon,
+  ;; while still using margin mode with terminal.
+#+END_SRC
+
+** Company completion (core only)
+#+BEGIN_SRC emacs-lisp
+  (use-package company
+    :defer
+    :hook
+    (after-init . global-company-mode)
+    :config
+    (setq company-idle-delay 0)
+
+    ;; Custom key bindings
+    ;; Assuming C-g is always bound to company-abort.
+    (keymap-set company-active-map "C-n" "C-g C-n")
+    (keymap-set company-active-map "M-n" #'company-select-next)
+    (keymap-set company-active-map "C-p" "C-g C-p")
+    (keymap-set company-active-map "M-p" #'company-select-previous)
+    (keymap-set company-active-map "RET" "C-g <return>")
+    (keymap-set company-active-map "<return>" "C-g <return>")
+    (keymap-set company-active-map "M-RET" #'company-complete-selection)
+    (keymap-set company-active-map "M-<return>" #'company-complete-selection)
+    )
+#+END_SRC
+
+** TODO Golden ratio windows
+#+begin_src emacs-lisp
+  ;; (use-package golden-ratio
+  ;;   ;; don't defer
+  ;;   :config
+  ;;   (golden-ratio-mode 1))
+
+  ;; Not working with treemacs !!!
+#+end_src
+
+** Transpose frame
+#+begin_src emacs-lisp
+  (use-package transpose-frame
+    :defer)
+#+end_src
+
 ** Dumb Jump (jump to definition)
 #+BEGIN_SRC emacs-lisp
   (use-package dumb-jump
@@ -275,17 +204,6 @@
     :commands dumb-jump-xref-activate
     :init
     (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
-#+END_SRC
-
-** TODO Restart emacs from within
-#+BEGIN_SRC emacs-lisp
-  ;; Test this feature with Emacs server.
-
-  (use-package restart-emacs
-    :defer
-    :config
-    (setq restart-emacs-restore-frames t)
-    )
 #+END_SRC
 
 ** Projectile
@@ -418,13 +336,101 @@
   ;;   :ensure t
   ;;   :config (treemacs-set-scope-type 'Tabs))
 #+end_src
-** Move text
-#+begin_src emacs-lisp
-  (use-package move-text
+** Minibuffer completion
+#+BEGIN_SRC emacs-lisp
+  ;; Builtin alternatives are icomplete mode and fido mode.
+  ;;(icomplete-mode 1)
+  ;;(icomplete-vertical-mode 1)
+
+
+  ;; Ivy: a generic completion mechanism for Emacs.
+  ;; Replaces completing-read-function with ivy-completing-read.
+
+  (use-package ivy
     ;; don't defer
     :config
-    (move-text-default-bindings))
+    (ivy-mode 1)
+    ;; Recommended config for new users
+    (setq ivy-use-virtual-buffers t)
+    (setq ivy-count-format "(%d/%d) ")
+    ;; Additional config from me
+    (setq ivy-height 20)
+    (setq ivy-fixed-height-minibuffer t)
+    (setq ivy-re-builders-alist
+	  '((t . ivy--regex-ignore-order))) ; ignore order of space separated words.
+    )
+
+
+  ;; Swiper: an Ivy-enhanced alternative to Isearch.
+
+  ;; Disadvantage: Not interoperable with other search commands. For
+  ;; example, query-replace or occur can be run from isearch minibuffer,
+  ;; while not from swiper.
+
+  ;; Disadvantage: Doesn't support all isearch features, such as isearch
+  ;; word and symbol search.
+
+  (use-package swiper
+    :defer
+    :bind (("C-s" . 'swiper-isearch)
+	   ("C-r" . 'swiper-isearch-backward)
+	   ("M-s ." . 'swiper-isearch-thing-at-point))
+    )
+
+
+  ;; Counsel: a collection of Ivy-enhanced versions of common Emacs
+  ;; commands.
+
+  ;; Ivy alone seems enough.
+
+  ;; (use-package counsel
+  ;;   :defer
+  ;;   :bind (("M-x" . 'counsel-M-x)
+  ;; 	 ("C-x C-f" . 'counsel-find-file)
+  ;; 	 ("M-y" . 'counsel-yank-pop)
+  ;; 	 ("C-x b" . 'ivy-switch-buffer)
+  ;; 	 ("C-c v" . 'ivy-push-view)
+  ;; 	 ("C-c V" . 'ivy-pop-view)))
+#+END_SRC
+
+** Which-key (display possible keys while typing a command)
+#+BEGIN_SRC emacs-lisp
+  (use-package which-key
+    ;; don't defer
+    :config
+    (which-key-mode))
+#+END_SRC
+
+** Helpful (better help buffers)
+#+BEGIN_SRC emacs-lisp
+  ;; helpful is not good at window choice to display *helpful* buffers.
+
+  (use-package helpful
+    :defer
+    ;;(global-set-key (kbd "C-h f") #'helpful-callable)
+    ;;(global-set-key (kbd "C-h v") #'helpful-variable)
+    ;;(global-set-key (kbd "C-h k") #'helpful-key)
+    )
+#+END_SRC
+
+** Show keybindings with M-x
+#+begin_src emacs-lisp
+  (use-package amx
+    ;; don't defer
+    :config
+    (amx-mode 1))
 #+end_src
+** TODO Restart emacs from within
+#+BEGIN_SRC emacs-lisp
+  ;; Test this feature with Emacs server.
+
+  (use-package restart-emacs
+    :defer
+    :config
+    (setq restart-emacs-restore-frames t)
+    )
+#+END_SRC
+
 ** ESUP - Emacs Start Up Profiler
 #+BEGIN_SRC emacs-lisp
   (use-package esup
