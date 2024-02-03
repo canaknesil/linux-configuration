@@ -778,9 +778,6 @@ See the manual.
 
 * TODO
 
-Push and pop location in a unified way. Return from xref definition,
-return from previous mark, etc.
-
 Completion pop-up location sometimes cover the text I read. If aborted
 with C-g, it still pops up after restarting typing.
 
@@ -788,7 +785,7 @@ highlight-regexp and unhighlight-regexp
 
 Emacs pull request scroll-margin > 0 together with follow-mode.
 
-Syntax of regular expressions.
+Define scroll margin as ration.
 
 Many commands opens a buffer in other window but not move to it, such
 as list-buffers. Moving to the newly opened buffer is often the

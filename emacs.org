@@ -420,17 +420,6 @@
     :config
     (amx-mode 1))
 #+end_src
-** TODO Restart emacs from within
-#+BEGIN_SRC emacs-lisp
-  ;; Test this feature with Emacs server.
-
-  (use-package restart-emacs
-    :defer
-    :config
-    (setq restart-emacs-restore-frames t)
-    )
-#+END_SRC
-
 ** ESUP - Emacs Start Up Profiler
 #+BEGIN_SRC emacs-lisp
   (use-package esup
