@@ -863,6 +863,13 @@ Are auto-compile and prefer new necessary?
 Page forward/backward etc. It is useful to navigate in the help buffer
 created via C-h m.
 
+Reverse fill-paragraph and fit the whole paragraph into one big line.
+
+Visual line mode with virtual right boundary, rather than the right
+edge of the window.
+
+Change current file name.
+
 
 * DONE
 
