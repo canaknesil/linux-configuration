@@ -40,7 +40,7 @@ C-g C-g (emergency escape in case first C-g didn't respond)
 ** Quitting
 
 C-x C-c save-buffers-kill-terminal
-M-x kill-emacs
+M-x save-buffers-kill-emacs
 
 
 * Navigation
