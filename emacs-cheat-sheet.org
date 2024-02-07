@@ -459,6 +459,8 @@ M-q fill-paragraph
 M-x fill-region
 M-x fill-region-as-paragraph
 
+M-Q unfill-paragraph (defined in emacs-base.org)
+
 C-x . set-fill-prefix
 
 M-x center-line
@@ -862,6 +864,11 @@ Are auto-compile and prefer new necessary?
 
 Page forward/backward etc. It is useful to navigate in the help buffer
 created via C-h m.
+
+Visual line mode with virtual right boundary, rather than the right
+edge of the window.
+
+Change current file name.
 
 
 * DONE
