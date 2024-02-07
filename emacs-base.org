@@ -464,6 +464,9 @@ Example .emacs file:
 ** Preserve point location when scrolling
 #+BEGIN_SRC emacs-lisp
   (setq scroll-preserve-screen-position 1)
+
+  ;; This doesn't preserve point location within window when pixel
+  ;; scrolling, which is the desired behavior.
 #+END_SRC
 
 ** Scroll margin
@@ -478,11 +481,28 @@ Example .emacs file:
   ;; Disadvantage: Clicking to the lines at margin triggers
   ;; autoscrolling, which is distracting.
 
-  ;;(setq scroll-margin 2)
+  ;; Compromising by setting scroll margin to a very small value.
+  (setq scroll-margin 1)
 
 
-  ;; Only cpeficying margin for C-l.
-  (setq recenter-positions '(middle 3 -3))
+  ;; Speficy margin for C-l.
+  (setq recenter-positions '(middle 2 -2))
+#+END_SRC
+
+** Pixel scrolling
+#+BEGIN_SRC emacs-lisp
+  (pixel-scroll-precision-mode 1)
+#+END_SRC
+
+** Ediff in a single frame
+#+BEGIN_SRC emacs-lisp
+  (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+#+END_SRC
+
+** Comment column
+#+BEGIN_SRC emacs-lisp
+  ;; Make M-; put the comment one space after the current lines text.
+  (setq comment-column 0)
 #+END_SRC
 
 

@@ -536,7 +536,16 @@ For hexl mode commands, see the manual.
 
 ** Highlighting
 
-See the manual.
+M-x highlight-changes-mode
+
+M-s h r highlight-regexp
+M-s h p highlight-phrase
+M-s h . highlight-symbol-at-point
+M-s h u unhighlight-regexp
+M-s h l highlight-lines-matching-regexp
+
+M-s h w hi-lock-write-interactive-patterns
+M-s h f hi-lock-find-patterns
 
 ** Accumulating text
 
@@ -783,23 +792,18 @@ See the manual.
 Completion pop-up location sometimes cover the text I read. If aborted
 with C-g, it still pops up after restarting typing.
 
-highlight-regexp and unhighlight-regexp
+scroll-margin > 0 together with follow-mode.
 
-Emacs pull request scroll-margin > 0 together with follow-mode.
-
-Define scroll margin as ration.
+Company tooltip scroll margin greater than 0.
 
 Many commands opens a buffer in other window but not move to it, such
 as list-buffers. Moving to the newly opened buffer is often the
 desired behavior.
 
-Switch to *occur* buffer after creation.
+Switch to occur buffer after creation.
 
 Documentation page Choosing a "Window for Displaying a Buffer":
 https://www.gnu.org/software/emacs/manual/html_node/elisp/Choosing-Window.html
-
-ediff control panel opens as a new frame, rather than a secondary echo
-area/minibuffer.
 
 Sometimes when the point is at the end of a line, the line shifts
 right by one column (line number included). Prevent it. In org-mode.
@@ -823,15 +827,9 @@ closing paranthesis to be inserted after I type the openning
 paranthesis; but I want emacs to put closing paranthesis to the third
 line, put the point to the second line and indent.
 
-Text alighment left (default with M-q), center, and right. Solution
-for center: M-x center-{line,region,paragraph}.
-
 Org mode manual.
 
 Tex mode vs auctex.
-
-Make M-; insert the comment after a single space, rather than a
-TAB-like distance.
 
 Disable electric layout mode for any buffer. Some modes, such as C and
 Verilog, enables this by default, which is very annoying.
@@ -869,6 +867,8 @@ Visual line mode with virtual right boundary, rather than the right
 edge of the window.
 
 Change current file name.
+
+Bad face when hovering on higlighed text.
 
 
 * DONE
