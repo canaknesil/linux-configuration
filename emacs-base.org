@@ -354,9 +354,18 @@ Example .emacs file:
   ;;(global-set-key (kbd "C-x j") 'kill-buffer-and-delete-window)
 #+END_SRC
 
-#+RESULTS:
-: kill-buffer-and-delete-window
+** Tab bar (workspaces)
+#+BEGIN_SRC emacs-lisp
+  (setq tab-bar-show nil)
 
+  ;; Documentation is insufficient for tab-bar-tab-hints.
+  ;;(setq tab-bar-tab-hints 1)
+
+  ;; tab-bar-history-mode provides same functionality as
+  ;; winner-mode. Even the key bindings are the same. Using winner-mode.
+
+  ;;(tab-bar-history-mode 1)
+#+END_SRC
 
 * Frames
 ** Start as maximized window

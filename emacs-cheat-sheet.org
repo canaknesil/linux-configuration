@@ -331,13 +331,27 @@ M-x desktop-read
 M-x desktop-revert
 M-x desktop-change-dir
 
-** Tab lines
+** Tab lines (tabs)
 
 See the manual.
 
-** Tab bars
+** Tab bars (workspaces)
 
-See the manual.
+C-x t 2 tab-new
+C-x t b switch-to-buffer-other-tab
+C-x t f find-file-other-tab
+C-x t t other-tab-prefix
+
+C-x t 0 tab-close
+C-x t 1 tab-close-other
+C-x t u tab-undo
+
+C-x t o 
+C-TAB tab-next
+C-SHIFT-TAB tab-previous
+
+C-x t RET tab-switch
+M-x tab-switcher
 
 ** Speedbar
 
@@ -817,17 +831,13 @@ Desktop library to save and restore sessions. I don't want automatic
 restoring at startup. I only want the option to call smt like
 restore-session in case I unintentionally quit Emacs, or kill frame.
 
-Configure/learn tab bars (similar to i3 workspaces) not to use the bar
-but be accessible via commands.
 
 Non-agressive parenthesis insertion. For example, I don't want the
 closing paranthesis to be inserted after I type the openning
 paranthesis; but I want emacs to put closing paranthesis to the third
 line, put the point to the second line and indent.
 
-Org mode manual.
-
-Tex mode vs auctex.
+M-( insert-parenthesis and similar commands.
 
 Disable electric layout mode for any buffer. Some modes, such as C and
 Verilog, enables this by default, which is very annoying.
@@ -867,3 +877,8 @@ edge of the window.
 Change current file name.
 
 Bad face when hovering on higlighed text.
+
+Org mode manual.
+
+Tex mode vs auctex.
+
