@@ -37,12 +37,30 @@ Example .emacs file:
 #+END_SRC
 
 
-* Appearance
-** Start as maximized window
+* Initial configuration
+** Home directory on Windows
 #+BEGIN_SRC emacs-lisp
-  (add-to-list 'default-frame-alist '(fullscreen . maximized))
+  ;; On Windows, if HOME environment variable is not defined, it is
+  ;; automatically set to the user-specific application data directory,
+  ;; where .emacs is expected to be. The actual location depends on the
+  ;; Windows version. This can be overwritten by defining HOME
+  ;; environment variable.
+
+  ;; On Windows, the default directory at Emacs start-up depends on from
+  ;; where it is started. find-file starts from the default
+  ;; firectory. Changing it to the home directory.
+
+  (when (eq system-type 'windows-nt)
+    ;; In case HOME is not defined, save the old value and redefine it
+    ;; to the correct location.
+    (setenv "EMACS_HOME" (getenv "Home"))
+    (setenv "Home" (getenv "UserProfile"))
+    ;; Set the default-directory to home.
+    (setq default-directory "~/"))
 #+END_SRC
 
+
+* Editing
 ** Line numbers
 #+begin_src emacs-lisp
   (if (version<= "26.0.50" emacs-version)
@@ -140,31 +158,6 @@ Example .emacs file:
   ;; (configure-font "Cascadia Code-10")
 #+END_SRC
 
-** Hide tool bar
-#+BEGIN_SRC emacs-lisp
-  (tool-bar-mode -1)
-#+END_SRC
-
-** Hide menu bar
-#+BEGIN_SRC emacs-lisp
-  (menu-bar-mode 0)
-#+END_SRC
-
-** Hide Scroll bar 
-#+BEGIN_SRC emacs-lisp
-  ;; Wrong way:
-  ;; because display-graphic-p returns always nil when started as daemon.
-  ;; (when (display-graphic-p) 
-  ;;   (scroll-bar-mode -1))
-
-  ;; scroll-bar-mode is void when opened in terminal mode. 
-  (when (boundp 'scroll-bar-mode)
-    (scroll-bar-mode -1))
-
-  ;; Hide minibuffer scroll bar
-  (set-window-scroll-bars (minibuffer-window) nil nil)
-#+END_SRC
-
 ** TODO Highlight indentation
 #+begin_src emacs-lisp
   ;; This is not good, only counts spaces.
@@ -209,33 +202,6 @@ Example .emacs file:
   (setq show-paren-delay 0.0)
 #+END_SRC
 
-
-* Functionality
-** Home directory on Windows
-#+BEGIN_SRC emacs-lisp
-  ;; On Windows, if HOME environment variable is not defined, it is
-  ;; automatically set to the user-specific application data directory,
-  ;; where .emacs is expected to be. The actual location depends on the
-  ;; Windows version. This can be overwritten by defining HOME
-  ;; environment variable.
-
-  ;; On Windows, the default directory at Emacs start-up depends on from
-  ;; where it is started. find-file starts from the default
-  ;; firectory. Changing it to the home directory.
-
-  (when (eq system-type 'windows-nt)
-    ;; In case HOME is not defined, save the old value and redefine it
-    ;; to the correct location.
-    (setenv "EMACS_HOME" (getenv "Home"))
-    (setenv "Home" (getenv "UserProfile"))
-    ;; Set the default-directory to home.
-    (setq default-directory "~/"))
-#+END_SRC
-** Do not open startup GNU Emacs buffer
-#+BEGIN_SRC emacs-lisp
-  (setq inhibit-startup-screen t)
-#+END_SRC
-
 ** Disable beeping
 #+begin_src emacs-lisp
   ;; Visible bell instead of sound.
@@ -266,111 +232,72 @@ Example .emacs file:
   ;; Opposite of subword-mode is superword-mode.
 #+END_SRC
 
-** Confirm closing
+** Enable mouse in terminal
 #+BEGIN_SRC emacs-lisp
-  (setq confirm-kill-emacs 'y-or-n-p)
+  (xterm-mouse-mode t)
 #+END_SRC
 
-** Delete local buffers when deleting frames
+** Delete selection when inserting text
 #+BEGIN_SRC emacs-lisp
-  (defvar server-clients)
-
-  (defun can/delete-buffers-local-to-frame (frame)
-    "Delete buffers that were exclusively seen by frame."
-    (when (>= (seq-length (frame-list)) 2)
-      (let* (;; buffers seen by the frame, except minibuffers,
-	     ;; *Messages*, *scrath*.
-	     (frame-buffers
-	      (seq-filter (lambda (b)
-			    (and (not (minibufferp b))
-				 (not (string= (buffer-name b) "*Messages*"))
-				 (not (string= (buffer-name b) "*scratch*"))))
-			  (frame-parameter frame 'buffer-list)))
-
-	     ;; buffers opened through the client arguments
-	     ;; Client buffers are automatically killed and client is
-	     ;; notified at frame deletion.
-	     (client-buffers
-	      (let ((proc (frame-parameter frame 'client)))
-		(if (and proc (memq proc server-clients))
-		    (process-get proc 'buffers)
-		  nil)))
-
-	     ;; buffers seen exclusively by other frames
-	     (other-frames-buffers
-	      (cl-reduce #'append
-			 (mapcar (lambda (f)
-				   (frame-parameter f 'buffer-list))
-				 (seq-filter (lambda (f) (not (eq f frame)))
-					     (frame-list)))))
-
-	     ;; buffers that won't be deleted
-	     (non-local-buffers (append client-buffers other-frames-buffers))
-
-	     ;; buffers that will be deleted
-	     (buffers-to-be-deleted
-	      (seq-filter (lambda (x) (not (memq x non-local-buffers)))
-			  frame-buffers)))
-
-	(can/delete-buffers buffers-to-be-deleted))))
-
-
-  (defun can/delete-buffers (buffers-to-be-deleted)
-    "Delete buffers in buffers-to-be-deleted. Save beforehand if
-  necessary. Prompt when saving."
-    (save-some-buffers nil
-		       (lambda ()
-			 (and (buffer-file-name) ;; file visiting buffer
-			      (memq (current-buffer) buffers-to-be-deleted))))
-
-    (let ((killed-buffer-names
-	   (seq-filter #'identity
-		       (mapcar (lambda (b)
-				 (let ((name (buffer-name b))
-				       (res (kill-buffer b)))
-				   (if res name nil)))
-			       buffers-to-be-deleted))))
-
-      (message "Killed buffers `%s'." killed-buffer-names)
-      killed-buffer-names))
-
-
-  (defun can/delete-frame ()
-    (interactive)
-    (if (>= (seq-length (frame-list)) 2)
-	(delete-frame)
-      (save-buffers-kill-terminal)))
-
-
-  (add-hook 'delete-frame-functions #'can/delete-buffers-local-to-frame)
-  (global-set-key (kbd "C-x C-c") 'can/delete-frame)
+  (delete-selection-mode 1)
 #+END_SRC
 
-** All backups to a specific directory
+** Preserve point location when scrolling
 #+BEGIN_SRC emacs-lisp
-  (setq backup-directory-alist `(("." . "~/emacs-tmp")))
+  (setq scroll-preserve-screen-position 1)
+
+  ;; This doesn't preserve point location within window when pixel
+  ;; scrolling, which is the desired behavior.
 #+END_SRC
 
-** Auto-save no message
+** Scroll margin
 #+BEGIN_SRC emacs-lisp
-  (setq auto-save-no-message t)
+  ;; Leave a number of lines on top or bottom when using C-l.  Also the
+  ;; automatic scrolling is triggered when the point is this much close
+  ;; to the top or the bottom.
+
+  ;; Disadvantage: This prevents the point to move from one window to
+  ;; other in follow-mode.
+
+  ;; Disadvantage: Clicking to the lines at margin triggers
+  ;; autoscrolling, which is distracting.
+
+  ;; Compromising by setting scroll margin to a very small value.
+  (setq scroll-margin 1)
+
+
+  ;; Speficy margin for C-l.
+  (setq recenter-positions '(middle 2 -2))
 #+END_SRC
 
-** TODO Save as (write-file and keep old buffer)
+** Pixel scrolling
 #+BEGIN_SRC emacs-lisp
-  ;; Details need to be thought. E.g., what happens with an existing
-  ;; file as the new file.
-
-  ;; (defun can/write-file-new-buffer (filename)
-  ;;   (interactive "FWrite file with new buffer: ")
-  ;;   (let ((old-name (buffer-file-name)))
-  ;;     (if old-name
-  ;; 	(progn
-  ;; 	  (find-file filename)
-  ;; 	  (insert-file old-name))
-  ;;       (message "Buffer is not visiting any file."))))
+  (pixel-scroll-precision-mode 1)
 #+END_SRC
 
+** Comment column
+#+BEGIN_SRC emacs-lisp
+  ;; Make M-; put the comment one space after the current lines text.
+  (setq comment-column 0)
+#+END_SRC
+
+** Hide Scroll bar 
+#+BEGIN_SRC emacs-lisp
+  ;; Wrong way:
+  ;; because display-graphic-p returns always nil when started as daemon.
+  ;; (when (display-graphic-p) 
+  ;;   (scroll-bar-mode -1))
+
+  ;; scroll-bar-mode is void when opened in terminal mode. 
+  (when (boundp 'scroll-bar-mode)
+    (scroll-bar-mode -1))
+
+  ;; Hide minibuffer scroll bar
+  (set-window-scroll-bars (minibuffer-window) nil nil)
+#+END_SRC
+
+
+* Windows
 ** Move to, delete, or swap with another window directionally with windmove
 #+BEGIN_SRC emacs-lisp
   ;; default key bindings are SHIFT-{left, right, up, down}.
@@ -430,9 +357,148 @@ Example .emacs file:
 #+RESULTS:
 : kill-buffer-and-delete-window
 
-** Enable mouse in terminal
+
+* Frames
+** Start as maximized window
 #+BEGIN_SRC emacs-lisp
-  (xterm-mouse-mode t)
+  (add-to-list 'default-frame-alist '(fullscreen . maximized))
+#+END_SRC
+
+** Hide tool bar
+#+BEGIN_SRC emacs-lisp
+  (tool-bar-mode -1)
+#+END_SRC
+
+** Hide menu bar
+#+BEGIN_SRC emacs-lisp
+  (menu-bar-mode 0)
+#+END_SRC
+
+** Undelete frame
+#+BEGIN_SRC emacs-lisp
+  (undelete-frame-mode 1)
+#+END_SRC
+
+** TODO Delete local buffers when deleting frames
+#+BEGIN_SRC emacs-lisp
+  (defvar server-clients)
+
+  (defun can/delete-buffers-local-to-frame (frame)
+    "Delete buffers that were exclusively seen by frame."
+    (when (>= (seq-length (frame-list)) 2)
+      (let* (;; buffers seen by the frame, except minibuffers,
+	     ;; *Messages*, *scrath*.
+	     (frame-buffers
+	      (seq-filter (lambda (b)
+			    (and (not (minibufferp b))
+				 (not (string= (buffer-name b) "*Messages*"))
+				 (not (string= (buffer-name b) "*scratch*"))))
+			  (frame-parameter frame 'buffer-list)))
+
+	     ;; buffers opened through the client arguments
+	     ;; Client buffers are automatically killed and client is
+	     ;; notified at frame deletion.
+	     (client-buffers
+	      (let ((proc (frame-parameter frame 'client)))
+		(if (and proc (memq proc server-clients))
+		    (process-get proc 'buffers)
+		  nil)))
+
+	     ;; buffers seen exclusively by other frames
+	     (other-frames-buffers
+	      (cl-reduce #'append
+			 (mapcar (lambda (f)
+				   (frame-parameter f 'buffer-list))
+				 (seq-filter (lambda (f) (not (eq f frame)))
+					     (frame-list)))))
+
+	     ;; buffers that won't be deleted
+	     (non-local-buffers (append client-buffers other-frames-buffers))
+
+	     ;; buffers that will be deleted
+	     (buffers-to-be-deleted
+	      (seq-filter (lambda (x) (not (memq x non-local-buffers)))
+			  frame-buffers)))
+
+	(can/delete-buffers buffers-to-be-deleted))))
+
+
+  (defun can/delete-buffers (buffers-to-be-deleted)
+    "Delete buffers in buffers-to-be-deleted. Save beforehand if
+   necessary. Prompt when saving."
+    (save-some-buffers nil
+		       (lambda ()
+			 (and (buffer-file-name) ;; file visiting buffer
+			      (memq (current-buffer) buffers-to-be-deleted))))
+
+    (let ((killed-buffer-names
+	   (seq-filter #'identity
+		       (mapcar (lambda (b)
+				 (let ((name (buffer-name b))
+				       (res (kill-buffer b)))
+				   (if res name nil)))
+			       buffers-to-be-deleted))))
+
+      (message "Killed buffers `%s'." killed-buffer-names)
+      killed-buffer-names))
+
+
+  (defun can/delete-frame ()
+    "Delete frame. If there is only one frame, exit Emacs."
+    (interactive)
+    (if (>= (seq-length (frame-list)) 2)
+	(delete-frame)
+      (save-buffers-kill-terminal)))
+
+
+  ;; Disagvantage: undelete-frame doesn't recreate deleted buffers.
+
+  ;;(add-hook 'delete-frame-functions #'can/delete-buffers-local-to-frame)
+  (global-set-key (kbd "C-x C-c") 'can/delete-frame)
+#+END_SRC
+
+** Ediff in a single frame
+#+BEGIN_SRC emacs-lisp
+  (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+#+END_SRC
+
+** TODO Saving sessions
+#+BEGIN_SRC emacs-lisp
+  ;; Using built-in desktop library
+
+  ;; Configure auto-saving desktops with auto-restoring, so that Emacs
+  ;; doesn't start with the previous sessions configuration but the
+  ;; previous session can be restores if desired.
+
+  ;;(desktop-save-mode 1)
+  ;;(setq desktop-restore-frames nil)
+#+END_SRC
+
+
+* Files
+** TODO Save as (write-file and keep old buffer)
+#+BEGIN_SRC emacs-lisp
+  ;; Details need to be thought. E.g., what happens with an existing
+  ;; file as the new file.
+
+  ;; (defun can/write-file-new-buffer (filename)
+  ;;   (interactive "FWrite file with new buffer: ")
+  ;;   (let ((old-name (buffer-file-name)))
+  ;;     (if old-name
+  ;; 	(progn
+  ;; 	  (find-file filename)
+  ;; 	  (insert-file old-name))
+  ;;       (message "Buffer is not visiting any file."))))
+#+END_SRC
+
+** All backups to a specific directory
+#+BEGIN_SRC emacs-lisp
+  (setq backup-directory-alist `(("." . "~/emacs-tmp")))
+#+END_SRC
+
+** Auto-save no message
+#+BEGIN_SRC emacs-lisp
+  (setq auto-save-no-message t)
 #+END_SRC
 
 ** Recent files
@@ -456,53 +522,16 @@ Example .emacs file:
   ;; (recentf-cleanup)
 #+END_SRC
 
-** Delete selection when inserting text
+
+* Miscellaneous
+** Do not open startup GNU Emacs buffer
 #+BEGIN_SRC emacs-lisp
-  (delete-selection-mode 1)
+  (setq inhibit-startup-screen t)
 #+END_SRC
 
-** Preserve point location when scrolling
+** Confirm closing
 #+BEGIN_SRC emacs-lisp
-  (setq scroll-preserve-screen-position 1)
-
-  ;; This doesn't preserve point location within window when pixel
-  ;; scrolling, which is the desired behavior.
-#+END_SRC
-
-** Scroll margin
-#+BEGIN_SRC emacs-lisp
-  ;; Leave a number of lines on top or bottom when using C-l.  Also the
-  ;; automatic scrolling is triggered when the point is this much close
-  ;; to the top or the bottom.
-
-  ;; Disadvantage: This prevents the point to move from one window to
-  ;; other in follow-mode.
-
-  ;; Disadvantage: Clicking to the lines at margin triggers
-  ;; autoscrolling, which is distracting.
-
-  ;; Compromising by setting scroll margin to a very small value.
-  (setq scroll-margin 1)
-
-
-  ;; Speficy margin for C-l.
-  (setq recenter-positions '(middle 2 -2))
-#+END_SRC
-
-** Pixel scrolling
-#+BEGIN_SRC emacs-lisp
-  (pixel-scroll-precision-mode 1)
-#+END_SRC
-
-** Ediff in a single frame
-#+BEGIN_SRC emacs-lisp
-  (setq ediff-window-setup-function 'ediff-setup-windows-plain)
-#+END_SRC
-
-** Comment column
-#+BEGIN_SRC emacs-lisp
-  ;; Make M-; put the comment one space after the current lines text.
-  (setq comment-column 0)
+  (setq confirm-kill-emacs 'y-or-n-p)
 #+END_SRC
 
 

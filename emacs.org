@@ -53,7 +53,7 @@
 #+END_SRC
 
 
-* Appearance & Functionality
+* Editing
 ** Highlight current line
 #+BEGIN_SRC emacs-lisp
   ;; hl-line.el is not loaded unless it is invoked (see. autoloading),
@@ -181,6 +181,8 @@
     )
 #+END_SRC
 
+
+* Windows
 ** TODO Golden ratio windows
 #+begin_src emacs-lisp
   ;; (use-package golden-ratio
@@ -197,6 +199,8 @@
     :defer)
 #+end_src
 
+
+* Project
 ** Dumb Jump (jump to definition)
 #+BEGIN_SRC emacs-lisp
   (use-package dumb-jump
@@ -336,6 +340,9 @@
   ;;   :ensure t
   ;;   :config (treemacs-set-scope-type 'Tabs))
 #+end_src
+
+
+* Minibuffer
 ** Minibuffer completion
 #+BEGIN_SRC emacs-lisp
   ;; Builtin alternatives are icomplete mode and fido mode.
@@ -401,6 +408,16 @@
     (which-key-mode))
 #+END_SRC
 
+** Show keybindings with M-x
+#+begin_src emacs-lisp
+  (use-package amx
+    ;; don't defer
+    :config
+    (amx-mode 1))
+#+end_src
+
+
+* Miscellaneous
 ** Helpful (better help buffers)
 #+BEGIN_SRC emacs-lisp
   ;; helpful is not good at window choice to display *helpful* buffers.
@@ -413,13 +430,6 @@
     )
 #+END_SRC
 
-** Show keybindings with M-x
-#+begin_src emacs-lisp
-  (use-package amx
-    ;; don't defer
-    :config
-    (amx-mode 1))
-#+end_src
 ** ESUP - Emacs Start Up Profiler
 #+BEGIN_SRC emacs-lisp
   (use-package esup

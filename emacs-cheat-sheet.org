@@ -42,6 +42,8 @@ C-g C-g (emergency escape in case first C-g didn't respond)
 C-x C-c save-buffers-kill-terminal
 M-x save-buffers-kill-emacs
 
+M-x desktop-clear
+
 
 * Navigation
 ** Basic motion
@@ -319,9 +321,15 @@ C-x 5 5 other-frame-prefix
 M-F10 toggle-frame-maximized
 F11 toggle-frame-fullscreen
 
-** Saving Emacs sessions
+** Saving Emacs frames and sessions
 
-See the manual.
+C-x 5 u undelete-frame
+
+M-x desktop-save-mode
+M-x desktop-save
+M-x desktop-read
+M-x desktop-revert
+M-x desktop-change-dir
 
 ** Tab lines
 
@@ -789,9 +797,6 @@ See the manual.
 
 * TODO
 
-Completion pop-up location sometimes cover the text I read. If aborted
-with C-g, it still pops up after restarting typing.
-
 scroll-margin > 0 together with follow-mode.
 
 Company tooltip scroll margin greater than 0.
@@ -808,16 +813,9 @@ https://www.gnu.org/software/emacs/manual/html_node/elisp/Choosing-Window.html
 Sometimes when the point is at the end of a line, the line shifts
 right by one column (line number included). Prevent it. In org-mode.
 
-undelete-frame-mode (version 29 or higher) to undelete recently
-deleted frames with C-x 5 u.
-
 Desktop library to save and restore sessions. I don't want automatic
 restoring at startup. I only want the option to call smt like
 restore-session in case I unintentionally quit Emacs, or kill frame.
-
-Some messages in echo area disappears after some seconds. Disable this
-(or extend the duration) so that I can take as much time as possible
-when reading it.
 
 Configure/learn tab bars (similar to i3 workspaces) not to use the bar
 but be accessible via commands.
@@ -869,50 +867,3 @@ edge of the window.
 Change current file name.
 
 Bad face when hovering on higlighed text.
-
-
-* DONE
-
-A better way to scroll/find/go to a location outside the
-window. Scrolling is only useful when I want to skim/scan a file top
-to bottom, otherwise it is very distracting and tiring. Solution:
-forward and backward search.
-
-Built-in features as alternative to helpful features, such as list of
-references, source code, etc. Solution: Clicking the source file
-brings you there. Use M-? xref-find-references to find references once
-in the source file.
-
-Goto help at point, like 'M-.'. And return, like 'M-,'. Solution: When
-help commands are invoked, the default entry is usually the thing at
-point.
-
-Isearch forward and backward together. Solution: swiper, or go to
-beginning of buffer and search from there. Afterwords return with C-u
-C-SPACE.
-
-Key sequence to string to be used in keymap(-global)-set. Solution:
-C-h c
-
-Stop Ivy matching when necessary. For example, there is an existing
-file design-top.v, typing C-x C-f top.v ENTER opens design-top.v
-rather than creating top.v. Solution: C-M-j
-
-Easier way to cancel completion when tying. For example, I want to
-type "buffer" and press ENTER, the completion suggests "buffers". The
-ENTER selects the undesired suggestion rather than opening a new
-line. One option is to hit SPACE and then ENTER, which leaves a
-training space to the previous line. Solution: using M-p, M-n, M-RET
-in company buffer.
-
-Save as another file with single command. write-file reuses the
-current buffer. Not an important improvement. Either do
-mark-whole-buffer followed by find-file and yand. Or find-file and
-than insert-file.
-
-Change tiling of windows from vertical to horizontal and vice
-versa. Solution: transpose-frame package
-
-goto-line in another buffer. Buffer and number should be entered
-anyway. Use compile buffers if necessary.
-
