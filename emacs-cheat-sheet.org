@@ -542,7 +542,10 @@ See the manual.
 
 ** Parentheses
 
+M-x electric-pair-mode
+
 M-x check-parens
+M-( insert-parentheses
 
 ** Hideshow
 
@@ -831,23 +834,16 @@ Desktop library to save and restore sessions. I don't want automatic
 restoring at startup. I only want the option to call smt like
 restore-session in case I unintentionally quit Emacs, or kill frame.
 
+Programming language specific behavior after hitting return after an
+opening parenthesis, e.g. in C, put semicolon after the closing
+parenthesis in function definitions. Maybe with Yasnippet?
 
-Non-agressive parenthesis insertion. For example, I don't want the
-closing paranthesis to be inserted after I type the openning
-paranthesis; but I want emacs to put closing paranthesis to the third
-line, put the point to the second line and indent.
-
-M-( insert-parenthesis and similar commands.
-
-Disable electric layout mode for any buffer. Some modes, such as C and
-Verilog, enables this by default, which is very annoying.
 
 Hideshow mode vs selective display vs outline mode vs foldout package.
 
-Treemacs vs built-in speedbar. 
+Treemacs vs built-in speedbar.
 
-Don't highlight spelling errors when mouse is on it. Try: change face
-or mouse hover to a less visible one.
+imenu with speedbar.
 
 Update start-emacs according to emacsclient options in
 manual. --reuse-frame
@@ -874,7 +870,7 @@ created via C-h m.
 Visual line mode with virtual right boundary, rather than the right
 edge of the window.
 
-Change current file name.
+Kill buffer, rename file, open renamed file in one command.
 
 Bad face when hovering on higlighed text.
 

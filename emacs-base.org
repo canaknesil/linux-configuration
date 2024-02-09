@@ -16,9 +16,15 @@ emacs.org : Remaining of the configuration that depends on additional
 packages. Should be used in addition to emacs-base.org for full
 configuration.
 
-* Usage of emacs-base.org and emacs.org
+* Emacs compilation and setup
+
 On Windows, Gpg4win must be installed and accessible. Emacs does not
 work correctly with GnuPG installed via MSYS2.
+
+When compiling Emacs, put the source directory somewhere permanent and
+don't delete afterwards. During compilation, Emacs sets
+source-directory variable to this directory. This way Emacs can find
+source code without any additional configuration.
 
 First, start Emacs with emacs-base.org only. Run M-x
 package-refresh-contents. And exit.
@@ -32,8 +38,7 @@ Example .emacs file:
   ;;(org-babel-load-file "~/Programs/linux-configuration/emacs-base.org")
   ;;(org-babel-load-file "~/Programs/linux-configuration/emacs.org")
 
-  ;;(configure-font "Cascadia Code")
-  ;;(configure-font-size 110)
+  ;;(configure-font "Cascadia Code-10")
 #+END_SRC
 
 
@@ -168,6 +173,12 @@ Example .emacs file:
   ;; Find a good package.
 #+end_src
 
+** TODO Don't highlight clickable text when mouse is over it
+#+begin_src emacs-lisp
+  ;; This also disables the "hand" mouse shape, which is not desired.
+  ;;(setq mouse-highlight nil)
+#+end_src
+
 ** Line wrap for text buffers
 #+BEGIN_SRC emacs-lisp
   ;;(add-hook 'text-mode-hook 'turn-on-auto-fill)
@@ -200,6 +211,11 @@ Example .emacs file:
 #+BEGIN_SRC emacs-lisp
   (show-paren-mode t)
   (setq show-paren-delay 0.0)
+#+END_SRC
+
+** Matching parentheses
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'prog-mode-hook (lambda () (electric-pair-local-mode 1)))
 #+END_SRC
 
 ** Disable beeping
@@ -366,6 +382,7 @@ Example .emacs file:
 
   ;;(tab-bar-history-mode 1)
 #+END_SRC
+
 
 * Frames
 ** Start as maximized window

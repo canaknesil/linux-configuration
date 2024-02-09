@@ -93,11 +93,9 @@
   ;;   (prog-mode rainbow-delimiters-mode))
 #+end_src
 
-** TODO Smartparens
+** Smartparens
 #+begin_src emacs-lisp
-  ;; Built-in electric pair mode is too agressive.
-
-  ;; smartparens package is also too agressive.
+  ;; Built-in electric pair mode is similar.
 
   ;; (use-package smartparens
   ;;   :config
