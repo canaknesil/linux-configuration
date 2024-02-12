@@ -547,9 +547,14 @@ M-x electric-pair-mode
 M-x check-parens
 M-( insert-parentheses
 
-** Hideshow
+** Code folding
 
-See the manual.
+Hideshow mode: code folding
+Selective display: folding according to indentation
+foldout package: folding together with narrowing
+
+C-u <n> C-x $ set-selective-display
+C-x $ set-selective-display
 
 ** Binary files
 
@@ -615,6 +620,7 @@ M-n next-history-element
 
 M-r ivy-toggle-regexp-quote
 C-M-j ivy-immediate-done
+
 
 * Interractive programming
 ** Compilation
@@ -830,16 +836,12 @@ https://www.gnu.org/software/emacs/manual/html_node/elisp/Choosing-Window.html
 Sometimes when the point is at the end of a line, the line shifts
 right by one column (line number included). Prevent it. In org-mode.
 
-Desktop library to save and restore sessions. I don't want automatic
-restoring at startup. I only want the option to call smt like
-restore-session in case I unintentionally quit Emacs, or kill frame.
-
 Programming language specific behavior after hitting return after an
 opening parenthesis, e.g. in C, put semicolon after the closing
 parenthesis in function definitions. Maybe with Yasnippet?
 
 
-Hideshow mode vs selective display vs outline mode vs foldout package.
+Hideshow mode
 
 Treemacs vs built-in speedbar.
 
@@ -877,4 +879,7 @@ Bad face when hovering on higlighed text.
 Org mode manual.
 
 Tex mode vs auctex.
+
+Todo in emacs-base.org and emacs.org.x
+
 
