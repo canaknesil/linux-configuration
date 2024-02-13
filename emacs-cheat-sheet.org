@@ -353,7 +353,11 @@ C-SHIFT-TAB tab-previous
 C-x t RET tab-switch
 M-x tab-switcher
 
-** Speedbar
+** Explorer toolbar
+
+speedbar: explorer in a seperate frame
+sr-speedbar: speedbar without seperate frame
+treemacs: explorer in same frame
 
 See the manual.
 
@@ -551,7 +555,9 @@ M-( insert-parentheses
 
 Hideshow mode: code folding
 Selective display: folding according to indentation
-foldout package: folding together with narrowing
+Foldout package: folding together with narrowing
+
+See the manual for hideshow commands.
 
 C-u <n> C-x $ set-selective-display
 C-x $ set-selective-display
@@ -828,7 +834,13 @@ Many commands opens a buffer in other window but not move to it, such
 as list-buffers. Moving to the newly opened buffer is often the
 desired behavior.
 
-Switch to occur buffer after creation.
+Switch to occur buffer after creation. Splitting the window is
+generally followed by another command such as find-file or
+switch-to-buffer. There are commands that can achieve both steps at
+once such as find-file-other-window or switch-to-buffer-other-window,
+which also select the other windows automatically. Rather than
+changing the way window selection functions, I suggest learning the
+available commands, and Emacs' logic behind window selection.
 
 Documentation page Choosing a "Window for Displaying a Buffer":
 https://www.gnu.org/software/emacs/manual/html_node/elisp/Choosing-Window.html
@@ -840,31 +852,8 @@ Programming language specific behavior after hitting return after an
 opening parenthesis, e.g. in C, put semicolon after the closing
 parenthesis in function definitions. Maybe with Yasnippet?
 
+Julia support for hideshow.
 
-Hideshow mode
-
-Treemacs vs built-in speedbar.
-
-imenu with speedbar.
-
-Update start-emacs according to emacsclient options in
-manual. --reuse-frame
-
-Revise emacs.org to replace features provided via packages with
-built-in ones.
-
-setq vs setq-default in init file. Check each modified variable
-weather they are global or buffer local.
-
-Parent-child mode tree.
-
-Is dumb-jump necessary?
-
-When selecting an identifier, also highlight others.
-
-Open files read-only with emacs-start.
-
-Are auto-compile and prefer new necessary?
 
 Page forward/backward etc. It is useful to navigate in the help buffer
 created via C-h m.
@@ -872,7 +861,26 @@ created via C-h m.
 Visual line mode with virtual right boundary, rather than the right
 edge of the window.
 
+When selecting an identifier, also highlight others.
+
 Kill buffer, rename file, open renamed file in one command.
+
+Revise emacs.org to replace features provided via packages with
+built-in ones.
+
+setq vs setq-default in init file. Check each modified variable
+weather they are global or buffer local.
+
+Is dumb-jump necessary?
+
+Are auto-compile and prefer new necessary?
+
+Update start-emacs according to emacsclient options in
+manual. --reuse-frame
+
+Open files read-only with emacs-start.
+
+Parent-child mode tree.
 
 Bad face when hovering on higlighed text.
 
