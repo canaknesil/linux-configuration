@@ -136,6 +136,11 @@
      ("M-g w" . avy-goto-word-1)))   
 #+END_SRC
 
+** Auto highlight symbol
+#+BEGIN_SRC emacs-lisp
+  (use-package auto-highlight-symbol)
+#+END_SRC
+
 ** Move text
 #+begin_src emacs-lisp
   (use-package move-text
@@ -177,6 +182,11 @@
     (keymap-set company-active-map "M-RET" #'company-complete-selection)
     (keymap-set company-active-map "M-<return>" #'company-complete-selection)
     )
+#+END_SRC
+
+** Visual fill column
+#+BEGIN_SRC emacs-lisp
+  (use-package visual-fill-column)
 #+END_SRC
 
 

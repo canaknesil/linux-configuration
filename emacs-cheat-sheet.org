@@ -97,6 +97,10 @@ C-' avy-goto-char-2
 M-g f avy goto-line
 M-g w avy goto-word-1
 
+** Auto highlight symbol
+
+M-x auto-highlight-symbol-mode
+
 ** Search
 
 C-s isearch-forward
@@ -171,6 +175,15 @@ M-x fileloop-continue
 ** Semantic mode
 
 See the manual.
+
+** Pages
+
+C-q C-l (insert page break)
+M-x what-page
+C-x [ backward-page
+C-x ] forward-page
+C-x C-p mark-page
+C-x l count-lines-page
 
 ** Diff and merging
 
@@ -373,6 +386,7 @@ M-x follow-mode
 
 C-x x t toggle-truncate-lines
 M-x visual-line-mode
+M-x visual-fill-column-mode
 
 ** Narrowing
 
@@ -854,14 +868,6 @@ parenthesis in function definitions. Maybe with Yasnippet?
 
 Julia support for hideshow.
 
-
-Page forward/backward etc. It is useful to navigate in the help buffer
-created via C-h m.
-
-Visual line mode with virtual right boundary, rather than the right
-edge of the window.
-
-When selecting an identifier, also highlight others.
 
 Kill buffer, rename file, open renamed file in one command.
 
