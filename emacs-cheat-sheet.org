@@ -868,18 +868,11 @@ parenthesis in function definitions. Maybe with Yasnippet?
 
 Julia support for hideshow.
 
+Automatic execution of package-refresh-contents.
 
-Kill buffer, rename file, open renamed file in one command.
-
-Revise emacs.org to replace features provided via packages with
-built-in ones.
 
 setq vs setq-default in init file. Check each modified variable
 weather they are global or buffer local.
-
-Is dumb-jump necessary?
-
-Are auto-compile and prefer new necessary?
 
 Update start-emacs according to emacsclient options in
 manual. --reuse-frame
@@ -888,12 +881,15 @@ Open files read-only with emacs-start.
 
 Parent-child mode tree.
 
-Bad face when hovering on higlighed text.
+Bad face when hovering on highlighted text. hl-line overwrites the
+highlight color.
+
+Eglot and flymake.
 
 Org mode manual.
 
 Tex mode vs auctex.
 
-Todo in emacs-base.org and emacs.org.x
+Todo in emacs-base.org and emacs.org.
 
 

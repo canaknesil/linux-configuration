@@ -8,33 +8,41 @@
   (require 'package)
 
   ;; Melpa
-  (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
-                      (not (gnutls-available-p))))
-         (proto (if no-ssl "http" "https")))
-    (when no-ssl
-      (warn "\
-  Your version of Emacs does not support SSL connections,
-  which is unsafe because it allows man-in-the-middle attacks.
-  There are two things you can do about this warning:
-  1. Install an Emacs version that does support SSL and be safe.
-  2. Remove this warning from your init file so you won't see it again."))
-    ;; Comment/uncomment these two lines to enable/disable MELPA and MELPA Stable as desired
-    (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
-    ;;(add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
-    (when (< emacs-major-version 24)
-      ;; For important compatibility libraries like cl-lib
-      (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.gnu.org/packages/")))))
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+
+  ;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
+  ;; and `package-pinned-packages`. Most users will not need or want to do this.
+  ;;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+
+  ;; Old Melpa setup
+  ;; (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
+  ;;                     (not (gnutls-available-p))))
+  ;;        (proto (if no-ssl "http" "https")))
+  ;;   (when no-ssl
+  ;;     (warn "\
+  ;; Your version of Emacs does not support SSL connections,
+  ;; which is unsafe because it allows man-in-the-middle attacks.
+  ;; There are two things you can do about this warning:
+  ;; 1. Install an Emacs version that does support SSL and be safe.
+  ;; 2. Remove this warning from your init file so you won't see it again."))
+  ;;   ;; Comment/uncomment these two lines to enable/disable MELPA and MELPA Stable as desired
+  ;;   (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
+  ;;   ;;(add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
+  ;;   (when (< emacs-major-version 24)
+  ;;     ;; For important compatibility libraries like cl-lib
+  ;;     (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.gnu.org/packages/")))))
 
   (package-initialize)
 
   ;; Ensure that use-package is installed.
+  ;; use-package comes built-in with Emacs version 29.1.
   ;;
   ;; If use-package isn't already installed, it's extremely likely that this is a
   ;; fresh installation! So we'll want to update the package repository and
   ;; install use-package before loading the literate configuration.
-  (when (not (package-installed-p 'use-package))
-    (package-refresh-contents)
-    (package-install 'use-package))
+  ;; (when (not (package-installed-p 'use-package))
+  ;;   (package-refresh-contents)
+  ;;   (package-install 'use-package))
 
   (eval-when-compile
     ;; Following line is not needed if use-package.el is in ~/.emacs.d
@@ -54,22 +62,11 @@
 
 
 * Editing
-** Highlight current line
-#+BEGIN_SRC emacs-lisp
-  ;; hl-line.el is not loaded unless it is invoked (see. autoloading),
-  ;; thus the face 'hl-line isn't defined before hl-line.el is
-  ;; loaded. use-package makes sure hl-line.el is loaded before
-  ;; configuring the face.
-  (use-package hl-line
-    :config
-    (set-face-background 'hl-line "#402040")
-    (set-face-foreground 'highlight nil)
-    (global-hl-line-mode 1))
-#+END_SRC
-
 ** TODO Highlight indentation
 #+BEGIN_SRC emacs-lisp
   ;; highlight-indent-guides doesn't work with empty lines.
+  ;; highlight-indentation has experimental support for empty lines.
+
   ;; (use-package highlight-indent-guides
   ;;   :defer
   ;;   :init
@@ -78,11 +75,6 @@
   ;;   (customize-set-variable 'highlight-indent-guides-method 'character))
 #+END_SRC
 
-** TODO Scroll animation
-#+BEGIN_SRC emacs-lisp
-  ;; (load "~/Documents/repos/scroll-animation.el/scroll-animation.el")
-#+END_SRC
-  
 ** TODO Rainbow delimiters
 #+begin_src emacs-lisp
   ;; Loading this packages causes the following error:
@@ -91,38 +83,12 @@
   ;; (use-package rainbow-delimiters
   ;;   :hook
   ;;   (prog-mode rainbow-delimiters-mode))
+
+
+  ;; highlight-parentheses only works with (), not [] and others.
+  ;;(use-package highlight-parentheses)
 #+end_src
 
-** Smartparens
-#+begin_src emacs-lisp
-  ;; Built-in electric pair mode is similar.
-
-  ;; (use-package smartparens
-  ;;   :config
-  ;;   ;;(require 'smartparens-config) ; Enable default configuration
-  ;;   (add-hook 'prog-mode-hook #'smartparens-mode)
-  ;;   (setq sp-highlight-pair-overlay nil)
-  ;;   (setq sp-highlight-wrap-overlay nil)
-  ;;   (setq sp-highlight-wrap-tag-overlay nil))
-#+end_src
-** On-the-fly syntax check
-#+BEGIN_SRC emacs-lisp
-  ;; Using flymake. It is built-in.
-
-  ;; Use flake8 python package. Elpy uses it.
-  ;; Flake8 configuration is at linux-configuration/flake8.
-  ;; Copy or link it to ~/.config/flake8
-  ;; The config makes flake8 to ignore several anoying warnings. 
-
-
-  ;; Old setup, not using flycheck anymore.
-
-  ;;(use-package flycheck
-  ;;  :init (global-flycheck-mode))
-
-  ;; Using pylint for Python syntax checking.
-  ;; Configuration is in ~/.pylintrc
-#+END_SRC
 ** Avy
 #+BEGIN_SRC emacs-lisp
   (use-package avy
@@ -138,7 +104,8 @@
 
 ** Auto highlight symbol
 #+BEGIN_SRC emacs-lisp
-  (use-package auto-highlight-symbol)
+  (use-package auto-highlight-symbol
+    :defer)
 #+END_SRC
 
 ** Move text
@@ -186,19 +153,24 @@
 
 ** Visual fill column
 #+BEGIN_SRC emacs-lisp
-  (use-package visual-fill-column)
+  (use-package visual-fill-column
+    :defer)
 #+END_SRC
 
 
 * Windows
-** TODO Golden ratio windows
+** Golden ratio windows
 #+begin_src emacs-lisp
   ;; (use-package golden-ratio
   ;;   ;; don't defer
   ;;   :config
   ;;   (golden-ratio-mode 1))
 
-  ;; Not working with treemacs !!!
+  ;; Disadvantage: Not working with treemacs.
+
+  ;; It is still good to have it for on-demand activation.
+  (use-package golden-ratio
+    :defer)
 #+end_src
 
 ** Transpose frame
@@ -218,135 +190,121 @@
     (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
 #+END_SRC
 
-** Projectile
-#+begin_src emacs-lisp
-  ;; Built-in project does the job.
-
-  ;; (use-package projectile
-  ;;   ;; don't defer
-  ;;   :config
-  ;;   (projectile-mode +1)
-  ;;   ;; Recommended keymap prefix on macOS
-  ;;   ;;(define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
-  ;;   ;; Recommended keymap prefix on Windows/Linux
-  ;;   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
-#+end_src
 ** Treemacs
 #+begin_src emacs-lisp
-  ;; (use-package treemacs
-  ;;   :ensure' t
-  ;;   :defer t
-  ;;   :init
-  ;;   (with-eval-after-load 'winum
-  ;;     (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
-  ;;   :config
-  ;;   (progn
-  ;;     (setq treemacs-collapse-dirs                   (if treemacs-python-executable 3 0)
-  ;; 	  treemacs-deferred-git-apply-delay        0.5
-  ;; 	  treemacs-directory-name-transformer      #'identity
-  ;; 	  treemacs-display-in-side-window          t
-  ;; 	  treemacs-eldoc-display                   'simple
-  ;; 	  treemacs-file-event-delay                2000
-  ;; 	  treemacs-file-extension-regex            treemacs-last-period-regex-value
-  ;; 	  treemacs-file-follow-delay               0.2
-  ;; 	  treemacs-file-name-transformer           #'identity
-  ;; 	  treemacs-follow-after-init               t
-  ;; 	  treemacs-expand-after-init               t
-  ;; 	  treemacs-find-workspace-method           'find-for-file-or-pick-first
-  ;; 	  treemacs-git-command-pipe                ""
-  ;; 	  treemacs-goto-tag-strategy               'refetch-index
-  ;; 	  treemacs-header-scroll-indicators        '(nil . "^^^^^^")
-  ;; 	  treemacs-hide-dot-git-directory          t
-  ;; 	  treemacs-indentation                     2
-  ;; 	  treemacs-indentation-string              " "
-  ;; 	  treemacs-is-never-other-window           nil
-  ;; 	  treemacs-max-git-entries                 5000
-  ;; 	  treemacs-missing-project-action          'ask
-  ;; 	  treemacs-move-forward-on-expand          nil
-  ;; 	  treemacs-no-png-images                   nil
-  ;; 	  treemacs-no-delete-other-windows         t
-  ;; 	  treemacs-project-follow-cleanup          nil
-  ;; 	  treemacs-persist-file                    (expand-file-name ".cache/treemacs-persist" user-emacs-directory)
-  ;; 	  treemacs-position                        'left
-  ;; 	  treemacs-read-string-input               'from-child-frame
-  ;; 	  treemacs-recenter-distance               0.1
-  ;; 	  treemacs-recenter-after-file-follow      nil
-  ;; 	  treemacs-recenter-after-tag-follow       nil
-  ;; 	  treemacs-recenter-after-project-jump     'always
-  ;; 	  treemacs-recenter-after-project-expand   'on-distance
-  ;; 	  treemacs-litter-directories              '("/node_modules" "/.venv" "/.cask")
-  ;; 	  treemacs-project-follow-into-home        nil
-  ;; 	  treemacs-show-cursor                     nil
-  ;; 	  treemacs-show-hidden-files               t
-  ;; 	  treemacs-silent-filewatch                nil
-  ;; 	  treemacs-silent-refresh                  nil
-  ;; 	  treemacs-sorting                         'alphabetic-asc
-  ;; 	  treemacs-select-when-already-in-treemacs 'move-back
-  ;; 	  treemacs-space-between-root-nodes        t
-  ;; 	  treemacs-tag-follow-cleanup              t
-  ;; 	  treemacs-tag-follow-delay                1.5
-  ;; 	  treemacs-text-scale                      nil
-  ;; 	  treemacs-user-mode-line-format           nil
-  ;; 	  treemacs-user-header-line-format         nil
-  ;; 	  treemacs-wide-toggle-width               70
-  ;; 	  treemacs-width                           35 ;; default 35
-  ;; 	  treemacs-width-increment                 1
-  ;; 	  treemacs-width-is-initially-locked       t
-  ;; 	  treemacs-workspace-switch-cleanup        nil)
+  (use-package treemacs
+    :defer
+    :init
+    (with-eval-after-load 'winum
+      (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
+    :config
+    (progn
+      (setq treemacs-collapse-dirs                   (if treemacs-python-executable 3 0)
+	    treemacs-deferred-git-apply-delay        0.5
+	    treemacs-directory-name-transformer      #'identity
+	    treemacs-display-in-side-window          t
+	    treemacs-eldoc-display                   'simple
+	    treemacs-file-event-delay                2000
+	    treemacs-file-extension-regex            treemacs-last-period-regex-value
+	    treemacs-file-follow-delay               0.2
+	    treemacs-file-name-transformer           #'identity
+	    treemacs-follow-after-init               t
+	    treemacs-expand-after-init               t
+	    treemacs-find-workspace-method           'find-for-file-or-pick-first
+	    treemacs-git-command-pipe                ""
+	    treemacs-goto-tag-strategy               'refetch-index
+	    treemacs-header-scroll-indicators        '(nil . "^^^^^^")
+	    treemacs-hide-dot-git-directory          t
+	    treemacs-indentation                     2
+	    treemacs-indentation-string              " "
+	    treemacs-is-never-other-window           nil
+	    treemacs-max-git-entries                 5000
+	    treemacs-missing-project-action          'ask
+	    treemacs-move-forward-on-expand          nil
+	    treemacs-no-png-images                   nil
+	    treemacs-no-delete-other-windows         t
+	    treemacs-project-follow-cleanup          nil
+	    treemacs-persist-file                    (expand-file-name ".cache/treemacs-persist" user-emacs-directory)
+	    treemacs-position                        'left
+	    treemacs-read-string-input               'from-child-frame
+	    treemacs-recenter-distance               0.1
+	    treemacs-recenter-after-file-follow      nil
+	    treemacs-recenter-after-tag-follow       nil
+	    treemacs-recenter-after-project-jump     'always
+	    treemacs-recenter-after-project-expand   'on-distance
+	    treemacs-litter-directories              '("/node_modules" "/.venv" "/.cask")
+	    treemacs-project-follow-into-home        nil
+	    treemacs-show-cursor                     nil
+	    treemacs-show-hidden-files               t
+	    treemacs-silent-filewatch                nil
+	    treemacs-silent-refresh                  nil
+	    treemacs-sorting                         'alphabetic-asc
+	    treemacs-select-when-already-in-treemacs 'move-back
+	    treemacs-space-between-root-nodes        t
+	    treemacs-tag-follow-cleanup              t
+	    treemacs-tag-follow-delay                1.5
+	    treemacs-text-scale                      nil
+	    treemacs-user-mode-line-format           nil
+	    treemacs-user-header-line-format         nil
+	    treemacs-wide-toggle-width               70
+	    treemacs-width                           35 ;; default 35
+	    treemacs-width-increment                 1
+	    treemacs-width-is-initially-locked       t
+	    treemacs-workspace-switch-cleanup        nil)
 
-  ;;     ;; The default width and height of the icons is 22 pixels. If you are
-  ;;     ;; using a Hi-DPI display, uncomment this to double the icon size.
-  ;;     ;;(treemacs-resize-icons 44)
+      ;; The default width and height of the icons is 22 pixels. If you are
+      ;; using a Hi-DPI display, uncomment this to double the icon size.
+      ;;(treemacs-resize-icons 44)
 
-  ;;     (treemacs-follow-mode t)
-  ;;     (treemacs-filewatch-mode t)
-  ;;     (treemacs-fringe-indicator-mode 'always)
-  ;;     (when treemacs-python-executable
-  ;;       (treemacs-git-commit-diff-mode t))
+      (treemacs-follow-mode t)
+      (treemacs-filewatch-mode t)
+      (treemacs-fringe-indicator-mode 'always)
+      (when treemacs-python-executable
+	(treemacs-git-commit-diff-mode t))
 
-  ;;     (pcase (cons (not (null (executable-find "git")))
-  ;; 		 (not (null treemacs-python-executable)))
-  ;;       (`(t . t)
-  ;;        (treemacs-git-mode 'deferred))
-  ;;       (`(t . _)
-  ;;        (treemacs-git-mode 'simple)))
+      (pcase (cons (not (null (executable-find "git")))
+		   (not (null treemacs-python-executable)))
+	(`(t . t)
+	 (treemacs-git-mode 'deferred))
+	(`(t . _)
+	 (treemacs-git-mode 'simple)))
 
-  ;;     (treemacs-hide-gitignored-files-mode nil))
-  ;;   :bind
-  ;;   (:map global-map
-  ;; 	("M-0"       . treemacs-select-window)
-  ;; 	("C-x t 1"   . treemacs-delete-other-windows)
-  ;; 	("C-x t t"   . treemacs)
-  ;; 	("C-x t d"   . treemacs-select-directory)
-  ;; 	("C-x t B"   . treemacs-bookmark)
-  ;; 	("C-x t C-t" . treemacs-find-file)
-  ;; 	("C-x t M-t" . treemacs-find-tag)))
+      (treemacs-hide-gitignored-files-mode nil))
+    :bind
+    (:map global-map
+	  ("M-0"       . treemacs-select-window)
+	  ("C-x t 1"   . treemacs-delete-other-windows)
+	  ("C-x t t"   . treemacs)
+	  ("C-x t d"   . treemacs-select-directory)
+	  ("C-x t B"   . treemacs-bookmark)
+	  ("C-x t C-t" . treemacs-find-file)
+	  ("C-x t M-t" . treemacs-find-tag)))
 
-  ;; ;; (use-package treemacs-evil
-  ;; ;;   :after (treemacs evil)
-  ;; ;;   :ensure t)
-
-  ;; ;; (use-package treemacs-projectile
-  ;; ;;   :after (treemacs projectile)
-  ;; ;;   :ensure t)
-
-  ;; (use-package treemacs-icons-dired
-  ;;   :hook (dired-mode . treemacs-icons-dired-enable-once)
+  ;; (use-package treemacs-evil
+  ;;   :after (treemacs evil)
   ;;   :ensure t)
 
-  ;; ;; (use-package treemacs-magit
-  ;; ;;   :after (treemacs magit)
-  ;; ;;   :ensure t)
+  ;; (use-package treemacs-projectile
+  ;;   :after (treemacs projectile)
+  ;;   :ensure t)
 
-  ;; ;; (use-package treemacs-persp ;;treemacs-perspective if you use perspective.el vs. persp-mode
-  ;; ;;   :after (treemacs persp-mode) ;;or perspective vs. persp-mode
-  ;; ;;   :ensure t
-  ;; ;;   :config (treemacs-set-scope-type 'Perspectives))
+  (use-package treemacs-icons-dired
+    :hook (dired-mode . treemacs-icons-dired-enable-once)
+    :ensure t)
 
-  ;; ;; (use-package treemacs-tab-bar ;;treemacs-tab-bar if you use tab-bar-mode
-  ;; ;;   :after (treemacs)
-  ;; ;;   :ensure t
-  ;; ;;   :config (treemacs-set-scope-type 'Tabs))
+  ;; (use-package treemacs-magit
+  ;;   :after (treemacs magit)
+  ;;   :ensure t)
+
+  ;; (use-package treemacs-persp ;;treemacs-perspective if you use perspective.el vs. persp-mode
+  ;;   :after (treemacs persp-mode) ;;or perspective vs. persp-mode
+  ;;   :ensure t
+  ;;   :config (treemacs-set-scope-type 'Perspectives))
+
+  ;; (use-package treemacs-tab-bar ;;treemacs-tab-bar if you use tab-bar-mode
+  ;;   :after (treemacs)
+  ;;   :ensure t
+  ;;   :config (treemacs-set-scope-type 'Tabs))
 #+end_src
 
 
@@ -396,7 +354,8 @@
   ;; Counsel: a collection of Ivy-enhanced versions of common Emacs
   ;; commands.
 
-  ;; Ivy alone seems enough.
+  ;; Ivy alone seems enough. Amx package is used to show keybindings
+  ;; with M-x.
 
   ;; (use-package counsel
   ;;   :defer
