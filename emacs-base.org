@@ -225,7 +225,10 @@ Example .emacs file:
 
 ** Matching parentheses
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'prog-mode-hook (lambda () (electric-pair-local-mode 1)))
+  ;; Not enabling marentheses matching automatically because I don't
+  ;; like it.
+
+  ;; (add-hook 'prog-mode-hook (lambda () (electric-pair-local-mode 1)))
 
   ;; Another alternative that I previously used is the smartparens
   ;; package.
