@@ -109,7 +109,7 @@ Example .emacs file:
 		   (lambda (frame)
 		     (select-frame frame)
 		     (when (display-graphic-p)
-		       (set-background-color "#0c1808")))))
+		       (set-background-color "#041c0c")))))
 	((not (display-graphic-p)) (set-face-background 'default "#1c1c1c"))
 	((display-graphic-p) (set-face-background 'default "#300028")))
 
