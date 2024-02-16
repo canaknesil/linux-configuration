@@ -43,24 +43,25 @@ Example .emacs file:
 
 
 * Initial configuration
-** Home directory on Windows
+** HOME and Startup Directories on Windows
 #+BEGIN_SRC emacs-lisp
-  ;; On Windows, if HOME environment variable is not defined, it is
-  ;; automatically set to the user-specific application data directory,
-  ;; where .emacs is expected to be. The actual location depends on the
+  ;; On Windows, the directory Emacs treats as home defaults to the
+  ;; user-specific application data directory. .emacs is expected to be
+  ;; there. The user-specific application data directory depends on the
   ;; Windows version. This can be overwritten by defining HOME
   ;; environment variable.
 
-  ;; On Windows, the default directory at Emacs start-up depends on from
-  ;; where it is started. find-file starts from the default
-  ;; firectory. Changing it to the home directory.
+  ;; The initial default-directory at Emacs start-up depends on from
+  ;; where it is started. find-file starts from the default directory. I
+  ;; want it to be the home directory unless Emacs is started with
+  ;; visiting a file.
 
   (when (eq system-type 'windows-nt)
-    ;; In case HOME is not defined, save the old value and redefine it
-    ;; to the correct location.
+    ;; Set home directory correctly independent from weather HOME
+    ;; environment variable is defined.
     (setenv "EMACS_HOME" (getenv "Home"))
     (setenv "Home" (getenv "UserProfile"))
-    ;; Set the default-directory to home.
+    ;; Set the default-directory to home, at the initial buffer.
     (setq default-directory "~/"))
 #+END_SRC
 
@@ -220,7 +221,7 @@ Example .emacs file:
 ** Show matching parenthesis
 #+BEGIN_SRC emacs-lisp
   (show-paren-mode t)
-  (setq show-paren-delay 0.0)
+  (setq-default show-paren-delay 0.0)
 #+END_SRC
 
 ** Matching parentheses
@@ -248,7 +249,7 @@ Example .emacs file:
   ;;(setq visible-bell t)
 
   ;; Disable bell sound
-  (setq ring-bell-function (lambda ()))
+  (setq-default ring-bell-function (lambda ()))
 #+end_src
 
 ** On the fly spell check
@@ -303,7 +304,7 @@ Example .emacs file:
 
 ** Preserve point location when scrolling
 #+BEGIN_SRC emacs-lisp
-  (setq scroll-preserve-screen-position 1)
+  (setq-default scroll-preserve-screen-position 1)
 
   ;; This doesn't preserve point location within window when pixel
   ;; scrolling, which is the desired behavior.
@@ -322,11 +323,11 @@ Example .emacs file:
   ;; autoscrolling, which is distracting.
 
   ;; Compromising by setting scroll margin to a very small value.
-  (setq scroll-margin 1)
+  (setq-default scroll-margin 1)
 
 
   ;; Speficy margin for C-l.
-  (setq recenter-positions '(middle 2 -2))
+  (setq-default recenter-positions '(middle 2 -2))
 #+END_SRC
 
 ** Pixel scrolling
@@ -337,7 +338,9 @@ Example .emacs file:
 ** Comment column
 #+BEGIN_SRC emacs-lisp
   ;; Make M-; put the comment one space after the current lines text.
-  (setq comment-column 0)
+  (add-hook 'prog-mode-hook
+	    (lambda ()
+	      (setq comment-column 0)))
 #+END_SRC
 
 ** Hide Scroll bar 
@@ -415,7 +418,7 @@ Example .emacs file:
 
 ** Tab bar (workspaces)
 #+BEGIN_SRC emacs-lisp
-  (setq tab-bar-show nil)
+  (setq-default tab-bar-show nil)
 
   ;; Documentation is insufficient for tab-bar-tab-hints.
   ;;(setq tab-bar-tab-hints 1)
@@ -528,7 +531,7 @@ Example .emacs file:
 
 ** Ediff in a single frame
 #+BEGIN_SRC emacs-lisp
-  (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+  (setq-default ediff-window-setup-function 'ediff-setup-windows-plain)
 #+END_SRC
 
 ** TODO Saving sessions
@@ -562,12 +565,12 @@ Example .emacs file:
 
 ** All backups to a specific directory
 #+BEGIN_SRC emacs-lisp
-  (setq backup-directory-alist `(("." . "~/emacs-tmp")))
+  (setq-default backup-directory-alist `(("." . "~/emacs-tmp")))
 #+END_SRC
 
 ** Auto-save no message
 #+BEGIN_SRC emacs-lisp
-  (setq auto-save-no-message t)
+  (setq-default auto-save-no-message t)
 #+END_SRC
 
 ** Recent files
@@ -595,19 +598,19 @@ Example .emacs file:
 * Miscellaneous
 ** Do not open startup GNU Emacs buffer
 #+BEGIN_SRC emacs-lisp
-  (setq inhibit-startup-screen t)
+  (setq-default inhibit-startup-screen t)
 #+END_SRC
 
 ** Confirm closing
 #+BEGIN_SRC emacs-lisp
-  (setq confirm-kill-emacs 'y-or-n-p)
+  (setq-default confirm-kill-emacs 'y-or-n-p)
 #+END_SRC
 
 
 * Programming languages & Modes
 ** Verilog
 #+BEGIN_SRC emacs-lisp
-  (setq verilog-auto-newline nil)
+  (setq-default verilog-auto-newline nil)
 #+END_SRC
    
 ** Dired

@@ -871,9 +871,6 @@ Julia support for hideshow.
 Automatic execution of package-refresh-contents.
 
 
-setq vs setq-default in init file. Check each modified variable
-weather they are global or buffer local.
-
 Update start-emacs according to emacsclient options in
 manual. --reuse-frame
 
