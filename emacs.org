@@ -331,6 +331,10 @@
     (setq ivy-fixed-height-minibuffer t)
     (setq ivy-re-builders-alist
 	  '((t . ivy--regex-ignore-order))) ; ignore order of space separated words.
+
+    ;; ivy current match face is difficult to read
+    (set-face-foreground 'ivy-current-match "#ffffff")
+    (set-face-background 'ivy-current-match "#4060d0")
     )
 
 
