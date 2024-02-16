@@ -155,11 +155,6 @@ if [ "$OPTARG_CLIENT" = YES ]; then
 	    fi
 	    
 	else
-	    n_frames=$(emacsclient -e '(seq-length (frame-list))' 2>/dev/null)
-	    # n_frames is empty, if server is not running.
-	    # n_frames is 1, if server is running but no frames were made (except for the server frame which is hidden).
-	    # n_frames is 2 or more, if server is running and there is at least one visible frame.
-	    
 	    if [ "${FILES[*]}" ]; then
 
 		#
@@ -168,22 +163,10 @@ if [ "$OPTARG_CLIENT" = YES ]; then
 		
 		if [ "$OPTARG_BIND" = YES ]; then
 		    # e --client --bind FILES...
-		    if [ ! $n_frames ]; then
-			$ec -a "" -c  $FILES
-		    elif [ $n_frames -lt 2 ]; then
-			$ec -a "" -c  $FILES
-		    else
-			$ec -a "" $FILES
-		    fi
+		    $ec -a "" -r $FILES
 		else
 		    # e --client FILES...
-		    if [ ! $n_frames ]; then
-			$ec -a "" -c -n $FILES
- 		    elif [ $n_frames -lt 2 ]; then
- 			$ec -a "" -c -n $FILES
- 		    else
-			$ec -a "" -n $FILES
- 		    fi
+		    $ec -a "" -r -n $FILES
 		fi
 		
 	    else
@@ -193,13 +176,7 @@ if [ "$OPTARG_CLIENT" = YES ]; then
 		#
 		
 		# e --client
-		if [ ! $n_frames ]; then
-		    $ec -a "" -c -n
-		elif [ $n_frames -lt 2 ]; then
-		    $ec -a "" -c -n
-		else
-		    echo "There is already an existing Emacs client frame."
-		fi
+		$ec -a "" -r -n
 		
 	    fi
 	    

@@ -870,16 +870,13 @@ Julia support for hideshow.
 
 Automatic execution of package-refresh-contents.
 
-
-Update start-emacs according to emacsclient options in
-manual. --reuse-frame
-
 Open files read-only with emacs-start.
-
-Parent-child mode tree.
 
 Bad face when hovering on highlighted text. hl-line overwrites the
 highlight color.
+
+Parent-child mode tree.
+
 
 Eglot and flymake.
 
