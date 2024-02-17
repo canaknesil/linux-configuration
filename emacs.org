@@ -123,10 +123,11 @@
     :config
     (global-diff-hl-mode))
 
-  ;; Fringe does not work on terminal.
-  ;; display-graphic-p returns always nil when started as daemon.
-  ;; Find a way to enable fringe mode for X, even using as daemon,
-  ;; while still using margin mode with terminal.
+  ;; Fringe does not work on terminal.  display-graphic-p returns always
+  ;; nil when started as daemon.  Find a way to enable fringe mode for
+  ;; X, even using as daemon, while still using margin mode with
+  ;; terminal. Maybe set a hook after making frame that checks whether
+  ;; the frame is X or terminal, and act accordingly.
 #+END_SRC
 
 ** Company completion (core only)
@@ -424,10 +425,14 @@
 
 ** TODO LaTeX
 #+BEGIN_SRC emacs-lisp
+  ;; Built-in alternative: Tex mode
+  ;; Is Tex mode enough?
+
   ;; Make it work.
 
-  ;; (use-package auctex ; latex support for company
-  ;;   ;;:defer ;; This line is needed (for some reason)
+  ;; IDE for Latex
+  ;; (use-package auctex
+  ;;   :defer
   ;;   :config
   ;;   (setq TeX-auto-save t)
   ;;   (setq TeX-parse-self t)

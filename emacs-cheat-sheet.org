@@ -523,6 +523,8 @@ M-j indent-new-comment-line
 C-x r N rectangle-number-lines
 C-u C-x r N (rectangle-number-lines custom initial number and format string)
 
+See the manual for Yasnippet.
+
 ** Completion
 
 C-M-i completion-at-point
@@ -642,7 +644,7 @@ M-r ivy-toggle-regexp-quote
 C-M-j ivy-immediate-done
 
 
-* Interractive programming
+* Interactive programming
 ** Compilation
 
 M-x compile
@@ -766,7 +768,11 @@ For use-package, see the manual.
 
 See the manual.
 
-** Flymake
+** Flymake (on-the-fly syntax check)
+
+See the manual.
+
+** Eglot (LSP client)
 
 See the manual.
 
@@ -782,6 +788,10 @@ See the manual.
 
 
 * Organization
+** Org mode
+
+See the manual.
+
 ** Calendar and diary
 
 M-x calendar
@@ -838,52 +848,30 @@ For PostScript hardcopy, see the manual.
 See the manual.
 
 
-* TODO
+* Bad/non-existing support
 
 scroll-margin > 0 together with follow-mode.
 
+Pixel scrolling at starting and end of buffer together with scroll
+margin > 0.
+
 Company tooltip scroll margin greater than 0.
 
-Many commands opens a buffer in other window but not move to it, such
-as list-buffers. Moving to the newly opened buffer is often the
-desired behavior.
-
-Switch to occur buffer after creation. Splitting the window is
-generally followed by another command such as find-file or
-switch-to-buffer. There are commands that can achieve both steps at
-once such as find-file-other-window or switch-to-buffer-other-window,
-which also select the other windows automatically. Rather than
-changing the way window selection functions, I suggest learning the
-available commands, and Emacs' logic behind window selection.
-
-Documentation page Choosing a "Window for Displaying a Buffer":
-https://www.gnu.org/software/emacs/manual/html_node/elisp/Choosing-Window.html
-
-Sometimes when the point is at the end of a line, the line shifts
-right by one column (line number included). Prevent it. In org-mode.
-
-Programming language specific behavior after hitting return after an
-opening parenthesis, e.g. in C, put semicolon after the closing
-parenthesis in function definitions. Maybe with Yasnippet?
-
-Julia support for hideshow.
+Code folding for Julia.
 
 Automatic execution of package-refresh-contents.
 
-Open files read-only with emacs-start.
+hl-line (overlay) overwrites the highlight color (font-lock).
 
-Bad face when hovering on highlighted text. hl-line overwrites the
-highlight color.
+
+* TODO
+
+Command to be executed after inserting an opening parenthesis, which
+inserts two new lines and the closing parenthesis, indent the lines
+and leaves the point at the second line.
+
+Open files read-only with emacs-start.
+Solution: emacs FILE --eval '(setq buffer-read-only t)'
 
 Parent-child mode tree.
-
-
-Eglot and flymake.
-
-Org mode manual.
-
-Tex mode vs auctex.
-
-Todo in emacs-base.org and emacs.org.
-
 

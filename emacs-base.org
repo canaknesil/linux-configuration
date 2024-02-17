@@ -168,7 +168,12 @@ Example .emacs file:
 
   ;; Font configuration given in Emacs manual
   (defun configure-font (font)
-    (add-to-list 'default-frame-alist (cons 'font font)))
+    (add-to-list 'default-frame-alist (cons 'font font))
+    ;; Better font for key bindings, y-or-n, etc., which defaults to
+    ;; Monospace on Wondows.
+    (when (eq system-type 'windows-nt)
+      (set-face-attribute 'fixed-pitch nil :font font)
+      (set-face-attribute 'fixed-pitch-serif nil :font font)))
 
   ;; Usage example (font=Cascadia Code, fontsize=10):
   ;; (configure-font "Cascadia Code-10")
@@ -182,12 +187,6 @@ Example .emacs file:
   ;;(setq highlight-indentation-black-lines t)
 
   ;; Find a good package.
-#+end_src
-
-** TODO Don't highlight clickable text when mouse is over it
-#+begin_src emacs-lisp
-  ;; This also disables the "hand" mouse shape, which is not desired.
-  ;;(setq mouse-highlight nil)
 #+end_src
 
 ** Line wrap for text buffers
@@ -312,9 +311,12 @@ Example .emacs file:
 
 ** Scroll margin
 #+BEGIN_SRC emacs-lisp
-  ;; Leave a number of lines on top or bottom when using C-l.  Also the
-  ;; automatic scrolling is triggered when the point is this much close
-  ;; to the top or the bottom.
+  ;; Leave a number of lines on top or bottom when using C-l.
+  (setq-default recenter-positions '(middle 2 -2))
+
+  ;; Automatic scrolling when the point is close to the top or the
+  ;; bottom.
+  ;;(setq-default scroll-margin' 1)
 
   ;; Disadvantage: This prevents the point to move from one window to
   ;; other in follow-mode.
@@ -322,12 +324,8 @@ Example .emacs file:
   ;; Disadvantage: Clicking to the lines at margin triggers
   ;; autoscrolling, which is distracting.
 
-  ;; Compromising by setting scroll margin to a very small value.
-  (setq-default scroll-margin 1)
-
-
-  ;; Speficy margin for C-l.
-  (setq-default recenter-positions '(middle 2 -2))
+  ;; Didadvantage: Mouse wheel scrolling at the end of the buffer
+  ;; triggers auto-scrolling back up.
 #+END_SRC
 
 ** Pixel scrolling
@@ -453,6 +451,8 @@ Example .emacs file:
 
 ** TODO Delete local buffers when deleting frames
 #+BEGIN_SRC emacs-lisp
+  ;; Disagvantage: undelete-frame doesn't recreate deleted buffers.
+
   (defvar server-clients)
 
   (defun can/delete-buffers-local-to-frame (frame)
@@ -515,6 +515,11 @@ Example .emacs file:
       killed-buffer-names))
 
 
+  ;;(add-hook 'delete-frame-functions #'can/delete-buffers-local-to-frame)
+#+END_SRC
+
+** Delete frame with C-x C-c
+#+BEGIN_SRC emacs-lisp
   (defun can/delete-frame ()
     "Delete frame. If there is only one frame, exit Emacs."
     (interactive)
@@ -522,10 +527,6 @@ Example .emacs file:
 	(delete-frame)
       (save-buffers-kill-terminal)))
 
-
-  ;; Disagvantage: undelete-frame doesn't recreate deleted buffers.
-
-  ;;(add-hook 'delete-frame-functions #'can/delete-buffers-local-to-frame)
   (global-set-key (kbd "C-x C-c") 'can/delete-frame)
 #+END_SRC
 
@@ -538,9 +539,9 @@ Example .emacs file:
 #+BEGIN_SRC emacs-lisp
   ;; Using built-in desktop library
 
-  ;; Configure auto-saving desktops with auto-restoring, so that Emacs
-  ;; doesn't start with the previous sessions configuration but the
-  ;; previous session can be restores if desired.
+  ;; Configure desktop library so that Emacs doesn't restore previous
+  ;; session automatically, but the previous session can be restored
+  ;; with a command, in case of a crash or an accidental exit.
 
   ;;(desktop-save-mode 1)
   ;;(setq desktop-restore-frames nil)
@@ -548,21 +549,6 @@ Example .emacs file:
 
 
 * Files
-** TODO Save as (write-file and keep old buffer)
-#+BEGIN_SRC emacs-lisp
-  ;; Details need to be thought. E.g., what happens with an existing
-  ;; file as the new file.
-
-  ;; (defun can/write-file-new-buffer (filename)
-  ;;   (interactive "FWrite file with new buffer: ")
-  ;;   (let ((old-name (buffer-file-name)))
-  ;;     (if old-name
-  ;; 	(progn
-  ;; 	  (find-file filename)
-  ;; 	  (insert-file old-name))
-  ;;       (message "Buffer is not visiting any file."))))
-#+END_SRC
-
 ** All backups to a specific directory
 #+BEGIN_SRC emacs-lisp
   (setq-default backup-directory-alist `(("." . "~/emacs-tmp")))
