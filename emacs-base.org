@@ -134,7 +134,7 @@ Example .emacs file:
   (set-face-foreground 'highlight nil)
 #+end_src
 
-** Font and its size
+** TODO Font and its size
 #+BEGIN_SRC emacs-lisp
   ;; My old way of setting font and font size
 
@@ -170,7 +170,8 @@ Example .emacs file:
   (defun configure-font (font)
     (add-to-list 'default-frame-alist (cons 'font font))
     ;; Better font for key bindings, y-or-n, etc., which defaults to
-    ;; Monospace on Wondows.
+    ;; Monospace on Windows. Still it doesn't take effect with Emacs
+    ;; server.
     (when (eq system-type 'windows-nt)
       (set-face-attribute 'fixed-pitch nil :font font)
       (set-face-attribute 'fixed-pitch-serif nil :font font)))
