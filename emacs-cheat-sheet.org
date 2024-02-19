@@ -870,6 +870,10 @@ Command to be executed after inserting an opening parenthesis, which
 inserts two new lines and the closing parenthesis, indent the lines
 and leaves the point at the second line.
 
+Automatic window split at wrong location (on Windows
+OS). E.g. expecting help buffer to appear on the right, but it appears
+on the bottom.
+
 Open files read-only with emacs-start.
 Solution: emacs FILE --eval '(setq buffer-read-only t)'
 

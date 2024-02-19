@@ -169,9 +169,10 @@ Example .emacs file:
   ;; Font configuration given in Emacs manual
   (defun configure-font (font)
     (add-to-list 'default-frame-alist (cons 'font font))
-    ;; Better font for key bindings, y-or-n, etc., which defaults to
-    ;; Monospace on Windows. Still it doesn't take effect with Emacs
-    ;; server.
+    ;; Better font for key bindings, y-or-n, markdown inline code,
+    ;; etc. These faces inherit from fixed-pitch and fixed-pitch-serif,
+    ;; which default to Monospace on Windows. Setting font as below
+    ;; doesn't take effect with Emacs server.
     (when (eq system-type 'windows-nt)
       (set-face-attribute 'fixed-pitch nil :font font)
       (set-face-attribute 'fixed-pitch-serif nil :font font)))
