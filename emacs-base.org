@@ -105,8 +105,8 @@ Example .emacs file:
 
   ;; Custom background
   (cond ((daemonp)
-	 (set-face-background 'default "#1c1c1c") ;; daemon in terminal (emacsclient -nw)
-	 (add-hook 'after-make-frame-functions    ;; daemon as window (emacsclient -c)
+	 (set-face-background 'default "#1c1c1c") ;; daemon in terminal
+	 (add-hook 'after-make-frame-functions    ;; daemon as window
 		   (lambda (frame)
 		     (select-frame frame)
 		     (when (display-graphic-p)
@@ -174,14 +174,16 @@ Example .emacs file:
     ;; from fixed-pitch and fixed-pitch-serif. These faces aren't
     ;; affected by the default way of setting fonts recommended in the
     ;; manual. Setting them here.
-    (set-face-attribute 'fixed-pitch nil :font font)
-    (set-face-attribute 'fixed-pitch-serif nil :font font))
+    (set-face-font 'fixed-pitch font)
+    (set-face-font 'fixed-pitch-serif font))
 
   (defun configure-font (font)
     ;; Font configuration recommended in Emacs manual.
     (add-to-list 'default-frame-alist (cons 'font font))
 
-    ;; Extra configuration is required for some cases.
+    ;; Extra configuration is required for some cases.  The following
+    ;; configuration doesn't work on Windows. Use customize to apply the
+    ;; config.
     (if (daemonp)
 	(add-hook 'server-after-make-frame-hook
 		  (lambda () (configure-font-extra font)))

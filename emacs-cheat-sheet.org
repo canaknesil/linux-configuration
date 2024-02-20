@@ -863,6 +863,9 @@ Automatic execution of package-refresh-contents.
 
 hl-line (overlay) overwrites the highlight color (font-lock).
 
+Modifying face attributes for Emacs server on Windows in init
+file. Currently, only way is with customize.
+
 
 * TODO
 
