@@ -134,7 +134,7 @@ Example .emacs file:
   (set-face-foreground 'highlight nil)
 #+end_src
 
-** TODO Font and its size
+** Font and its size
 #+BEGIN_SRC emacs-lisp
   ;; My old way of setting font and font size
 
@@ -167,15 +167,25 @@ Example .emacs file:
 
 
   ;; Font configuration given in Emacs manual
+  ;; (add-to-list 'default-frame-alist (cons 'font font))
+
+  (defun configure-font-extra (font)
+    ;; Font of key bindings, y-or-n, markdown inline code, etc. inherit
+    ;; from fixed-pitch and fixed-pitch-serif. These faces aren't
+    ;; affected by the default way of setting fonts recommended in the
+    ;; manual. Setting them here.
+    (set-face-attribute 'fixed-pitch nil :font font)
+    (set-face-attribute 'fixed-pitch-serif nil :font font))
+
   (defun configure-font (font)
+    ;; Font configuration recommended in Emacs manual.
     (add-to-list 'default-frame-alist (cons 'font font))
-    ;; Better font for key bindings, y-or-n, markdown inline code,
-    ;; etc. These faces inherit from fixed-pitch and fixed-pitch-serif,
-    ;; which default to Monospace on Windows. Setting font as below
-    ;; doesn't take effect with Emacs server.
-    (when (eq system-type 'windows-nt)
-      (set-face-attribute 'fixed-pitch nil :font font)
-      (set-face-attribute 'fixed-pitch-serif nil :font font)))
+
+    ;; Extra configuration is required for some cases.
+    (if (daemonp)
+	(add-hook 'server-after-make-frame-hook
+		  (lambda () (configure-font-extra font)))
+      (configure-font-extra font)))
 
   ;; Usage example (font=Cascadia Code, fontsize=10):
   ;; (configure-font "Cascadia Code-10")
@@ -414,6 +424,14 @@ Example .emacs file:
   (global-set-key (kbd "C-x 3") 'hrs/split-window-right-and-switch)
   (global-set-key (kbd "C-x 0") 'delete-window-and-balance)
   ;;(global-set-key (kbd "C-x j") 'kill-buffer-and-delete-window)
+#+END_SRC
+
+** Prefer vertical splitting of windows
+#+BEGIN_SRC emacs-lisp
+  ;; split-height-threshold default is 80.
+  ;; split-width-threshold default is 160.
+  ;; See window-splittable-p for information.
+  (setq-default split-height-threshold 120)
 #+END_SRC
 
 ** Tab bar (workspaces)
