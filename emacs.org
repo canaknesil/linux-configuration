@@ -62,19 +62,6 @@
 
 
 * Editing
-** TODO Highlight indentation
-#+BEGIN_SRC emacs-lisp
-  ;; highlight-indent-guides doesn't work with empty lines.
-  ;; highlight-indentation has experimental support for empty lines.
-
-  ;; (use-package highlight-indent-guides
-  ;;   :defer
-  ;;   :init
-  ;;   (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
-  ;;   :config
-  ;;   (customize-set-variable 'highlight-indent-guides-method 'character))
-#+END_SRC
-
 ** TODO Rainbow delimiters
 #+begin_src emacs-lisp
   ;; Loading this packages causes the following error:
@@ -117,7 +104,7 @@
 #+end_src
 ** TODO Highlight uncommitted changes
 #+BEGIN_SRC emacs-lisp
-  ;; Highigh uncommitted changes on the fringe
+  ;; Higligh uncommitted changes on the fringe
   (use-package diff-hl
     ;; don't defer
     :config

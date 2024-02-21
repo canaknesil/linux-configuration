@@ -195,6 +195,17 @@ Example .emacs file:
 
 ** TODO Highlight indentation
 #+begin_src emacs-lisp
+  ;; highlight-indent-guides doesn't work with empty lines.
+  ;; highlight-indentation has experimental support for empty lines.
+
+  ;; (use-package highlight-indent-guides
+  ;;   :defer
+  ;;   :init
+  ;;   (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+  ;;   :config
+  ;;   (customize-set-variable 'highlight-indent-guides-method 'character))
+
+
   ;; This is not good, only counts spaces.
   ;;(add-hook 'prog-mode-hook #'highlight-indentation-mode)
   ;; Experimental support for blank lines.
@@ -503,9 +514,12 @@ Example .emacs file:
   (undelete-frame-mode 1)
 #+END_SRC
 
-** TODO Delete local buffers when deleting frames
+** Delete local buffers when deleting frames
 #+BEGIN_SRC emacs-lisp
-  ;; Disagvantage: undelete-frame doesn't recreate deleted buffers.
+  ;; Disagvantage: Deleting buffers when deleting a frame is does not go
+  ;; with the Emacs philosophy that buffers are independent from windows
+  ;; and frames. That's why, doing so breaks some Emacs features. For
+  ;; example, undelete-frame doesn't recreate deleted buffers.
 
   (defvar server-clients)
 
@@ -568,6 +582,14 @@ Example .emacs file:
       (message "Killed buffers `%s'." killed-buffer-names)
       killed-buffer-names))
 
+
+  (defun delete-frame-kill-local-buffers ()
+    (interactive)
+    (let ((frame (selected-frame)))
+      (can/delete-buffers-local-to-frame frame)
+      (delete-frame frame)))
+  
+   
 
   ;;(add-hook 'delete-frame-functions #'can/delete-buffers-local-to-frame)
 #+END_SRC
