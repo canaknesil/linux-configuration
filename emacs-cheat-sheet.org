@@ -3,7 +3,7 @@
 #+STARTUP: content
 #+OPTIONS: toc:nil \n:t
 
-Made according to Emacs manual version 29.1.
+Up-to-date with Emacs manual version 29.
 
 * When in trouble
 ** Help and documentation lookup
@@ -35,14 +35,20 @@ C-? undo-redo
 
 C-g
 ESC ESC ESC keyboard-quit
-C-g C-g (emergency escape in case first C-g didn't respond)
 
-** Quitting
+C-g C-g (emergency escape in case first C-g doesn't respond)
+
+** Quitting and clearing session
 
 C-x C-c save-buffers-kill-terminal
 M-x save-buffers-kill-emacs
 
 M-x desktop-clear
+
+** Recovery after crash
+
+M-x recover-file
+M-x recover-session
 
 
 * Navigation
@@ -53,14 +59,14 @@ C-b backward-char
 C-n next-line
 C-p previous-line
 
-C-a move-beginning-of-line
 C-e move-end-of-line
+C-a move-beginning-of-line
 
 M-f forward-word
 M-b backward-word
 
-M-a backward-sentence
 M-e forward-sentence
+M-a backward-sentence
 
 M-} forward-paragraph
 M-{ backword-paragraph
@@ -78,7 +84,16 @@ C-M-d down-list
 M-< beginning-of-buffer
 M-> end-of-buffer
 
-** Basic scrolling
+** Pages
+
+C-q C-l (insert page break)
+M-x what-page
+C-x [ backward-page
+C-x ] forward-page
+C-x C-p mark-page
+C-x l count-lines-page
+
+** Scrolling
 
 C-v scroll-up-command
 M-v scroll-down-command
@@ -101,7 +116,19 @@ M-g w avy goto-word-1
 
 M-x auto-highlight-symbol-mode
 
-** Search
+** Abbrevs
+** Code folding
+
+Hideshow mode: code folding
+Selective display: folding according to indentation
+Foldout package: folding together with narrowing
+
+See the manual for hideshow commands.
+
+C-u <n> C-x $ set-selective-display
+C-x $ set-selective-display
+
+** Search in buffer
 
 C-s isearch-forward
 C-r isearch-backward
@@ -121,19 +148,16 @@ M-s o occur
 
 M-g i imenu
 
+** Search in project
+
 C-x p g project-find-regexp
-
 M-x project-search
-
-** Grep
 
 M-x grep
 M-x find-grep
-
 M-x lgrep
 M-x rgrep
 M-x zrgrep
-
 M-x kill-grep
 
 For grep buffer commands, see the manual.
@@ -151,7 +175,6 @@ C-u M-. (xref-find-definitions with custom identifier)
 C-M-. xref-find-apropos
 C-x 4 . xref-find-definitions-other-window
 C-x 5 . xref-find-definitions-other-frame
-
 M-? xref-find-references
 C-u M-? (xref-find-references with custom identifier)
 
@@ -163,6 +186,14 @@ C-M-, xref-go-forward
 
 For xref buffer commands, see the manual.
 
+** Clickable links
+
+M-x goto-address-mode
+C-c ENTER goto-address-at-point
+
+M-x browse-url
+M-x browse-url-at-point
+
 ** Recursive editing
 
 C-M-c exit-recursive-edit
@@ -171,32 +202,6 @@ C-] abort-recursive-edit
 M-x top-level
 
 M-x fileloop-continue
-
-** Semantic mode
-
-See the manual.
-
-** Pages
-
-C-q C-l (insert page break)
-M-x what-page
-C-x [ backward-page
-C-x ] forward-page
-C-x C-p mark-page
-C-x l count-lines-page
-
-** Diff and merging
-
-M-x diff
-M-x ediff
-M-x diff-backup
-M-x diff-buffer-with-file
-M-x diff-buffers
-
-C-x v = vc-diff
-C-x v D vc-root-diff
-
-M-x smerge-mode
 
 ** Files
 
@@ -219,24 +224,22 @@ M-x write-region
 M-x revert-buffer
 M-x auto-revert-mode
 
-M-x recover-file
-M-x recover-session
-
-** Find file at point (ffap)
-
-See the manual.
+For ffap (find-file-at-point), see the manual.
 
 ** File name cache
+** Bookmarks
+** Diff and merging
 
-See the manual.
+M-x diff
+M-x ediff
+M-x diff-backup
+M-x diff-buffer-with-file
+M-x diff-buffers
 
-** Clickable links
+C-x v = vc-diff
+C-x v D vc-root-diff
 
-M-x goto-address-mode
-C-c ENTER goto-address-at-point
-
-M-x browse-url
-M-x browse-url-at-point
+M-x smerge-mode
 
 ** Directories
 
@@ -272,14 +275,17 @@ C-x k kill-buffer
 M-x kill-some-buffers
 C-x p k project-kill-buffers
 
-** Projcets
+** View Mode (like Vim normal mode)
+** Indirect buffers
+** Follow mode
+
+M-x follow-mode
+
+** Narrowing
+** Projects
 
 C-x p p project-switch-project
 M-x project-forget-project
-
-** Emacs development environment
-
-See the manual.
 
 ** Windows
 
@@ -345,9 +351,6 @@ M-x desktop-revert
 M-x desktop-change-dir
 
 ** Tab lines (tabs)
-
-See the manual.
-
 ** Tab bars (workspaces)
 
 C-x t 2 tab-new
@@ -374,27 +377,11 @@ treemacs: explorer in same frame
 
 See the manual.
 
-** Indirect buffers
-
-See the manual.
-
-** Follow mode
-
-M-x follow-mode
-
 ** Line truncation and visual line mode
 
 C-x x t toggle-truncate-lines
 M-x visual-line-mode
 M-x visual-fill-column-mode
-
-** Narrowing
-
-See the manual.
-
-** View Mode
-
-See the manual.
 
 
 * Editing
@@ -419,7 +406,7 @@ M-y yank-pop
 C-u C-y (yank and leave point at the beginning)
 C-u M-y (yank-pop and leave point at the beginning)
 
-** Overwrite mode (Insert)
+** Overwrite mode (insert)
 
 M-x overwrite-mode
 M-x binary-overwrite-mode
@@ -492,6 +479,7 @@ C-x r y yank-rectangle
 M-$ ispell-word
 M-x ispell
 M-x ispell-comments-and-strings
+<mouse-2> flyspell-correct-word
 
 ** Filling text
 
@@ -529,9 +517,9 @@ See the manual for Yasnippet.
 
 C-M-i completion-at-point
 
-** Abbrevs
-
-See the manual.
+M-n company-select-next (remapped)
+M-p company-select-previous (remapped)
+M-RET company-complete-selection (remapped)
 
 ** Case conversion
 
@@ -557,26 +545,14 @@ M-x sort-numeric-fields
 M-x reverse-region
 
 ** Transposing text
-
-See the manual.
-
-** Parentheses
+** Parentheses insertion
 
 M-x electric-pair-mode
 
 M-x check-parens
 M-( insert-parentheses
 
-** Code folding
-
-Hideshow mode: code folding
-Selective display: folding according to indentation
-Foldout package: folding together with narrowing
-
-See the manual for hideshow commands.
-
-C-u <n> C-x $ set-selective-display
-C-x $ set-selective-display
+C-c RET my-parens-return (defined in emacs-base.org)
 
 ** Binary files
 
@@ -600,37 +576,14 @@ M-s h w hi-lock-write-interactive-patterns
 M-s h f hi-lock-find-patterns
 
 ** Accumulating text
-
-See the manual.
-
 ** Registers
-
-See the manual.
-
-** Bookmarks
-
-See the manual.
-
 ** Merging
 
 M-x smerge-mode
 
-** Pages
-
-See the manual.
-
 ** Enriched text
-
-See the manual.
-
 ** Text-based tables
-
-See the manual.
-
 ** Two-column editing
-
-See the manual.
-
 
 * Inside minibuffer
 ** General
@@ -685,9 +638,6 @@ M-x make-variable-buffer-local
 M-x kill-local-variable
 
 ** Local variables per file/directory/connection
-
-See the manual.
-
 ** Key bindings
 
 M-x keymap-global-set
@@ -765,33 +715,17 @@ M-x package-import-keyring
 For use-package, see the manual.
 
 ** Customize
-
-See the manual.
-
 ** Flymake (on-the-fly syntax check)
-
-See the manual.
-
+** Semantic mode
+** Emacs development environment
 ** Eglot (LSP client)
-
-See the manual.
-
 ** Running debuggers
-
-See the manual.
-
 
 * Version control
 ** VC
 
-See the manual.
-
-
 * Organization
 ** Org mode
-
-See the manual.
-
 ** Calendar and diary
 
 M-x calendar
@@ -802,13 +736,7 @@ For calendar commands, see the manual.
 For diary, see the manual.
 
 ** Sending and reading mail
-
-See the manual.
-
 ** Reading and posting news
-
-See the manual.
-
 
 * Miscellaneous 
 
@@ -818,9 +746,6 @@ M-= count-words-region
 M-x count-words
 
 ** Document viewing (PDF, OpenDocument, Microsoft Office, etc.)
-
-See the manual.
-
 ** Emacs server
 
 M-x server-start
@@ -845,9 +770,6 @@ For PostScript hardcopy, see the manual.
 
 ** Web browsing
 
-See the manual.
-
-
 * Bad/non-existing support (to do for future Emacs versions)
 
 scroll-margin > 0 together with follow-mode.
@@ -868,12 +790,6 @@ file. Currently, only way is with customize.
 
 
 * TODO
-
-Command to be executed after inserting an opening parenthesis, which
-inserts two new lines and the closing parenthesis, indent the lines
-and leaves the point at the second line.
-
-Bind to C-c <k>, maybe C-c RET.
 
 Open files read-only with emacs-start.
 Solution: emacs FILE --eval '(setq buffer-read-only t)'

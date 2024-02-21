@@ -3,8 +3,8 @@
 #+STARTUP: content
 #+OPTIONS: toc:nil
 
-The configuration in emacs-base.org and emacs.org works with Emacs
-version 29.1.
+The configuration in emacs-base.org and emacs.org is up-to-date with
+Emacs version 29, and requires Emacs version 29.
 
 Emacs configuration is divided into two files:
 
@@ -254,6 +254,38 @@ Example .emacs file:
   ;;   (setq sp-highlight-pair-overlay nil)
   ;;   (setq sp-highlight-wrap-overlay nil)
   ;;   (setq sp-highlight-wrap-tag-overlay nil))
+
+  ;; Implementing a command that inserts two new lines and the closing
+  ;; parenthesis and leaves the point at the indented second
+  ;; line. Neither built-in features or external packages provide this
+  ;; functionality without enabling automatic pair matching.
+
+  (setq my-parens-pairs '(("(" . ")")
+			  ("[" . "]")
+			  ("{" . "}")))
+  (make-variable-buffer-local 'my-parens-pairs)
+
+  (defun my-parens-return ()
+    (interactive)
+    (let ((opening-paren (string (char-before))))
+      (if (not opening-paren)
+	  (message "Char before point is out of range.")
+	(let ((paren-pair (assoc opening-paren my-parens-pairs)))
+	  (if (not paren-pair)
+	      (message (format "Opening parenthesis '%s' does not have a match." opening-paren))
+	  
+	    ;; Everything is ok, perform the job
+	    (save-excursion
+	      (newline 2)
+	      (insert (cdr paren-pair))
+	      (indent-for-tab-command))
+	    (next-line)
+	    (indent-for-tab-command))))))
+
+  (add-hook 'prog-mode-hook
+	    (lambda ()
+	      (keymap-set prog-mode-map "C-c RET" #'my-parens-return)
+	      (keymap-set prog-mode-map "C-c C-<return>" #'my-parens-return)))
 #+END_SRC
 
 ** Disable beeping
