@@ -1,9 +1,11 @@
 #+TITLE: Emacs Cheat Sheet
 #+AUTHOR: Can Aknesil
 #+STARTUP: content
-#+OPTIONS: toc:nil \n:t
+#+OPTIONS: toc:nil \n:t author:nil
 
 Up-to-date with Emacs manual version 29.
+Date: <2024-02-21>
+Author: Can Aknesil
 
 * When in trouble
 ** Help and documentation lookup
