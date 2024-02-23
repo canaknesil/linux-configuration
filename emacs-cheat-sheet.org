@@ -798,5 +798,5 @@ Elephant in the room: Better base for Emacs server.
 Open files read-only with emacs-start.
 Solution: emacs FILE --eval '(setq buffer-read-only t)'
 
-Parent-child mode tree.
+Parent-child mode tree. Solution: mode-minder github repository.
 
