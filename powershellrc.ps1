@@ -54,6 +54,7 @@ if ($IsWindows -And ($linux_configuration_msys2_dir -ne $null)) {
     set-alias bash "$linux_configuration_msys2_dir/usr/bin/bash.exe"
     set-alias tree "$linux_configuration_msys2_dir/usr/bin/tree.exe"
     set-alias cat  "$linux_configuration_msys2_dir/usr/bin/cat.exe"
+    set-alias find "$linux_configuration_msys2_dir/usr/bin/find.exe"
     # The existing diff alias is not writeable.
     remove-alias diff -force
     set-alias diff "$linux_configuration_msys2_dir/usr/bin/diff.exe"
