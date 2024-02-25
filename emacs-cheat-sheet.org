@@ -1,117 +1,128 @@
 #+TITLE: Emacs Cheat Sheet
 #+AUTHOR: Can Aknesil
 #+STARTUP: content
-#+OPTIONS: toc:nil \n:t author:nil
+#+OPTIONS: toc:nil \n:nil author:nil date:nil num:nil
+#+LATEX_CLASS_OPTIONS: [a4paper,twocolumn]
+#+LATEX_HEADER: \usepackage[left=1in,right=1in,top=0.5in,bottom=1in]{geometry}
+#+LATEX_HEADER: \usepackage{titlesec}
+#+LATEX_HEADER: \setlength{\parindent}{0pt}
+#+LATEX_HEADER: \setlength{\parskip}{7pt}
 
-Up-to-date with Emacs manual version 29.
-Date: <2024-02-21>
+\raggedright
+\ttfamily
+
+\titleformat{\section}{\normalfont\sffamily\scshape\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\sffamily\scshape\bfseries}{\thesection}{1em}{}
+
+Date: \date{\today}\\
+Up-to-date with Emacs manual version 29.\\
 Author: Can Aknesil
 
-* When in trouble
+* IN TROUBLE
 ** Help and documentation lookup
 
-C-h k describe-key
-C-h c describe-key-briefly
-C-h f describe-function
-C-h v describe-variable
-C-h o describe-symbol
-C-h P describe-package
-C-h m describe-mode
-C-h b describe-bindings
+C-h k describe-key\\
+C-h c describe-key-briefly\\
+C-h f describe-function\\
+C-h v describe-variable\\
+C-h o describe-symbol\\
+C-h P describe-package\\
+C-h m describe-mode\\
+C-h b describe-bindings\\
 C-h l view-lossage
 
 M-x eldoc-doc-buffer
 
-C-h S info-lookup-symbol
+C-h S info-lookup-symbol\\
 M-x info-lookup-file
 
 ** Undo
 
-C-/
-C-x u
+C-/\\
+C-x u\\
 C-_   undo
 
 C-? undo-redo
 
 ** Canceling
 
-C-g
+C-g\\
 ESC ESC ESC keyboard-quit
 
 C-g C-g (emergency escape in case first C-g doesn't respond)
 
 ** Quitting and clearing session
 
-C-x C-c save-buffers-kill-terminal
+C-x C-c save-buffers-kill-terminal\\
 M-x save-buffers-kill-emacs
 
 M-x desktop-clear
 
 ** Recovery after crash
 
-M-x recover-file
+M-x recover-file\\
 M-x recover-session
 
 
-* Navigation
+* NAVIGATION
 ** Basic motion
 
-C-f forward-char
-C-b backward-char
-C-n next-line
+C-f forward-char\\
+C-b backward-char\\
+C-n next-line\\
 C-p previous-line
 
-C-e move-end-of-line
+C-e move-end-of-line\\
 C-a move-beginning-of-line
 
-M-f forward-word
+M-f forward-word\\
 M-b backward-word
 
-M-e forward-sentence
+M-e forward-sentence\\
 M-a backward-sentence
 
-M-} forward-paragraph
+M-} forward-paragraph\\
 M-{ backword-paragraph
 
-C-M-a beginning-of-defun
+C-M-a beginning-of-defun\\
 C-M-e end-of-defun
 
-C-M-f forward-sexp
-C-M-b backward-sexp
-C-M-n forward-list
-C-M-p backward-list
-C-M-u backward-up-list
+C-M-f forward-sexp\\
+C-M-b backward-sexp\\
+C-M-n forward-list\\
+C-M-p backward-list\\
+C-M-u backward-up-list\\
 C-M-d down-list
 
-M-< beginning-of-buffer
+M-< beginning-of-buffer\\
 M-> end-of-buffer
 
 ** Pages
 
-C-q C-l (insert page break)
-M-x what-page
-C-x [ backward-page
-C-x ] forward-page
-C-x C-p mark-page
+C-q C-l (insert page break)\\
+M-x what-page\\
+C-x [ backward-page\\
+C-x ] forward-page\\
+C-x C-p mark-page\\
 C-x l count-lines-page
 
 ** Scrolling
 
-C-v scroll-up-command
+C-v scroll-up-command\\
 M-v scroll-down-command
 
-C-M-v scroll-other-window
-C-M-SHIFT-v scroll-other-window-down
+C-M-v scroll-other-window\\
+C-M-SHIFT-v scroll-other-window-down\\
 C-M-SHIFT-l recenter-other-window
 
-C-l recenter-top-bottom
+C-l recenter-top-bottom\\
 C-M-l reposition-window
 
 ** Avy (package)
 
-C-: avy-goto-char
-C-' avy-goto-char-2
-M-g f avy goto-line
+C-: avy-goto-char\\
+C-' avy-goto-char-2\\
+M-g f avy goto-line\\
 M-g w avy goto-word-1
 
 ** Auto highlight symbol
@@ -119,29 +130,32 @@ M-g w avy goto-word-1
 M-x auto-highlight-symbol-mode
 
 ** Abbrevs
+
+See the manual.
+
 ** Code folding
 
-Hideshow mode: code folding
-Selective display: folding according to indentation
+Hideshow mode: code folding\\
+Selective display: folding according to indentation\\
 Foldout package: folding together with narrowing
 
 See the manual for hideshow commands.
 
-C-u <n> C-x $ set-selective-display
+C-u <n> C-x $ set-selective-display\\
 C-x $ set-selective-display
 
 ** Search in buffer
 
-C-s isearch-forward
-C-r isearch-backward
-C-s C-s (repeat previous search)
+C-s isearch-forward\\
+C-r isearch-backward\\
+C-s C-s (repeat previous search)\\
 C-r C-r (repeat previous search)
 
-M-s w isearch-forward-word
-M-s _ isearch-forward-symbol
+M-s w isearch-forward-word\\
+M-s _ isearch-forward-symbol\\
 M-s . isearch-forward-symbol-at-point
 
-C-M-s isearch-forward-regexp
+C-M-s isearch-forward-regexp\\
 C-M-r isearch-backward-regexp
 
 M-r isearch-toggle-regexp (within isearch)
@@ -152,53 +166,53 @@ M-g i imenu
 
 ** Search in project
 
-C-x p g project-find-regexp
+C-x p g project-find-regexp\\
 M-x project-search
 
-M-x grep
-M-x find-grep
-M-x lgrep
-M-x rgrep
-M-x zrgrep
+M-x grep\\
+M-x find-grep\\
+M-x lgrep\\
+M-x rgrep\\
+M-x zrgrep\\
 M-x kill-grep
 
 For grep buffer commands, see the manual.
 
 ** Ring navigation (go to and back)
 
-C-SPC C-SPC (push to mark ring)
-C-u C-SPC (return to last mark)
+C-SPC C-SPC (push to mark ring)\\
+C-u C-SPC (return to last mark)\\
 C-x C-SPC pop-global-mark
 
 M-g M-g goto-line
 
-M-. xref-find-definitions
-C-u M-. (xref-find-definitions with custom identifier)
-C-M-. xref-find-apropos
-C-x 4 . xref-find-definitions-other-window
-C-x 5 . xref-find-definitions-other-frame
-M-? xref-find-references
+M-. xref-find-definitions\\
+C-u M-. (xref-find-definitions with custom identifier)\\
+C-M-. xref-find-apropos\\
+C-x 4 . xref-find-definitions-other-window\\
+C-x 5 . xref-find-definitions-other-frame\\
+M-? xref-find-references\\
 C-u M-? (xref-find-references with custom identifier)
 
-r
+r\\
 M-x xref-query-replace-in-results
 
-M-, xref-go-back
+M-, xref-go-back\\
 C-M-, xref-go-forward
 
 For xref buffer commands, see the manual.
 
 ** Clickable links
 
-M-x goto-address-mode
+M-x goto-address-mode\\
 C-c ENTER goto-address-at-point
 
-M-x browse-url
+M-x browse-url\\
 M-x browse-url-at-point
 
 ** Recursive editing
 
-C-M-c exit-recursive-edit
+C-M-c exit-recursive-edit\\
 C-] abort-recursive-edit
 
 M-x top-level
@@ -207,38 +221,44 @@ M-x fileloop-continue
 
 ** Files
 
-C-x C-f find-file
-C-x C-r find-file-read-only
-C-x C-v find-alternate-file
-C-x 4 f find-file-other-window
-C-x 4 r find-file-read-only-other-window
-C-x 5 f find-file-other-frame
+C-x C-f find-file\\
+C-x C-r find-file-read-only\\
+C-x C-v find-alternate-file\\
+C-x 4 f find-file-other-window\\
+C-x 4 r find-file-read-only-other-window\\
+C-x 5 f find-file-other-frame\\
 C-x 5 r find-file-read-only-other-frame
 
 C-x p f project-find-file
 
-C-x C-s save-buffer
+C-x C-s save-buffer\\
 C-x C-w write-file
 
-C-x i insert-file
+C-x i insert-file\\
 M-x write-region
 
-M-x revert-buffer
+M-x revert-buffer\\
 M-x auto-revert-mode
 
 For ffap (find-file-at-point), see the manual.
 
 ** File name cache
+
+See the manual.
+
 ** Bookmarks
+
+See the manual.
+
 ** Diff and merging
 
-M-x diff
-M-x ediff
-M-x diff-backup
-M-x diff-buffer-with-file
+M-x diff\\
+M-x ediff\\
+M-x diff-backup\\
+M-x diff-buffer-with-file\\
 M-x diff-buffers
 
-C-x v = vc-diff
+C-x v = vc-diff\\
 C-x v D vc-root-diff
 
 M-x smerge-mode
@@ -247,210 +267,222 @@ M-x smerge-mode
 
 C-x C-d list-directory
 
-C-x d dired
-C-x 4 d dired-other-window
-C-x 5 d dired-other-frame
-C-x C-j dired-jump
-C-x 4 C-j dired-jump-other-window
+C-x d dired\\
+C-x 4 d dired-other-window\\
+C-x 5 d dired-other-frame\\
+C-x C-j dired-jump\\
+C-x 4 C-j dired-jump-other-window\\
 C-u ... (invoke dired with custom switches to ls)
 
 For dired buffer commands, see the manual.
 
 ** Buffers
 
-C-x b switch-to-buffer
-C-x 4 b switch-to-buffer-other-window
-C-x 5 b switch-to-buffer-other-frame
-C-x LEFT previous-buffer
+C-x b switch-to-buffer\\
+C-x 4 b switch-to-buffer-other-window\\
+C-x 5 b switch-to-buffer-other-frame\\
+C-x LEFT previous-buffer\\
 C-x RIGHT next-buffer
 
 C-x p b project-switch-buffer
 
-C-x C-b list-buffers
+C-x C-b list-buffers\\
 C-x p C-b project-list-buffers
 
 C-u C-x C-b (list only file visiting buffers)
 
 C-x C-q read-only-mode
 
-C-x k kill-buffer
-M-x kill-some-buffers
+C-x k kill-buffer\\
+M-x kill-some-buffers\\
 C-x p k project-kill-buffers
 
 ** View Mode (like Vim normal mode)
+
+See the manual.
+
 ** Indirect buffers
+
+See the manual.
+
 ** Follow mode
 
 M-x follow-mode
 
 ** Narrowing
+
+See the manual.
+
 ** Projects
 
-C-x p p project-switch-project
+C-x p p project-switch-project\\
 M-x project-forget-project
 
 ** Windows
 
-C-x 0 delete-window
-C-x 1 delete-other-window
-C-x 2 split-window-below
-C-x 3 split-window-right
+C-x 0 delete-window\\
+C-x 1 delete-other-window\\
+C-x 2 split-window-below\\
+C-x 3 split-window-right\\
 C-x 4 0 kill-buffer-and-window
 
 C-x o other-window
 
-C-x 4 4 other-window-prefix
+C-x 4 4 other-window-prefix\\
 C-x 4 1 same-window-prefix
 
-SHIFT-LEFT windmove-left
-SHIFT-RIGHT windmove-right
-SHIFT-UP windmove-up
+SHIFT-LEFT windmove-left\\
+SHIFT-RIGHT windmove-right\\
+SHIFT-UP windmove-up\\
 SHIFT-DOWN windmove-down
 
-C-x SHIFT-LEFT windmove-delete-left
-C-x SHIFT-RIGHT windmove-delete-right
-C-x SHIFT-UP windmove-delete-up
+C-x SHIFT-LEFT windmove-delete-left\\
+C-x SHIFT-RIGHT windmove-delete-right\\
+C-x SHIFT-UP windmove-delete-up\\
 C-x SHIFT-DOWN windmove-delete-down
 
-C-c LEFT winner-undo
+C-c LEFT winner-undo\\
 C-c RIGHT winner-redo
 
 M-x window-swap-states
 
 ** Transform frame (package)
 
-M-x transpose-frame
-M-x flip-frame
-M-x flop-frame
-M-x rotate-frame
-M-x rotate-frame-clockwise
+M-x transpose-frame\\
+M-x flip-frame\\
+M-x flop-frame\\
+M-x rotate-frame\\
+M-x rotate-frame-clockwise\\
 M-x rotate-frame-anticlockwise
 
 ** Frames
 
-C-x 5 2 make-frame-command
+C-x 5 2 make-frame-command\\
 C-x 5 c clone-frame
 
-C-x 5 0 delete-frame
+C-x 5 0 delete-frame\\
 C-z suspend-frame
 
-C-x 5 o other-frame
+C-x 5 o other-frame\\
 C-x 5 1 delete-other-frames
 
 C-x 5 5 other-frame-prefix
 
-M-F10 toggle-frame-maximized
+M-F10 toggle-frame-maximized\\
 F11 toggle-frame-fullscreen
 
 ** Saving Emacs frames and sessions
 
 C-x 5 u undelete-frame
 
-M-x desktop-save-mode
-M-x desktop-save
-M-x desktop-read
-M-x desktop-revert
+M-x desktop-save-mode\\
+M-x desktop-save\\
+M-x desktop-read\\
+M-x desktop-revert\\
 M-x desktop-change-dir
 
 ** Tab lines (tabs)
+
+See the manual.
+
 ** Tab bars (workspaces)
 
-C-x t 2 tab-new
-C-x t b switch-to-buffer-other-tab
-C-x t f find-file-other-tab
+C-x t 2 tab-new\\
+C-x t b switch-to-buffer-other-tab\\
+C-x t f find-file-other-tab\\
 C-x t t other-tab-prefix
 
-C-x t 0 tab-close
-C-x t 1 tab-close-other
+C-x t 0 tab-close\\
+C-x t 1 tab-close-other\\
 C-x t u tab-undo
 
-C-x t o 
-C-TAB tab-next
-C-SHIFT-TAB tab-previous
+C-x t o\\
+C-TAB tab-next\\
+C-SHIFT-TAB tab-previous\\
 
-C-x t RET tab-switch
+C-x t RET tab-switch\\
 M-x tab-switcher
 
 ** Explorer toolbar
 
-speedbar: explorer in a seperate frame
-sr-speedbar: speedbar without seperate frame
+speedbar: explorer in a seperate frame\\
+sr-speedbar: speedbar without seperate frame\\
 treemacs: explorer in same frame
 
 See the manual.
 
 ** Line truncation and visual line mode
 
-C-x x t toggle-truncate-lines
-M-x visual-line-mode
+C-x x t toggle-truncate-lines\\
+M-x visual-line-mode\\
 M-x visual-fill-column-mode
 
 
-* Editing
+* EDITING
 ** Deletion, killing, and yanking
 
-BACKSPACE delete-backward-char
+BACKSPACE delete-backward-char\\
 C-d delete-char
 
-C-k kill-line
+C-k kill-line\\
 C-SHIFT-BACKSPACE kill-whole-line
 
-M-BACKSPACE backward-kill-word
+M-BACKSPACE backward-kill-word\\
 M-d kill-word
 
 C-M-k kill-sexp
 
-C-w kill-region
+C-w kill-region\\
 M-w kill-ring-save
 
-C-y yank
-M-y yank-pop
-C-u C-y (yank and leave point at the beginning)
+C-y yank\\
+M-y yank-pop\\
+C-u C-y (yank and leave point at the beginning)\\
 C-u M-y (yank-pop and leave point at the beginning)
 
 ** Overwrite mode (insert)
 
-M-x overwrite-mode
+M-x overwrite-mode\\
 M-x binary-overwrite-mode
 
 ** Region (selection)
 
-C-SPC set-mark-command
+C-SPC set-mark-command\\
 C-x C-x exchange-mark-and-point
 
-M-h mark-paragraph
-C-M-h mark-defun
+M-h mark-paragraph\\
+C-M-h mark-defun\\
 C-x h mark-whole-buffer
 
 ** Blank lines and whitespace
 
-C-o open-line
+C-o open-line\\
 C-M-o split-line
 
-M-\ delete-horizontal-space
-M-SPC just-one-space
-C-x C-o delete-blank-lines
-M-^ delete-indentation
+M-\ delete-horizontal-space\\
+M-SPC just-one-space\\
+C-x C-o delete-blank-lines\\
+M-^ delete-indentation\\
 M-x delete-trailing-whitespace
 
 ** Indentation
 
-TAB indent-for-tab-command
-M-m back-to-indentation
+TAB indent-for-tab-command\\
+M-m back-to-indentation\\
 C-q TAB (insert TAB character)
 
-C-M-\ indent-region
+C-M-\ indent-region\\
 C-M-q prog-indent-sexp
 
-M-x indent-relative
+M-x indent-relative\\
 M-^ delete-indentation
 
 ** Replacement
 
-M-x replace-string
+M-x replace-string\\
 M-% query-replace
 
-M-x replace-regexp
+M-x replace-regexp\\
 C-M-% query-replace-regexp
 
 C-x p r project-query-replace-regexp
@@ -459,58 +491,58 @@ M-x xref-find-references-and-replace
 
 ** Repetition, and keyboard macro
 
-C-u <n>... <command>
+C-u <n>... <command>\\
 C-x z [z...] repeat
 
-C-x ( kmacro-start-macro
-C-x ) kmacro-end-macro
+C-x ( kmacro-start-macro\\
+C-x ) kmacro-end-macro\\
 C-x e [e...] kmacro-end-and-call-macro
 
 ** Rectangles
 
 C-x r t string-rectangle
 
-C-x r k kill-rectangle
+C-x r k kill-rectangle\\
 C-x r c clear-rectangle
 
-C-x r M-w copy-rectangle-as-kill
+C-x r M-w copy-rectangle-as-kill\\
 C-x r y yank-rectangle
 
 ** Correcting spelling
 
-M-$ ispell-word
-M-x ispell
-M-x ispell-comments-and-strings
+M-$ ispell-word\\
+M-x ispell\\
+M-x ispell-comments-and-strings\\
 <mouse-2> flyspell-correct-word
 
 ** Filling text
 
-M-q fill-paragraph
-M-x fill-region
+M-q fill-paragraph\\
+M-x fill-region\\
 M-x fill-region-as-paragraph
 
 M-Q unfill-paragraph (defined in emacs-base.org)
 
 C-x . set-fill-prefix
 
-M-x center-line
-M-x center-region
+M-x center-line\\
+M-x center-region\\
 M-x center-paragraph
 
 ** Comments
 
-M-; comment-dwin
-C-x C-; comment-line
+M-; comment-dwin\\
+C-x C-; comment-line\\
 C-u M-; comment-kill
 
-M-x comment-region
+M-x comment-region\\
 M-x uncomment-region
 
 M-j indent-new-comment-line
 
 ** Smart insertion
 
-C-x r N rectangle-number-lines
+C-x r N rectangle-number-lines\\
 C-u C-x r N (rectangle-number-lines custom initial number and format string)
 
 See the manual for Yasnippet.
@@ -519,47 +551,50 @@ See the manual for Yasnippet.
 
 C-M-i completion-at-point
 
-M-n company-select-next (remapped)
-M-p company-select-previous (remapped)
+M-n company-select-next (remapped)\\
+M-p company-select-previous (remapped)\\
 M-RET company-complete-selection (remapped)
 
 ** Case conversion
 
-M-l downcase-word
-M-u upcase-word
+M-l downcase-word\\
+M-u upcase-word\\
 M-c capitalize-word
 
-C-x C-l downcase-region
-C-x C-u upcase-region
+C-x C-l downcase-region\\
+C-x C-u upcase-region\\
 M-x capitalize-region
 
 ** Sorting text
 
-M-x sort-lines
-C-u M-x sort-lines (sort-lines in descending order)
-M-x sort-paragraphs
-M-x sort-fields
-C-u <n> M-x sort-fields (sort acc. to nth field)
-M-x sort-columns
-C-u M-x sort-columns (sort-columns in descending order)
+M-x sort-lines\\
+C-u M-x sort-lines (sort-lines in descending order)\\
+M-x sort-paragraphs\\
+M-x sort-fields\\
+C-u <n> M-x sort-fields (sort acc. to nth field)\\
+M-x sort-columns\\
+C-u M-x sort-columns (sort-columns in descending order)\\
 M-x sort-numeric-fields
 
 M-x reverse-region
 
 ** Transposing text
+
+See the manual.
+
 ** Parentheses insertion
 
 M-x electric-pair-mode
 
-M-x check-parens
+M-x check-parens\\
 M-( insert-parentheses
 
 C-c RET my-parens-return (defined in emacs-base.org)
 
 ** Binary files
 
-M-x hexl-find-file
-M-x hexl-mode
+M-x hexl-find-file\\
+M-x hexl-mode\\
 C-c C-c (in hexl mode, leave)
 
 For hexl mode commands, see the manual.
@@ -568,42 +603,57 @@ For hexl mode commands, see the manual.
 
 M-x highlight-changes-mode
 
-M-s h r highlight-regexp
-M-s h p highlight-phrase
-M-s h . highlight-symbol-at-point
-M-s h u unhighlight-regexp
+M-s h r highlight-regexp\\
+M-s h p highlight-phrase\\
+M-s h . highlight-symbol-at-point\\
+M-s h u unhighlight-regexp\\
 M-s h l highlight-lines-matching-regexp
 
-M-s h w hi-lock-write-interactive-patterns
+M-s h w hi-lock-write-interactive-patterns\\
 M-s h f hi-lock-find-patterns
 
 ** Accumulating text
+
+See the manual.
+
 ** Registers
+
+See the manual.
+
 ** Merging
 
 M-x smerge-mode
 
 ** Enriched text
+
+See the manual.
+
 ** Text-based tables
+
+See the manual.
+
 ** Two-column editing
 
-* Inside minibuffer
+See the manual.
+
+
+* MINIBUFFER
 ** General
 
-M-p previous-history-element
+M-p previous-history-element\\
 M-n next-history-element
 
 ** Ivy
 
-M-r ivy-toggle-regexp-quote
+M-r ivy-toggle-regexp-quote\\
 C-M-j ivy-immediate-done
 
 
-* Interactive programming
+* PROGRAMMING
 ** Compilation
 
-M-x compile
-M-x recompile
+M-x compile\\
+M-x recompile\\
 M-x kill-compilation
 
 C-x p c project-compile
@@ -612,39 +662,42 @@ For compilation mode commands, see the manual.
 
 ** Lisp execution
 
-M-x load-file
+M-x load-file\\
 M-x load-library
 
-M-: eval-expression
-C-x C-e eval-last-sexp
-C-M-x eval-defun
-M-x eval-region
+M-: eval-expression\\
+C-x C-e eval-last-sexp\\
+C-M-x eval-defun\\
+M-x eval-region\\
 M-x eval-buffer
 
-M-x lisp-interaction-mode
-M-x scratch-buffer
+M-x lisp-interaction-mode\\
+M-x scratch-buffer\\
 C-j eval-print-last-sexp
 
 M-x ielm
 
-M-x run-lisp
+M-x run-lisp\\
 M-x run-scheme
 
 ** Variables
 
-M-x set-variable
+M-x set-variable\\
 M-n (insert the old value when using set-variable)
 
-M-x make-local-variable
-M-x make-variable-buffer-local
+M-x make-local-variable\\
+M-x make-variable-buffer-local\\
 M-x kill-local-variable
 
 ** Local variables per file/directory/connection
+
+See the manual.
+
 ** Key bindings
 
-M-x keymap-global-set
-M-x keymap-global-unset
-M-x keymap-local-set
+M-x keymap-global-set\\
+M-x keymap-global-unset\\
+M-x keymap-local-set\\
 M-x keymap-local-unset
 
 In Init file, use keymap-global-set and keymap-set.
@@ -657,43 +710,43 @@ In Init file, use keymap-global-set and keymap-set.
 	      (keymap-set texinfo-mode-map "C-c p" 'backward-paragraph)))
 #+END_SRC
 
-C-<key> (Control-<key>)
+C-<key> (Control-<key>)\\
 C-x c <key>
 
-M-<key> (Meta-<key>)
+M-<key> (Meta-<key>)\\
 C-x m <key>
 
-S-<key> (Shift-<key>)
+S-<key> (Shift-<key>)\\
 C-x S <key>
 
-H-<key> (Hyper-<key>)
+H-<key> (Hyper-<key>)\\
 C-x @ h <key>
 
-s-<key> (Super-<key>)
+s-<key> (Super-<key>)\\
 C-x @ s <key>
 
-A-<key> (Alt-<key>)
+A-<key> (Alt-<key>)\\
 C-x @ a <key>
 
 For disabling a command, see the manual.
 
 ** Running shell commands
 
-M-! shell-command
-C-u M-! (insert output of shell-command to point)
-M-| shell-command-on-region
+M-! shell-command\\
+C-u M-! (insert output of shell-command to point)\\
+M-| shell-command-on-region\\
 M-& async-shell-command
 
 M-x shell
 
 For shell buffer commands, see the manual.
 
-M-x term
-C-c C-j term-line-mode
+M-x term\\
+C-c C-j term-line-mode\\
 C-c C-k term-char-mode
 
-C-c C-c (in term char mode, sends C-c to terminal)
-C-c <char> (in term char mode, acts as C-x <char>)
+C-c C-c (in term char mode, sends C-c to terminal)\\
+C-c <char> (in term char mode, acts as C-x <char>)\\
 C-c <key> (in term char mode, C-c is escape character for emacs commands)
 
 C-c C-q term-pager-toggle
@@ -706,8 +759,8 @@ M-x list-packages
 
 For packages buffer commands, see the manual.
 
-M-x package-install
-M-x package-upgrade
+M-x package-install\\
+M-x package-upgrade\\
 M-x package-upgrade-all
 
 M-x package-refresh-contents
@@ -717,20 +770,44 @@ M-x package-import-keyring
 For use-package, see the manual.
 
 ** Customize
+
+See the manual.
+
 ** Flymake (on-the-fly syntax check)
+
+See the manual.
+
 ** Semantic mode
+
+See the manual.
+
 ** Emacs development environment
+
+See the manual.
+
 ** Eglot (LSP client)
+
+See the manual.
+
 ** Running debuggers
 
-* Version control
+See the manual.
+
+
+* VERSION CONTROL
 ** VC
 
-* Organization
+See the manual.
+
+
+* ORGANIZATION
 ** Org mode
+
+See the manual.
+
 ** Calendar and diary
 
-M-x calendar
+M-x calendar\\
 C-u M-x calendar (invoke calendar with custom date)
 
 For calendar commands, see the manual.
@@ -738,30 +815,39 @@ For calendar commands, see the manual.
 For diary, see the manual.
 
 ** Sending and reading mail
+
+See the manual.
+
 ** Reading and posting news
 
-* Miscellaneous 
+See the manual.
+
+
+* MISCELLANEOUS
 
 ** Word count
 
-M-= count-words-region
+M-= count-words-region\\
 M-x count-words
 
 ** Document viewing (PDF, OpenDocument, Microsoft Office, etc.)
+
+See the manual.
+
 ** Emacs server
 
 M-x server-start
 
-C-x # server-edit
+C-x # server-edit\\
 M-x server-edit-abort
 
 M-x kill-emacs
 
 ** Printing
 
-M-x print-buffer
-M-x lpr-buffer
-M-x print-region
+M-x print-buffer\\
+M-x lpr-buffer\\
+M-x print-region\\
 M-x lpr-region
 
 M-x htmlfontify-buffer
@@ -772,31 +858,35 @@ For PostScript hardcopy, see the manual.
 
 ** Web browsing
 
-* Bad/non-existing support (to do for future Emacs versions)
-
-scroll-margin > 0 together with follow-mode.
-
-Pixel scrolling at starting and end of buffer together with scroll
-margin > 0.
-
-Company tooltip scroll margin greater than 0.
-
-Code folding for Julia.
-
-Automatic execution of package-refresh-contents.
-
-hl-line (overlay) overwrites the highlight color (font-lock).
-
-Modifying face attributes for Emacs server on Windows in init
-file. Currently, only way is with customize.
-
-Elephant in the room: Better base for Emacs server.
+See the manual.
 
 
-* TODO
 
-Open files read-only with emacs-start.
-Solution: emacs FILE --eval '(setq buffer-read-only t)'
+# * Bad/non-existing support (to do for future Emacs versions)
 
-Parent-child mode tree. Solution: mode-minder github repository.
+# scroll-margin > 0 together with follow-mode.
+
+# Pixel scrolling at starting and end of buffer together with scroll
+# margin > 0.
+
+# Company tooltip scroll margin greater than 0.
+
+# Code folding for Julia.
+
+# Automatic execution of package-refresh-contents.
+
+# hl-line (overlay) overwrites the highlight color (font-lock).
+
+# Modifying face attributes for Emacs server on Windows in init
+# file. Currently, only way is with customize.
+
+# Elephant in the room: Better base for Emacs server.
+
+
+# * TODO
+
+# Open files read-only with emacs-start.
+# Solution: emacs FILE --eval '(setq buffer-read-only t)'
+
+# Parent-child mode tree. Solution: mode-minder github repository.
 
