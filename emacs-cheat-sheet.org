@@ -440,6 +440,8 @@ M-y yank-pop\\
 C-u C-y (yank and leave point at the beginning)\\
 C-u M-y (yank-pop and leave point at the beginning)
 
+M-x duplicate-line
+
 ** Overwrite mode (insert)
 
 M-x overwrite-mode\\

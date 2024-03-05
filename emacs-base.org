@@ -668,6 +668,14 @@ Example .emacs file:
   (setq-default confirm-kill-emacs 'y-or-n-p)
 #+END_SRC
 
+** Reload config
+#+BEGIN_SRC emacs-lisp
+  ;; Run .emacs
+  (defun reload-config ()
+    (interactive)
+    (load-file "~/.emacs"))
+#+END_SRC
+
 
 * Programming languages & Modes
 ** Verilog
@@ -688,16 +696,14 @@ Example .emacs file:
 #+END_SRC
 
 
-* Shortcut commands
+* Short-hand key bindings
 #+BEGIN_SRC emacs-lisp
-  ;; Byte compile and load the elisp buffer
-  (define-key emacs-lisp-mode-map (kbd "C-c C-c")
-    'emacs-lisp-byte-compile-and-load)
-
-  ;; Run .emacs
-  (defun reload-config ()
+  (defun duplicate-line-and-next-line ()
     (interactive)
-    (load-file "~/.emacs"))
+    (duplicate-line)
+    (next-line))
+
+  (keymap-global-set "C-c n" #'duplicate-line-and-next-line)
 #+END_SRC
 
 

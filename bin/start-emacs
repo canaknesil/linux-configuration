@@ -160,23 +160,41 @@ if [ "$OPTARG_CLIENT" = YES ]; then
 		#
 		# Open files in the most recently created frame. Create new frame if necessary.
 		#
+
+		
 		
 		if [ "$OPTARG_BIND" = YES ]; then
 		    # e --client --bind FILES...
+
+		    # Note: With the command 'ec [-a ""] [-r] FILES...'
+		    # emacsclient generates the following error on
+		    # Windows (Emacs version 29.2):
+
+		    # Error: Symbol's value as variable is void: font
+		    
 		    $ec -a "" -r $FILES
 		else
 		    # e --client FILES...
+
+		    # Note: The following command unintentionally
+		    # burries the newly created buffer(s) on
+		    # Windows. (Emacs version 29.2).
+		    
 		    $ec -a "" -r -n $FILES
 		fi
 		
 	    else
 
 		#
-		# New Emacs client frame in X, if there are no.
+		# New Emacs client frame in X.
 		#
+
+		# Note: Using ec -a "" [-r] [-n] is problematic on
+		# Windows (Emacs version 29.2). Sometimes this command
+		# fails to create a frame.
 		
 		# e --client
-		$ec -a "" -r -n
+		$ec -a "" -c -n
 		
 	    fi
 	    
