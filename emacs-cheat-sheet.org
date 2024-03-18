@@ -5,14 +5,14 @@
 #+LATEX_CLASS_OPTIONS: [a4paper,twocolumn]
 #+LATEX_HEADER: \usepackage[left=1in,right=1in,top=0.5in,bottom=1in]{geometry}
 #+LATEX_HEADER: \usepackage{titlesec}
+#+LATEX_HEADER: \usepackage{color}
+#+LATEX_HEADER: \titleformat{\section}{\color{blue}\normalfont\sffamily\scshape\large\bfseries}{\thesection}{1em}{}
+#+LATEX_HEADER: \titleformat{\subsection}{\normalfont\sffamily\scshape\bfseries}{\thesection}{1em}{}
 #+LATEX_HEADER: \setlength{\parindent}{0pt}
 #+LATEX_HEADER: \setlength{\parskip}{7pt}
 
 \raggedright
 \ttfamily
-
-\titleformat{\section}{\normalfont\sffamily\scshape\large\bfseries}{\thesection}{1em}{}
-\titleformat{\subsection}{\normalfont\sffamily\scshape\bfseries}{\thesection}{1em}{}
 
 Date: \date{\today}\\
 Up-to-date with Emacs manual version 29.\\
@@ -452,8 +452,11 @@ M-x binary-overwrite-mode
 C-SPC set-mark-command\\
 C-x C-x exchange-mark-and-point
 
+M-@ mark-word\\
 M-h mark-paragraph\\
+C-M-@ mark-sexp\\
 C-M-h mark-defun\\
+C-x C-p mark-page\\
 C-x h mark-whole-buffer
 
 ** Blank lines and whitespace
