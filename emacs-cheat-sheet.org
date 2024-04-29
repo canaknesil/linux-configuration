@@ -2,8 +2,8 @@
 #+AUTHOR: Can Aknesil
 #+STARTUP: content
 #+OPTIONS: toc:nil \n:nil author:nil date:nil num:nil
-#+LATEX_CLASS_OPTIONS: [a4paper,twocolumn]
-#+LATEX_HEADER: \usepackage[left=1in,right=1in,top=0.5in,bottom=1in]{geometry}
+#+LATEX_CLASS_OPTIONS: [a5paper,twocolumn,8pt]
+#+LATEX_HEADER: \usepackage[left=0.4in,right=0.4in,top=0.3in,bottom=0.7in]{geometry}
 #+LATEX_HEADER: \usepackage{titlesec}
 #+LATEX_HEADER: \usepackage{color}
 #+LATEX_HEADER: \titleformat{\section}{\color{blue}\normalfont\sffamily\scshape\large\bfseries}{\thesection}{1em}{}
