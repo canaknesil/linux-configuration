@@ -699,6 +699,12 @@ Example .emacs file:
   (add-to-list 'auto-mode-alist '("\\.xdc\\'" . tcl-mode))
 #+END_SRC
 
+** C-like languages
+#+BEGIN_SRC emacs-lisp
+  ;; Indentation offset for C-like languages.
+  (setq-default c-basic-offset 3)
+#+END_SRC
+
 
 * Short-hand key bindings
 #+BEGIN_SRC emacs-lisp
