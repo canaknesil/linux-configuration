@@ -129,6 +129,21 @@ fi
 # runs in text mode in a Command Prompt window.
 
 
+run_cmd () {
+    for p in "$@"
+    do
+	if [ -z "$p" ]
+	then
+	    echo -n "\"\" "
+	else
+	    echo -n "$p "
+	fi
+    done
+    
+    $@
+}
+
+
 if [ "$OPTARG_CLIENT" = YES ]; then
     if [ "$OPTARG_TERMINAL" = YES ]; then
 
@@ -137,7 +152,7 @@ if [ "$OPTARG_CLIENT" = YES ]; then
 	#
 	
 	# e --client --terminal
-	$ec -a "" -nw $FILES
+	run_cmd $ec -a "" -nw $FILES
 	
     else
 	if [ "$OPTARG_NEW_FRAME" = YES ]; then
@@ -148,10 +163,10 @@ if [ "$OPTARG_CLIENT" = YES ]; then
 
 	    if [ "$OPTARG_BIND" = YES ]; then
 		# e --client --new-frame --bind
-		$ec -a "" -c $FILES
+		run_cmd $ec -a "" -c $FILES
 	    else
 		# e --client --new-frame
-		$ec -a "" -c -n $FILES
+		run_cmd $ec -a "" -c -n $FILES
 	    fi
 	    
 	else
@@ -172,7 +187,7 @@ if [ "$OPTARG_CLIENT" = YES ]; then
 
 		    # Error: Symbol's value as variable is void: font
 		    
-		    $ec -a "" -r $FILES
+		    run_cmd $ec -a "" -r $FILES
 		else
 		    # e --client FILES...
 
@@ -180,7 +195,7 @@ if [ "$OPTARG_CLIENT" = YES ]; then
 		    # burries the newly created buffer(s) on
 		    # Windows. (Emacs version 29.2).
 		    
-		    $ec -a "" -r -n $FILES
+		    run_cmd $ec -a "" -r -n $FILES
 		fi
 		
 	    else
@@ -194,7 +209,7 @@ if [ "$OPTARG_CLIENT" = YES ]; then
 		# fails to create a frame.
 		
 		# e --client
-		$ec -a "" -c -n
+		run_cmd $ec -a "" -c -n
 		
 	    fi
 	    
@@ -208,7 +223,7 @@ else
 	#
 	
 	# e --terminal
-	emacs -nw $FILES
+	run_cmd emacs -nw $FILES
 	
     else
 
@@ -218,13 +233,13 @@ else
 	
 	if [ "$OPTARG_BIND" = YES ]; then
 	    # e --bind
-	    emacs $FILES
+	    run_cmd emacs $FILES
 	else
 	    # e
 	    if [ "$(command -v runemacs)" ]; then
-		runemacs $FILES
+		run_cmd runemacs $FILES
 	    else
-		emacs $FILES 2>&1 >/dev/null & disown
+		run_cmd emacs $FILES 2>&1 >/dev/null & disown
 		# On Windows, above command leavs the shell currupted.
 	    fi
 	fi
