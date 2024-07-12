@@ -139,8 +139,8 @@ run_cmd () {
 	    echo -n "$p "
 	fi
     done
-    
-    $@
+    echo
+    "$@"
 }
 
 

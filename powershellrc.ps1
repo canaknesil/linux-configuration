@@ -184,6 +184,28 @@ function Get-CrossProduct {
 set-alias cross Get-CrossProduct
 
 
+# function Enter-PSSessionWithProfile {
+#     param (
+# 	$Session,
+# 	$UserName,
+# 	$HostName
+#     )
+#     if ($Session -eq $null) {
+# 	$Session = New-PSSession -UserName $UserName -HostName $HostName
+
+# 	# Taken from https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles?view=powershell-7.4
+# 	Invoke-Command -Session $Session -ScriptBlock {
+# 	    # The path to the profile should be hard-written as this is a script block.
+# 	    . "C:\Users\canpi\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
+# 	}
+#     }
+#     # Enter-PSSession is buggy. It runs the code lines that comes after it while it enters the session.
+#     # TODO: Find a proper way to implement this function.
+#     Enter-PSSession $Session
+#     $Session
+# }
+
+
 #
 # SHELL CONFIGURATION
 #
