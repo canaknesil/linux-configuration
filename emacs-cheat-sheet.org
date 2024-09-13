@@ -70,7 +70,9 @@ M-x recover-session
 C-f forward-char\\
 C-b backward-char\\
 C-n next-line\\
-C-p previous-line
+C-p previous-line\\
+M-x next-logical-line\\
+M-x previous-logical-line
 
 C-e move-end-of-line\\
 C-a move-beginning-of-line
@@ -440,7 +442,8 @@ M-y yank-pop\\
 C-u C-y (yank and leave point at the beginning)\\
 C-u M-y (yank-pop and leave point at the beginning)
 
-M-x duplicate-line
+M-x duplicate-line\\
+C-c n duplicate-line-and-next-line (Can)
 
 ** Overwrite mode (insert)
 
@@ -479,8 +482,13 @@ C-q TAB (insert TAB character)
 C-M-\ indent-region\\
 C-M-q prog-indent-sexp
 
+var c-basic-offset
+
 M-x indent-relative\\
 M-^ delete-indentation
+
+M-x tabify\\
+M-x untabify
 
 ** Replacement
 

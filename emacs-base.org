@@ -214,7 +214,7 @@ Example .emacs file:
   ;; Find a good package.
 #+end_src
 
-** Line wrap for text buffers
+** TODO Line wrap for text buffers
 #+BEGIN_SRC emacs-lisp
   ;;(add-hook 'text-mode-hook 'turn-on-auto-fill)
 
@@ -225,7 +225,16 @@ Example .emacs file:
   (add-hook 'prog-mode-hook 'turn-on-visual-line-mode)
   (add-hook 'org-mode-hook 'turn-on-visual-line-mode)
 
+  ;; Visual line mode rebinds the following keys:
+  ;; <remap> <kill-line>              kill-visual-line
+  ;; <remap> <move-beginning-of-line> beginning-of-visual-line
+  ;; <remap> <move-end-of-line>       end-of-visual-line
 
+  ;; TODO: I want the original bindings of these commands.
+#+END_SRC
+
+** Unfill paragraph
+#+BEGIN_SRC emacs-lisp
   ;; Unfil paragraph, reverse of fill-paragraph.
   ;; Taken from https://www.emacswiki.org/emacs/UnfillParagraph
 
