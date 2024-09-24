@@ -193,27 +193,6 @@ Example .emacs file:
   ;; (configure-font "Cascadia Code-10")
 #+END_SRC
 
-** TODO Highlight indentation
-#+begin_src emacs-lisp
-  ;; highlight-indent-guides doesn't work with empty lines.
-  ;; highlight-indentation has experimental support for empty lines.
-
-  ;; (use-package highlight-indent-guides
-  ;;   :defer
-  ;;   :init
-  ;;   (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
-  ;;   :config
-  ;;   (customize-set-variable 'highlight-indent-guides-method 'character))
-
-
-  ;; This is not good, only counts spaces.
-  ;;(add-hook 'prog-mode-hook #'highlight-indentation-mode)
-  ;; Experimental support for blank lines.
-  ;;(setq highlight-indentation-black-lines t)
-
-  ;; Find a good package.
-#+end_src
-
 ** TODO Line wrap for text buffers
 #+BEGIN_SRC emacs-lisp
   ;;(add-hook 'text-mode-hook 'turn-on-auto-fill)
