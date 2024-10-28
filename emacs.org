@@ -76,7 +76,7 @@
   ;;(use-package highlight-parentheses)
 #+end_src
 
-** Highlight indentation
+** TODO Highlight indentation
 #+begin_src emacs-lisp
   ;; highlight-indent-guides doesn't work with empty lines.
   ;; highlight-indentation has experimental support for empty lines.
@@ -93,9 +93,10 @@
   ;; Experimental support for blank lines.
   ;;(setq highlight-indentation-black-lines t)
 
-  (use-package indent-bars
-    :defer
-    :hook (prog-mode . indent-bars-mode))
+  ;; indent-bars package doesn't work properly.
+  ;; (use-package indent-bars
+  ;;   :defer
+  ;;   :hook (prog-mode . indent-bars-mode))
 #+end_src
 
 ** Avy
