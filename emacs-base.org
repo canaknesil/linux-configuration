@@ -104,23 +104,28 @@ Example .emacs file:
 
 
   ;; Custom background
+  ;; Try to reduce blue light in the background.
   (cond ((daemonp)
-	 (set-face-background 'default "#1c1c1c") ;; daemon in terminal
+	 (set-face-background 'default "#181818") ;; daemon in terminal
 	 (add-hook 'after-make-frame-functions    ;; daemon as window
 		   (lambda (frame)
 		     (select-frame frame)
 		     (when (display-graphic-p)
-		       (set-background-color "#041c0c")))))
-	((not (display-graphic-p)) (set-face-background 'default "#1c1c1c"))
-	((display-graphic-p) (set-face-background 'default "#300028")))
+		       (set-background-color "#181800")))))
+	((not (display-graphic-p)) (set-face-background 'default "#181818")) ;; non-daemon in terminal
+	((display-graphic-p) (set-face-background 'default "#201800")))      ;; non-daemon as window
 
+  ;; Default text foreground
+  ;; Try to reduce blue light here as well.
+  ;; Default for tango is eeeeec.
+  (set-face-attribute 'default nil :foreground "#eeeee0")
 
-  ;; Custom highigh background, default is too bright.
+  ;; Custom highlight background, default is too bright.
   ;; swiper-line-face inherits from highlight
   (set-face-attribute 'highlight nil :background "#605030")
 
   ;; show-paren-mode match background is too bright, not seeing the delimiter.
-  (set-face-background 'show-paren-match "#990000")
+  (set-face-background 'show-paren-match "#980000")
   (set-face-foreground 'show-paren-match "#ccccff")
 
   ;; isearch/swiper match face too bright
