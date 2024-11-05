@@ -26,7 +26,7 @@ don't delete afterwards. During compilation, Emacs sets
 source-directory variable to this directory. This way Emacs can find
 source code without any additional configuration.
 
-First, start Emacs with emacs-base.org only. Run M-x
+First, start Emacs without configuration "emacs -q". Run M-x
 package-refresh-contents. And exit.
 
 Second, start Emacs with both emacs-base.org and emacs.org. Packages
@@ -40,6 +40,22 @@ Example .emacs file:
 
   ;;(configure-font "Cascadia Code-10")
 #+END_SRC
+
+
+* Emacs manual
+
+Emacs manual comes with the source code
+"emacs-<version>/doc/emacs/emacs.texi".
+
+See
+https://www.gnu.org/software/texinfo/manual/texinfo/html_node/Output-Formats.html
+for compiling the manual.
+
+Install make texinfo texlive
+
+Generate PDF manual: "texi2pdf emacs.texi"
+
+Generate plaintext manual: "texi2any --plaintext > emacs.txt"
 
 
 * Initial configuration
