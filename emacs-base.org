@@ -146,6 +146,12 @@ Generate plaintext manual: "texi2any --plaintext > emacs.txt"
 
   ;; isearch/swiper match face too bright
   (set-face-background 'isearch "#b04000")
+
+  ;; Less distracting line numbers (default gray70)
+  (set-face-attribute 'line-number nil :foreground "#606060")
+
+  ;; Less distracting mode line (default foreground #2e3436 background #d3d7cf)
+  (set-face-attribute 'mode-line nil :background "#b0b0a4")
 #+END_SRC
 
 ** Highlight current line
