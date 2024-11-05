@@ -2,20 +2,20 @@
 #+AUTHOR: Can Aknesil
 #+STARTUP: content
 #+OPTIONS: toc:nil \n:nil author:nil date:nil num:nil
-#+LATEX_CLASS_OPTIONS: [a5paper,twocolumn,8pt]
+#+LATEX_CLASS_OPTIONS: [a5paper,twocolumn,6pt]
 #+LATEX_HEADER: \usepackage[left=0.4in,right=0.4in,top=0.3in,bottom=0.7in]{geometry}
 #+LATEX_HEADER: \usepackage{titlesec}
 #+LATEX_HEADER: \usepackage{color}
 #+LATEX_HEADER: \titleformat{\section}{\color{blue}\normalfont\sffamily\scshape\large\bfseries}{\thesection}{1em}{}
 #+LATEX_HEADER: \titleformat{\subsection}{\normalfont\sffamily\scshape\bfseries}{\thesection}{1em}{}
 #+LATEX_HEADER: \setlength{\parindent}{0pt}
-#+LATEX_HEADER: \setlength{\parskip}{7pt}
+#+LATEX_HEADER: \setlength{\parskip}{6pt}
 
 \raggedright
 \ttfamily
 
 Date: \date{\today}\\
-Up-to-date with Emacs manual version 29.\\
+Up-to-date with Emacs manual version 29.4.\\
 Author: Can Aknesil
 
 * IN TROUBLE
@@ -30,6 +30,8 @@ C-h P describe-package\\
 C-h m describe-mode\\
 C-h b describe-bindings\\
 C-h l view-lossage
+
+C-h C-q help-quick-toggle
 
 M-x eldoc-doc-buffer
 
@@ -155,14 +157,38 @@ C-r C-r (repeat previous search)
 
 M-s w isearch-forward-word\\
 M-s _ isearch-forward-symbol\\
-M-s . isearch-forward-symbol-at-point
+M-s . isearch-forward-symbol-at-point\\
+M-s M-. isearch-forward-thing-at-point
 
 C-M-s isearch-forward-regexp\\
 C-M-r isearch-backward-regexp
 
-M-r isearch-toggle-regexp (within isearch)
+C-h C-h isearch-help-map (within isearch)
 
-M-s o occur
+M-s M-> isearch-end-of-buffer (within isearch)\\
+M-s M-< isearch-beginning-of-buffer (within isearch)
+
+M-r\\
+M-s r isearch-toggle-regexp (within isearch)\\
+M-s SPC isearch-toggle-lax-whitespace (within isearch)\\
+M-c\\
+M-s c isearch-toggle-case-fold (within isearch)\\
+M-s ' isearch-toggle-char-fold (within isearch)\\
+M-s i isearch-toggle-invisible (within isearch)\\
+M-% isearch-query-replace (within isearch)\\
+C-M-% isearch-query-replace-regexp (within isearch)
+
+C-j (matches newline in isearch)\\
+C-q <char> (matches <char> in isearch)
+
+M-TAB isearch-complete (within isearch)
+
+M-s h r isearch-highlight-regexp (within isearch)\\
+M-s h l isearch-highlight-lines-matching-regexp (within isearch)\\
+M-s h u unhighlight-regexp (within isearch)
+
+M-s o occur\\
+M-s o isearch-occur (within isearch)
 
 M-g i imenu
 
@@ -195,6 +221,9 @@ C-x 4 . xref-find-definitions-other-window\\
 C-x 5 . xref-find-definitions-other-frame\\
 M-? xref-find-references\\
 C-u M-? (xref-find-references with custom identifier)
+
+M-g M-p (previous candidate from outside xref buffer)\\
+M-g M-n (next candidate from outside xref buffer)
 
 r\\
 M-x xref-query-replace-in-results
@@ -468,7 +497,7 @@ C-o open-line\\
 C-M-o split-line
 
 M-\ delete-horizontal-space\\
-M-SPC just-one-space\\
+M-SPC cycle-spacing\\
 C-x C-o delete-blank-lines\\
 M-^ delete-indentation\\
 M-x delete-trailing-whitespace
@@ -489,6 +518,13 @@ M-^ delete-indentation
 
 M-x tabify\\
 M-x untabify
+
+** Code alignment
+
+M-x align\\
+M-x align-current\\
+M-x align-entire\\
+M-x align-regexp
 
 ** Replacement
 
@@ -574,6 +610,10 @@ M-l downcase-word\\
 M-u upcase-word\\
 M-c capitalize-word
 
+M-- M-l (downcase previous word)\\
+M-- M-u (upcase previous word)\\
+M-- M-c (capitalize previous word)
+
 C-x C-l downcase-region\\
 C-x C-u upcase-region\\
 M-x capitalize-region
@@ -656,7 +696,7 @@ See the manual.
 M-p previous-history-element\\
 M-n next-history-element
 
-** Ivy
+** Ivy (package)
 
 M-r ivy-toggle-regexp-quote\\
 C-M-j ivy-immediate-done

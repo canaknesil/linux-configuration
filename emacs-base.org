@@ -329,7 +329,7 @@ Generate plaintext manual: "texi2any --plaintext > emacs.txt"
   ;; On the fly spell check for text 
   (dolist (hook '(text-mode-hook))
     (add-hook hook (lambda ()
-		     (flyspell-buffer)
+		     ;;(flyspell-buffer) ;; takes too long for large buffers
 		     (flyspell-mode 1))))
   (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
     (add-hook hook (lambda () (flyspell-mode -1))))
