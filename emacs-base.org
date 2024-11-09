@@ -706,6 +706,12 @@ Generate plaintext manual: "texi2any --plaintext > emacs.txt"
 #+BEGIN_SRC emacs-lisp
   ;; Dired ls options
   (setq-default dired-listing-switches "-alh")
+
+  ;; Don't open new dired buffers when traversing
+  (setq-default dired-kill-when-opening-new-dired-buffer t)
+
+  ;; Move to trash when deleting
+  (setq-default delete-by-moving-to-trash t)
 #+END_SRC
 
 ** Vivado XDC
