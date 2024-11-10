@@ -328,10 +328,6 @@ Generate plaintext manual: "texi2any --plaintext > emacs.txt"
   ;; Requires an external spell checker, e.g. aspell.
   ;; Also requires a dictionary, e.g. aspell-en.
 
-  ;; Run flyspell with aspell instead of ispell
-  ;; source: https://www.emacswiki.org/emacs/FlySpell
-  (setq ispell-list-command "--list")
-
   ;; On the fly spell check for text 
   (dolist (hook '(text-mode-hook))
     (add-hook hook (lambda ()

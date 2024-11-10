@@ -47,8 +47,9 @@ if ($IsWindows -And ($linux_configuration_msys2_dir -ne $null)) {
     # Path, and defining an alias or a function for each Msys2 command
     # that I prefer.
 
-    $env:Path = "$env:Path;$linux_configuration_msys2_dir/ucrt64/bin"
-    $env:Path = "$env:Path;$linux_configuration_msys2_dir/usr/bin"
+    # Assuming Msys2 bin directories are already to end of PATH.
+    #$env:Path = "$env:Path;$linux_configuration_msys2_dir/ucrt64/bin"
+    #$env:Path = "$env:Path;$linux_configuration_msys2_dir/usr/bin"
 
     # Bash and Zsh requires HOME environment variable.
     set-alias bash "$linux_configuration_msys2_dir/usr/bin/bash.exe"
