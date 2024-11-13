@@ -913,6 +913,10 @@ For PostScript hardcopy, see the manual.
 
 See the manual.
 
+** ERC (Emacs IRC client)
+
+See the manual.
+
 
 
 # * Bad/non-existing support (to do for future Emacs versions)
