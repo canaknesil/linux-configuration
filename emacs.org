@@ -399,6 +399,12 @@
     :defer)
 #+END_SRC
 
+** Rust
+#+BEGIN_SRC emacs-lisp
+  (use-package rust-mode
+    :defer)
+#+END_SRC
+
 ** TODO LaTeX
 #+BEGIN_SRC emacs-lisp
   ;; Built-in alternative: Tex mode
