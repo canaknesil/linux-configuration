@@ -14,7 +14,7 @@ e.g. on a Raspberry Pi.
 
 emacs.org : Remaining of the configuration that depends on additional
 packages. Should be used in addition to emacs-base.org for full
-configuration.
+configuration. This configuration file also start Emacs server.
 
 * Emacs compilation and setup
 
@@ -42,6 +42,36 @@ Example .emacs file:
 #+END_SRC
 
 
+* Emacs Server
+
+Server is automatically started in emacs.org. Server stops once all
+frames of the session are closed.
+
+Running Emacs as daemon on Windows, rather than via the init file, is
+complicated due to how it was implemented. Not recommending using
+Emacs daemon.
+
+A shortcut can be created for Emacs client that runs the following:
+
+emacsclientw.exe -c -a runemacs.exe
+
+This will create a new client frame. If the server is not running, it
+will start a new instance that will start the server via the init
+file.
+
+Files can be opened via the following command, which first tries to
+connect to an existing server, then fallbacks to starting a new
+instance that starts the server via the init file.
+
+emacsclientw.exe -n -a runemacs.exe <file>
+
+
+* "Edit with Emacs" menu entry for File Explorer on Windows
+
+Execute "emacs-file-explorer.reg" to add the appropriate registry
+entries.
+
+
 * Emacs manual
 
 Emacs manual comes with the source code
@@ -51,11 +81,11 @@ See
 https://www.gnu.org/software/texinfo/manual/texinfo/html_node/Output-Formats.html
 for compiling the manual.
 
-Install make texinfo texlive
+Install make, texinfo, and texlive.
 
 Generate PDF manual: "texi2pdf emacs.texi"
 
-Generate plaintext manual: "texi2any --plaintext > emacs.txt"
+Generate plaintext manual: "texi2any --plaintext > emacs-manual.txt"
 
 
 * Initial configuration

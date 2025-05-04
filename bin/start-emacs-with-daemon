@@ -28,17 +28,32 @@ HELP_STR="Usage:
   start-emacs --terminal [FILES...]
   New Emacs instance in terminal.
 
-  start-emacs [FILES...]
+  start-emacs [--bind] [FILES...]
   New Emacs instance in X.
 
-  start-emacs --client [FILES...]
-  Open files in a client frame. Create a new frame if necessary.
+  start-emacs --client --terminal [FILES...]
+  New Emacs client frame in terminal.
+
+  start-emacs --client --new-frame [--bind] [FILES...]
+  New Emacs client frame in X.
+
+  start-emacs --client [--bind] FILES...
+  Open files in the most recently created frame.
+  Create new frame if necessary.
+
+  start-emacs --client
+  New Emacs client frame in X, if there are no.
 
 Options:
+  --bind          Wait for Emacs to finish, either by quiting, or via C-#.
+                  If not specified, return immediatelly.
+
   --client        Start Emacs as client. Start daemon if not running.
                   If not specified, start a new Emacs instance.
 
   -h, --help      Display help message and exit.
+
+  --new-frame     Always create a new frame.
 
   --terminal      Start new frame in terminal.
                   If not specified, start new frames in X."
@@ -52,8 +67,21 @@ while [[ $# -gt 0 ]]; do
 	    OPTARG_CLIENT=YES
 	    shift
 	    ;;
+	# --display)
+	#     OPTARG_DISPLAY="$2"
+	#     shift
+	#     shift
+	#     ;;
 	--terminal)
 	    OPTARG_TERMINAL=YES
+	    shift
+	    ;;
+	--bind)
+	    OPTARG_BIND=YES
+	    shift
+	    ;;
+	--new-frame)
+	    OPTARG_NEW_FRAME=YES
 	    shift
 	    ;;
 	-h|--help)
@@ -80,12 +108,6 @@ if [ "$OPTARG_HELP" = YES ]; then
     exit
 fi
 
-
-if [ "$(command -v runemacs)" ]; then
-   e=runemacs # runemacs as GUI app (on windows)
-else
-   e=emacs
-fi
 
 if [ "$(command -v emacsclientw)" ]; then
    ec=emacsclientw # emacsclient as GUI app (on windows)
@@ -123,30 +145,76 @@ run_cmd () {
 
 
 if [ "$OPTARG_CLIENT" = YES ]; then
+    if [ "$OPTARG_TERMINAL" = YES ]; then
 
-    if [ "${FILES[*]}" ]; then
-	
 	#
-	# Open files in a client frame. Create new frame if necessary.
+	# New Emacs client frame in terminal.
 	#
 	
-        # e --client FILES...
-	run_cmd $ec -r -n $FILES
+	# e --client --terminal
+	run_cmd $ec -a "" -nw $FILES
 	
     else
+	if [ "$OPTARG_NEW_FRAME" = YES ]; then
+
+	    #
+	    # New Emacs client frame in X.
+	    #
+
+	    if [ "$OPTARG_BIND" = YES ]; then
+		# e --client --new-frame --bind
+		run_cmd $ec -a "" -c $FILES
+	    else
+		# e --client --new-frame
+		run_cmd $ec -a "" -c -n $FILES
+	    fi
 	    
-	#
-	# New Emacs client frame in X.
-	#
-	
-	# Note: Using ec -a "" [-r] [-n] is problematic on
-	# Windows (Emacs version 29.2). Sometimes this command
-	# fails to create a frame.
-	
-	# e --client
-	run_cmd $ec -c -n
-	
-    fi    
+	else
+	    if [ "${FILES[*]}" ]; then
+
+		#
+		# Open files in the most recently created frame. Create new frame if necessary.
+		#
+
+		
+		
+		if [ "$OPTARG_BIND" = YES ]; then
+		    # e --client --bind FILES...
+
+		    # Note: With the command 'ec [-a ""] [-r] FILES...'
+		    # emacsclient generates the following error on
+		    # Windows (Emacs version 29.2):
+
+		    # Error: Symbol's value as variable is void: font
+		    
+		    run_cmd $ec -a "" -r $FILES
+		else
+		    # e --client FILES...
+
+		    # Note: The following command unintentionally
+		    # burries the newly created buffer(s) on
+		    # Windows. (Emacs version 29.2).
+		    
+		    run_cmd $ec -a "" -r -n $FILES
+		fi
+		
+	    else
+
+		#
+		# New Emacs client frame in X.
+		#
+
+		# Note: Using ec -a "" [-r] [-n] is problematic on
+		# Windows (Emacs version 29.2). Sometimes this command
+		# fails to create a frame.
+		
+		# e --client
+		run_cmd $ec -a "" -c -n
+		
+	    fi
+	    
+	fi
+    fi
 else
     if [ "$OPTARG_TERMINAL" = YES ]; then
 
@@ -162,14 +230,19 @@ else
 	# 
 	# New Emacs instance in X.
 	#
-
-        # e
-        if [ "$(command -v runemacs)" ]; then
-            run_cmd runemacs $FILES
-        else
-            run_cmd emacs $FILES 2>&1 >/dev/null & disown
-            # On Windows, above command leavs the shell currupted.
-        fi
+	
+	if [ "$OPTARG_BIND" = YES ]; then
+	    # e --bind
+	    run_cmd emacs $FILES
+	else
+	    # e
+	    if [ "$(command -v runemacs)" ]; then
+		run_cmd runemacs $FILES
+	    else
+		run_cmd emacs $FILES 2>&1 >/dev/null & disown
+		# On Windows, above command leavs the shell currupted.
+	    fi
+	fi
 	
     fi
 fi
