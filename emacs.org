@@ -349,14 +349,6 @@
   ;; 	 ("C-c V" . 'ivy-pop-view)))
 #+END_SRC
 
-** Which-key (display possible keys while typing a command)
-#+BEGIN_SRC emacs-lisp
-  (use-package which-key
-    ;; don't defer
-    :config
-    (which-key-mode))
-#+END_SRC
-
 ** Show keybindings with M-x
 #+begin_src emacs-lisp
   (use-package amx

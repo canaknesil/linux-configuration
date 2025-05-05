@@ -4,7 +4,7 @@
 #+OPTIONS: toc:nil
 
 The configuration in emacs-base.org and emacs.org is up-to-date with
-Emacs version 29, and requires Emacs version 29.
+Emacs version 30, and requires Emacs version 30.
 
 Emacs configuration is divided into two files:
 
@@ -193,36 +193,6 @@ Generate plaintext manual: "texi2any --plaintext > emacs-manual.txt"
 
 ** Font and its size
 #+BEGIN_SRC emacs-lisp
-  ;; My old way of setting font and font size
-
-  ;; (setq my-custom-font nil)
-  ;; (setq my-custom-font-size nil)
-
-  ;; (defun set-font (font)
-  ;;   (set-face-attribute 'default nil :font font))
-
-  ;; (defun set-font-size (font-size)
-  ;;   (set-face-attribute 'default nil :height font-size))
-
-  ;; (add-hook 'after-make-frame-functions
-  ;; 	  (lambda (frame)
-  ;; 	    (select-frame frame)
-  ;; 	    (if my-custom-font
-  ;; 		(set-font my-custom-font))
-  ;; 	    (if my-custom-font-size
-  ;; 		(set-font-size my-custom-font-size))))
-
-  ;; ;; The following function should be called for font configuration.
-  ;; (defun configure-font (font)
-  ;;   (setq my-custom-font font)
-  ;;   (set-font font))
-
-  ;; (defun configure-font-size (font-size)
-  ;;   "Font size is around 110."
-  ;;   (setq my-custom-font-size font-size)
-  ;;   (set-font-size font-size))
-
-
   ;; Font configuration given in Emacs manual
   ;; (add-to-list 'default-frame-alist (cons 'font font))
 
@@ -242,8 +212,8 @@ Generate plaintext manual: "texi2any --plaintext > emacs-manual.txt"
     ;; configuration doesn't work on Windows. Use customize to apply the
     ;; config.
     (if (daemonp)
-	(add-hook 'server-after-make-frame-hook
-		  (lambda () (configure-font-extra font)))
+  	(add-hook 'server-after-make-frame-hook
+  		  (lambda () (configure-font-extra font)))
       (configure-font-extra font)))
 
   ;; Usage example (font=Cascadia Code, fontsize=10):
@@ -342,6 +312,11 @@ Generate plaintext manual: "texi2any --plaintext > emacs-manual.txt"
 	    (lambda ()
 	      (keymap-set prog-mode-map "C-c RET" #'my-parens-return)
 	      (keymap-set prog-mode-map "C-c C-<return>" #'my-parens-return)))
+#+END_SRC
+
+** Display current function's name
+#+BEGIN_SRC emacs-lisp
+  (which-function-mode)
 #+END_SRC
 
 ** Disable beeping
@@ -456,6 +431,11 @@ Generate plaintext manual: "texi2any --plaintext > emacs-manual.txt"
 
   ;; Hide minibuffer scroll bar
   (set-window-scroll-bars (minibuffer-window) nil nil)
+#+END_SRC
+
+** Which-key (display possible keys while typing a command)
+#+BEGIN_SRC emacs-lisp
+  (which-key-mode)
 #+END_SRC
 
 
@@ -761,6 +741,16 @@ Generate plaintext manual: "texi2any --plaintext > emacs-manual.txt"
 
 * Short-hand key bindings
 #+BEGIN_SRC emacs-lisp
+  ;; Define key bindings as follows using global-set-key and
+  ;; keymap-global-set, according to the Emacs manual.
+
+  ;; (global-set-key (kbd "C-z") 'shell)
+
+  ;; (add-hook 'texinfo-mode-hook
+  ;; 	  (lambda ()
+  ;; 	    (keymap-set texinfo-mode-map "C-c p" 'backward-paragraph)))
+
+
   (defun duplicate-line-and-next-line ()
     (interactive)
     (duplicate-line)
