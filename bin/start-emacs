@@ -22,37 +22,33 @@
 
 
 HELP_STR="Usage:
-  start-emacs -h|--help
-  Display help message
 
-  start-emacs --terminal [FILES...]
-  New Emacs instance in terminal.
+start-emacs [-t|--terminal] [FILES...]
 
-  start-emacs [FILES...]
-  New Emacs instance in X.
+  Start a new instance. Open FILES, if provided. If --terminal is
+  provided, open a new command line instance.
 
-  start-emacs --client [FILES...]
-  Open files in a client frame. Create a new frame if necessary.
+start-emacs -c|--client [FILES...]
 
-Options:
-  --client        Start Emacs as client. Start daemon if not running.
-                  If not specified, start a new Emacs instance.
+  Open FILES in a server frame. Existing frames are reused.  If FILES
+  are not specified, always create a new server frame.  If server is
+  not running start a new Emacs instence.
 
-  -h, --help      Display help message and exit.
+start-emacs -h|--help
 
-  --terminal      Start new frame in terminal.
-                  If not specified, start new frames in X."
+  Display the help message.
+"
 
 
 POSITIONAL_ARGS=()
 
 while [[ $# -gt 0 ]]; do
     case $1 in
-	--client)
+	-c|--client)
 	    OPTARG_CLIENT=YES
 	    shift
 	    ;;
-	--terminal)
+	-t|--terminal)
 	    OPTARG_TERMINAL=YES
 	    shift
 	    ;;
@@ -81,17 +77,22 @@ if [ "$OPTARG_HELP" = YES ]; then
 fi
 
 
-if [ "$(command -v runemacs)" ]; then
-   e=runemacs # runemacs as GUI app (on windows)
-else
-   e=emacs
+if emacsclient -a false -e t > /dev/null 2>&1; then
+    SERVER_RUNNING=YES
 fi
 
+
 if [ "$(command -v emacsclientw)" ]; then
-   ec=emacsclientw # emacsclient as GUI app (on windows)
+    IS_WINDOWS=YES
+    # runemacs already exists on Windows, it non-blockingly starts Emacs as a GUI app
+    ec=emacsclientw # emacsclient as GUI app (on windows)
 else
-   ec=emacsclient
+    runemacs () {
+	emacs $@ > /dev/null 2>&1 & disown
+    }
+    ec=emacsclient
 fi
+
 
 # From Emacs manual: due to limitations of MS-Windows, Emacs cannot
 # have both GUI and text-mode frames in the same session. It also
@@ -122,54 +123,31 @@ run_cmd () {
 }
 
 
-if [ "$OPTARG_CLIENT" = YES ]; then
 
+if [ "$OPTARG_CLIENT" = YES ] && [ "$SERVER_RUNNING" = YES ]; then
     if [ "${FILES[*]}" ]; then
-	
-	#
-	# Open files in a client frame. Create new frame if necessary.
-	#
 	
         # e --client FILES...
 	run_cmd $ec -r -n $FILES
 	
     else
 	    
-	#
-	# New Emacs client frame in X.
-	#
-	
-	# Note: Using ec -a "" [-r] [-n] is problematic on
-	# Windows (Emacs version 29.2). Sometimes this command
-	# fails to create a frame.
-	
 	# e --client
 	run_cmd $ec -c -n
 	
     fi    
 else
+    # Assuming that server is started in the init file.
+    
     if [ "$OPTARG_TERMINAL" = YES ]; then
-
-	# 
-	# New Emacs instance in terminal.
-	#
 	
 	# e --terminal
 	run_cmd emacs -nw $FILES
 	
     else
 
-	# 
-	# New Emacs instance in X.
-	#
-
         # e
-        if [ "$(command -v runemacs)" ]; then
-            run_cmd runemacs $FILES
-        else
-            run_cmd emacs $FILES 2>&1 >/dev/null & disown
-            # On Windows, above command leavs the shell currupted.
-        fi
-	
+	run_cmd runemacs $FILES
+
     fi
 fi
