@@ -736,6 +736,12 @@ Generate plaintext manual: "texi2any --plaintext > emacs-manual.txt"
 
   ;; Indent closing parenthesis relative to the beginning of the block
   (c-set-offset 'arglist-close 0)
+
+  ;; Indent closing parenthesis of C++ templates relative to the beginning of the block
+  ;; TODO: There is no easy way without defining new indentation functionality
+
+  ;; Indent case in switch blocks
+  (c-set-offset 'case-label '+)
 #+END_SRC
 
 

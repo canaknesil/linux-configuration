@@ -492,6 +492,12 @@
     :defer)
 #+END_SRC
 
+** CMake
+#+BEGIN_SRC emacs-lisp
+  (use-package cmake-mode
+    :defer)
+#+END_SRC
+
 
 * Shortcut commands
 #+BEGIN_SRC emacs-lisp
