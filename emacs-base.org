@@ -316,7 +316,8 @@ Generate plaintext manual: "texi2any --plaintext > emacs-manual.txt"
 
 ** Display current function's name
 #+BEGIN_SRC emacs-lisp
-  (which-function-mode)
+  ;; Don't like it, mode line too verbose.
+  ;;(which-function-mode)
 #+END_SRC
 
 ** Disable beeping
