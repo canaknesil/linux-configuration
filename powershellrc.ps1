@@ -196,6 +196,8 @@ Set-PSReadLineOption -EditMode Emacs
 Set-PSReadLineOption -PredictionSource None
 
 # Prompt (posh-git module needs to be installed)
+# PowerShellGet\Install-Module posh-git -Scope CurrentUser -Force
+# PowerShellGet\Update-Module posh-git
 function prompt {
     $debug = $(if (Test-Path variable:/PSDebugContext) { '[DBG] ' } else { '' })
     $cwd = $(get-location)
