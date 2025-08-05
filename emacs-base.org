@@ -751,6 +751,12 @@ Generate plaintext manual: "texi2any --plaintext > emacs-manual.txt"
   (c-set-offset 'case-label '+)
 #+END_SRC
 
+** Compilation buffer
+#+BEGIN_SRC emacs-lisp
+  ;; Display ANSI colors in *compilation* buffer
+  (add-hook 'compilation-filter-hook 'ansi-color-compilation-filter)
+#+END_SRC
+
 
 * Short-hand key bindings
 #+BEGIN_SRC emacs-lisp
