@@ -6,6 +6,8 @@
 The configuration in emacs-base.org and emacs.org is up-to-date with
 Emacs version 30, and requires Emacs version 30.
 
+emacs-base.org alone can work with Emacs version 28.2.
+
 Emacs configuration is divided into two files:
 
 emacs-base.org : Configuration that does not depend on additional
@@ -254,7 +256,7 @@ Generate plaintext manual: "texi2any --plaintext > emacs-manual.txt"
       (fill-paragraph nil region)))
 
   ;; Handy key definition
-  (keymap-global-set "M-Q" #'unfill-paragraph)
+  (global-set-key (kbd "M-Q") #'unfill-paragraph)
 #+END_SRC
 
 ** Show matching parenthesis
@@ -310,8 +312,8 @@ Generate plaintext manual: "texi2any --plaintext > emacs-manual.txt"
 
   (add-hook 'prog-mode-hook
 	    (lambda ()
-	      (keymap-set prog-mode-map "C-c RET" #'my-parens-return)
-	      (keymap-set prog-mode-map "C-c C-<return>" #'my-parens-return)))
+	      (define-key prog-mode-map (kbd "C-c RET") #'my-parens-return)
+	      (define-key prog-mode-map (kbd "C-c C-<return>") #'my-parens-return)))
 #+END_SRC
 
 ** Display current function's name
@@ -407,7 +409,8 @@ Generate plaintext manual: "texi2any --plaintext > emacs-manual.txt"
 
 ** Pixel scrolling
 #+BEGIN_SRC emacs-lisp
-  (pixel-scroll-precision-mode 1)
+  (unless (version< emacs-version "29")
+    (pixel-scroll-precision-mode 1))
 #+END_SRC
 
 ** Comment column
@@ -435,7 +438,8 @@ Generate plaintext manual: "texi2any --plaintext > emacs-manual.txt"
 
 ** Which-key (display possible keys while typing a command)
 #+BEGIN_SRC emacs-lisp
-  (which-key-mode)
+  (unless (version< emacs-version "30")
+    (which-key-mode))
 #+END_SRC
 
 
@@ -536,7 +540,8 @@ Generate plaintext manual: "texi2any --plaintext > emacs-manual.txt"
 
 ** Undelete frame
 #+BEGIN_SRC emacs-lisp
-  (undelete-frame-mode 1)
+  (unless (version< emacs-version "29")
+    (undelete-frame-mode 1))
 #+END_SRC
 
 ** Delete local buffers when deleting frames
@@ -763,11 +768,14 @@ Generate plaintext manual: "texi2any --plaintext > emacs-manual.txt"
   ;; Define key bindings as follows using global-set-key and
   ;; keymap-global-set, according to the Emacs manual.
 
-  ;; (global-set-key (kbd "C-z") 'shell)
+  ;; (global-set-key (kbd "C-z") #'shell)  ;; Emacs 28 or before
+  ;; (keymap-global-set "C-z" #'shell)     ;; Emacs 29 and above
 
   ;; (add-hook 'texinfo-mode-hook
   ;; 	  (lambda ()
-  ;; 	    (keymap-set texinfo-mode-map "C-c p" 'backward-paragraph)))
+  ;; 	    (keymap-set texinfo-mode-map "C-c p" 'backward-paragraph)  ;; Emacs 29 and above
+  ;; 	    (define-key texinfo-mode-map (kbd "C-c p") 'backward-paragraph)  ;; Emacs 28 and before
+  ;; 	    ))
 
 
   (defun duplicate-line-and-next-line ()
@@ -775,7 +783,7 @@ Generate plaintext manual: "texi2any --plaintext > emacs-manual.txt"
     (duplicate-line)
     (next-line))
 
-  (keymap-global-set "C-c n" #'duplicate-line-and-next-line)
+  (global-set-key (kbd "C-c n") #'duplicate-line-and-next-line)
 #+END_SRC
 
 
