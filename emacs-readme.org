@@ -1,0 +1,90 @@
+#+TITLE: Emacs Configuration Information
+#+AUTHOR: Can Aknesil
+#+STARTUP: content
+#+OPTIONS: toc:nil
+
+The configuration in emacs-base.el and emacs.el is up-to-date with
+Emacs version 30, and requires Emacs version 30.
+
+emacs-base.el alone can work with Emacs version 28.2.
+
+Emacs configuration is divided into two files:
+
+emacs-base.el : Configuration that does not depend on additional
+packages. Can be used when a basic, fast configuration is desired,
+e.g. on a Raspberry Pi.
+
+emacs.el : Remaining of the configuration that depends on additional
+packages. Should be used in addition to emacs-base.el for full
+configuration. This configuration file also start Emacs server.
+
+* Emacs compilation and setup
+
+On Windows, Gpg4win must be installed and accessible. Emacs does not
+work correctly with GnuPG installed via MSYS2.
+
+When compiling Emacs, put the source directory somewhere permanent and
+don't delete afterwards. During compilation, Emacs sets
+source-directory variable to this directory. This way Emacs can find
+source code without any additional configuration.
+
+First, start Emacs without configuration "emacs -q". Run M-x
+package-refresh-contents. And exit.
+
+Second, start Emacs with both emacs-base.el and emacs.el. Packages
+will installed automatically.
+
+Example .emacs file:
+
+#+BEGIN_SRC emacs-lisp
+  ;;(load-file "~/Programs/linux-configuration/emacs-base.el")
+  ;;(load-file "~/Programs/linux-configuration/emacs.el")
+
+  ;;(configure-font "Cascadia Code-10")
+#+END_SRC
+
+
+* Emacs Server
+
+Server is automatically started in emacs.el. Server stops once all
+frames of the session are closed.
+
+Running Emacs as daemon on Windows, rather than via the init file, is
+complicated due to how it was implemented. Not recommending using
+Emacs daemon.
+
+A shortcut can be created for Emacs client that runs the following:
+
+emacsclientw.exe -c -a runemacs.exe
+
+This will create a new client frame. If the server is not running, it
+will start a new instance that will start the server via the init
+file.
+
+Files can be opened via the following command, which first tries to
+connect to an existing server, then fallbacks to starting a new
+instance that starts the server via the init file.
+
+emacsclientw.exe -n -a runemacs.exe <file>
+
+
+* "Edit with Emacs" menu entry for File Explorer on Windows
+
+Execute "emacs-file-explorer.reg" to add the appropriate registry
+entries.
+
+
+* Emacs manual
+
+Emacs manual comes with the source code
+"emacs-<version>/doc/emacs/emacs.texi".
+
+See
+https://www.gnu.org/software/texinfo/manual/texinfo/html_node/Output-Formats.html
+for compiling the manual.
+
+Install make, texinfo, and texlive.
+
+Generate PDF manual: "texi2pdf emacs.texi"
+
+Generate plaintext manual: "texi2any --plaintext > emacs-manual.txt"
