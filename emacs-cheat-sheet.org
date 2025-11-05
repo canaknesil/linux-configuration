@@ -262,8 +262,11 @@ C-x 5 r find-file-read-only-other-frame
 
 C-x p f project-find-file
 
+M-x ff-find-other-file
+
 C-x C-s save-buffer\\
-C-x C-w write-file
+C-x C-w write-file\\
+M-x rename-visited-file
 
 C-x i insert-file\\
 M-x write-region
@@ -716,7 +719,8 @@ M-x compile\\
 M-x recompile\\
 M-x kill-compilation
 
-C-x p c project-compile
+C-x p c project-compile\\
+M-x project-recompile
 
 For compilation mode commands, see the manual.
 
