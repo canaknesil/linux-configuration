@@ -50,6 +50,16 @@
 # autorandr --save office -> create a profile named "office" from the current connections and configuration
 
 
+# Instructions for multiple keyboard layouts:
+
+# Using IBus preferences GUI, add keyboard methods and define a
+# shortcut (<Alt><Super>space) for selecting the next input method.
+
+
+# Shortcut for togglng Guake drop down terminal can be defined using
+# Guake Preferences GUI.
+
+
 #
 # PARAMETERS
 #
