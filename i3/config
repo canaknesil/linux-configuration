@@ -17,21 +17,23 @@
 # Based on /etc/i3/config that comes with version 4.23
 
 # Necessary packages:
-# i3-wm (i3)
-# i3lock (i3)
-# i3status (i3)
-# suckless-tools (i3): for dmenu
+# i3-wm
+# i3lock
+# i3status
+# dmenu
 # arandr: Apply and save xrandr commands (monitor profiles) with a GUI
 # autorandr: Detect connected monitors upon hotplug and apply the saved profiles automatically
+# network-manager-applet (nm-applet)
 # pavucontrol: GUI for PulseAudio volume control
 # pasystray: PulseAudio system tray
 # blueman: Bluetooth manager including applet
-# xss-lock: locks the screen before suspend
 # rofi: application launcher
-# guake: drop-down terminal
 # feh: image viewer, to set the wallpaper
-# compton: compositor for X11, to get rid of graphical issues in Mozilla menus
-# IBus: Intelligent Input Bus for keyboard layouts, includes system tray, already integrated in most systems
+# compton (not always needed): compositor for X11, to get rid of graphical issues in Mozilla menus
+# ibus: Intelligent Input Bus for keyboard layouts, includes system tray, already integrated in most systems
+# dex: desktop opener, used for opening applicatinos at startup
+# xss-lock: locks the screen before suspend
+# xfce4-power-manager: for screen brightness, computer suspend, display suspend, and other power settings
 
 
 # Instructions for multi-monitor setup:
@@ -54,10 +56,6 @@
 
 # Using IBus preferences GUI, add keyboard methods and define a
 # shortcut (<Alt><Super>space) for selecting the next input method.
-
-
-# Shortcut for togglng Guake drop down terminal can be defined using
-# Guake Preferences GUI.
 
 
 #
@@ -94,7 +92,7 @@ font $font
 #
 
 # Compositor
-exec --no-startup-id compton
+#exec --no-startup-id compton
 
 # Set wallpaper
 exec --no-startup-id $wallpaper_command
@@ -117,13 +115,11 @@ exec --no-startup-id nm-applet
 # Bluetooth applet
 exec --no-startup-id blueman-applet
 
-# Pulse Audio system tray
+# Pulse Audio system tray - runs automatically
 #exec --no-startup-id pasystray
 
-# Guake drop-down terminal
-#exec --no-startup-id guake
-# bindsym $alt+Return exec --no-startup-id guake-toggle
-# The hotkey for guake terminal can be set through Guake Preferences
+# Power manager
+#exec --no-startup-id xfce4-power-manager
 
 
 #
