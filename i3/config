@@ -34,6 +34,7 @@
 # dex: desktop opener, used for opening applicatinos at startup
 # xss-lock: locks the screen before suspend
 # xfce4-power-manager: for screen brightness, computer suspend, display suspend, and other power settings
+# xfce4-terminal (or another)
 
 
 # Instructions for multi-monitor setup:
@@ -121,6 +122,9 @@ exec --no-startup-id blueman-applet
 # Power manager
 #exec --no-startup-id xfce4-power-manager
 
+# IBus daemon
+#exec --no-startup-id ibus-daemon -rxRd
+
 
 #
 # KEY BINDINGS
@@ -158,6 +162,9 @@ tiling_drag modifier titlebar
 
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
+
+# drop down terminal
+#bindsym $mod+BackSpace exec xfce4-terminal --drop-down
 
 # kill focused window
 bindsym $mod+Shift+q kill
