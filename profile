@@ -14,8 +14,8 @@
 
 
 if [ -n "$LINUX_CONFIGURATION_PROJ_DIR" ]; then
-    export PATH=$PATH:$LINUX_CONFIGURATION_PROJ_DIR/bin-linux
     export PATH=$PATH:$LINUX_CONFIGURATION_PROJ_DIR/bin
+    export PATH=$PATH:$LINUX_CONFIGURATION_PROJ_DIR/bin-linux
 fi
 
 

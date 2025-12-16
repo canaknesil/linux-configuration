@@ -28,6 +28,10 @@ h () {
   history | grep $@
 }
 
+path () {
+  echo "$PATH" | sed 's/:/\n/g'
+}
+
 if [ -n "$PYTHON_VENV_DIR" ]; then
     venv-activate() {
 	. $PYTHON_VENV_DIR/$1/bin/activate

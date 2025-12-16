@@ -204,23 +204,29 @@ function prompt {
     if (-not $IsWindows) {
 	$cwd = $cwd -replace "^${env:HOME}", '~'
     }
-    $user = $env:USERNAME
+    if ($IsWindows) {
+	$user = $env:USERNAME
+    } else {
+	$user = $env:USER
+    }
     $hostname_str = [System.Net.Dns]::GetHostname()
     $last_char = $(if ($NestedPromptLevel -ge 1) { '>>' }) + '> '
 
-    $is_git = $(get-gitdirectory) -ne $null
-    if ($is_git) {
-	$git_status = (get-gitstatus)
-
-	$git_prompt_str = ' '
-	$git_prompt_str += $git_status.branch + ' '
-	if ($git_status.hasworking) {$git_prompt_str += '*'}
-	if ($git_status.hasindex) {$git_prompt_str += '+'}
-	if ($git_status.AheadBy -gt 0) {$git_prompt_str += '↑'}
-	if ($git_status.BehindBy -gt 0) {$git_prompt_str += '↓'}
+    if (get-command get-gitdirectory -ErrorAction SilentlyContinue) {
+	$is_git = $(get-gitdirectory) -ne $null
+	if ($is_git) {
+	    $git_status = (get-gitstatus)
+	    
+	    $git_prompt_str = ' '
+	    $git_prompt_str += $git_status.branch + ' '
+	    if ($git_status.hasworking) {$git_prompt_str += '*'}
+	    if ($git_status.hasindex) {$git_prompt_str += '+'}
+	    if ($git_status.AheadBy -gt 0) {$git_prompt_str += '↑'}
+	    if ($git_status.BehindBy -gt 0) {$git_prompt_str += '↓'}
+	}
     }
     
-    "${debug}PS `e[33m${user}@${hostname_str}`e[0m `e[94m${cwd}`e[0m`e[32m${git_prompt_str}`e[0m`n`e[90m${last_char}`e[0m"
+    "${debug}PS `e[1;33m${user}@${hostname_str}`e[0m `e[1;36m${cwd}`e[1;33m`e[0m`e[1;32m${git_prompt_str}`e[0m`n${last_char}`e[0m"
 }
 # For colors: https://en.wikipedia.org/wiki/ANSI_escape_code
 
