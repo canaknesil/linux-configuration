@@ -231,7 +231,17 @@ M-x xref-query-replace-in-results
 M-, xref-go-back\\
 C-M-, xref-go-forward
 
-For xref buffer commands, see the manual.
+Within xref buffer:\\
+RET xref-goto-xref\\
+M-x xref-quit-and-goto-xref\\
+n\\
+. xref-next-line\\
+p\\
+, xref-prev-line\\
+N xref-next-group\\
+P xref-prev-group\\
+q xref-quit\\
+M-, xref-quit-and-pop-marker-stack
 
 ** Clickable links
 
