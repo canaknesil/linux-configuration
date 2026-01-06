@@ -59,6 +59,21 @@
 # shortcut (<Alt><Super>space) for selecting the next input method.
 
 
+# Instructions for default browser selection
+
+# List all desktop files:
+# find /usr/share/applications ~/.local/share/applications /var/lib/snapd/desktop/applications /var/lib/flatpak/exports/share/applications -name '*.desktop' 2>/dev/null | grep firefox
+
+# xdg-settings get default-web-browser
+# xdg-settings set default-web-browser firefox.desktop
+
+# The following may also be necessary
+# xdg-mime query default x-scheme-handler/http
+# xdg-mime default firefox.desktop x-scheme-handler/http
+# xdg-mime default firefox.desktop x-scheme-handler/https
+# xdg-mime default firefox.desktop text/html
+
+
 #
 # PARAMETERS
 #
@@ -95,7 +110,11 @@ font $font
 # Compositor
 #exec --no-startup-id compton
 
-# Set wallpaper
+# Trigger auto display confiuration
+# exec --no-startup-id autorandr --change
+
+# Set wallpaper (after display configuration)
+# wallpaper condiguration can also be hooked to autorandr
 exec --no-startup-id $wallpaper_command
 
 # Start XDG autostart .desktop files using dex. See also
