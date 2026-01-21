@@ -88,6 +88,11 @@ set $wallpaper_command true
 # Image must be absolute path, no ~/
 #set $i3lock_additional_options --image=$i3lock_wallpaper_file --tiling
 
+# Automatic triggering of i3lock sometimes displays a snapshot of the
+# last screen itself rather than the screensaver. To prevent it using
+# the -c color option.
+set $i3lock_additional_options -c 24202a
+
 
 #
 # FONT
