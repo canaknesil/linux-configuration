@@ -29,6 +29,7 @@
 # blueman: Bluetooth manager including applet
 # rofi: application launcher
 # feh: image viewer, to set the wallpaper
+# nitrogen: better alternative to feh
 # compton (not always needed): compositor for X11, to get rid of graphical issues in Mozilla menus
 # ibus: Intelligent Input Bus for keyboard layouts, includes system tray, already integrated in most systems
 # dex: desktop opener, used for opening applicatinos at startup
@@ -81,17 +82,17 @@
 set $font pango:DejaVu Sans Mono 10
 
 #set $wallpaper_command feh --bg-max $wallpaper_file
+#set $wallpaper_command nitrogen --restore
 set $wallpaper_command true
+
+
+set $lock_command i3lock
+set $lock_command_no_fork i3lock --nofork
 
 # The --image spans through multiple monitors. --tiling enables repeating the image in the second screen.
 # Image must be a .png file
 # Image must be absolute path, no ~/
-#set $i3lock_additional_options --image=$i3lock_wallpaper_file --tiling
-
-# Automatic triggering of i3lock sometimes displays a snapshot of the
-# last screen itself rather than the screensaver. To prevent it using
-# the -c color option.
-set $i3lock_additional_options -c 24202a
+#set $lock_command i3lock --image=$i3lock_wallpaper_file --tiling
 
 
 #
@@ -131,7 +132,7 @@ exec --no-startup-id dex --autostart --environment i3
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork $i3lock_additional_options
+#exec --no-startup-id xss-lock --transfer-sleep-lock -- $lock_command_no_fork
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -300,6 +301,9 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 # move workspace to output
 bindsym $mod+$alt+j move workspace to output left
 bindsym $mod+$alt+l move workspace to output right
+
+# lock screen
+bindsym $mod+m exec $lock_command
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
