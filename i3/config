@@ -36,6 +36,7 @@
 # xss-lock: locks the screen before suspend
 # xfce4-power-manager: for screen brightness, computer suspend, display suspend, and other power settings
 # xfce4-terminal (or another)
+# xfce4-screensaver: better alternative to i3lock
 
 
 # Instructions for multi-monitor setup:
@@ -88,6 +89,7 @@ set $wallpaper_command true
 
 set $lock_command i3lock
 set $lock_command_no_fork i3lock --nofork
+#set $lock_command xfce4-screensaver-command --lock
 
 # The --image spans through multiple monitors. --tiling enables repeating the image in the second screen.
 # Image must be a .png file
@@ -133,6 +135,8 @@ exec --no-startup-id dex --autostart --environment i3
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
 #exec --no-startup-id xss-lock --transfer-sleep-lock -- $lock_command_no_fork
+
+#exec --no-startup-id xfce4-screensaver
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
