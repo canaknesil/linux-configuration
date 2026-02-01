@@ -119,9 +119,10 @@ font $font
 #exec --no-startup-id compton
 
 # Trigger auto display confiuration
-# exec --no-startup-id autorandr --change
+#exec --no-startup-id autorandr --change
+#exec --no-startup-id /bin/sh -c 'autorandr --change; nitrogen --restore'
 
-# Set wallpaper (after display configuration)
+# Set wallpaper (after display configuration) - note that i3 exec keyword runs asynchronously.
 # wallpaper condiguration can also be hooked to autorandr
 exec --no-startup-id $wallpaper_command
 
