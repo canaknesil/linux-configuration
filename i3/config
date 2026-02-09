@@ -137,6 +137,10 @@ exec --no-startup-id dex --autostart --environment i3
 # screen before suspend. Use loginctl lock-session to lock your screen.
 #exec --no-startup-id xss-lock --transfer-sleep-lock -- $lock_command_no_fork
 
+# Disable locking related xorg settings that may interfere with xfce4-screensaver and xfce4-powermanager
+#exec --no-startup-id xset s off  # disable screensaver (blanking)
+#exec --no-startup-id xset -dpms  # disable monitor suspend
+
 #exec --no-startup-id xfce4-screensaver
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
