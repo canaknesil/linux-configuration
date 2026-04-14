@@ -1,0 +1,31 @@
+#! /bin/bash
+
+# pacman -Qqe : list names of the explicitly installed packages
+# pacman -Qi <packages...> : print information about the packages
+
+echo Explicitly installed packages, groups each belongs to in brackets:
+
+explicit=$(pacman -Qqe | sort)
+
+pacman -Qi $explicit | awk '
+  /^Name/ {name=$3}
+  /^Groups/ {
+    if ($3 != "None") print name " [" substr($0, index($0,$3)) "]"
+    else print name
+  }
+'
+
+echo
+echo Groups of which all member packages are installed explicitly:
+
+groups=$(pacman -Sg | awk '{print $1}' | sort -u)
+
+for g in $groups; do
+    group_pkgs=$(pacman -Sg "$g" | awk '{print $2}' | sort)
+    explicit_count=$(comm -12 <(echo "$group_pkgs") <(echo "$explicit") | wc -l)
+    total=$(echo "$group_pkgs" | wc -l)
+
+    if [[ "$total" -eq "$explicit_count" ]]; then
+        echo "$g"
+    fi
+done
