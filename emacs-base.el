@@ -648,7 +648,7 @@
 (setq-default c-basic-offset 3)
 
 ;; Indent first function arguments relative to the indentation of the previous line.
-(c-set-offset 'arglist-intro '+)
+(c-set-offset 'arglist-intro '++)
 
 ;; Indent closing parenthesis relative to the beginning of the block
 (c-set-offset 'arglist-close 0)
