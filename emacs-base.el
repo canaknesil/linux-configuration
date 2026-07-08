@@ -653,6 +653,9 @@
 ;; Indent closing parenthesis relative to the beginning of the block
 (c-set-offset 'arglist-close 0)
 
+;; Indent continuation of statements two steps forward
+(c-set-offset 'statement-cont '++)
+
 ;; Indent closing parenthesis of C++ templates relative to the beginning of the block
 ;; TODO: There is no easy way without defining new indentation functionality
 
