@@ -1,5 +1,7 @@
 # i3 Configuration Instructions
 
+The configuration is intended to work on both i3 and Sway. i3 configuration is pretty solid but Sway configuration is very premature.
+
 i3 configuration includes the following files:
 - `i3.conf`: The bulk of the configuration is in this file. It should remain in the configuration repository.
 - `i3-main.conf`: The content of this file is to be copied to `~/.config/i3/config` or `~/.config/sway/config`, and necessary variables to be set.
