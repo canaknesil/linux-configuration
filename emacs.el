@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t -*-
+
 ;; Emacs Configuration (second file)
 
 ;; See emacs-readme.org for more information

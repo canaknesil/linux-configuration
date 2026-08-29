@@ -37,6 +37,8 @@ will installed automatically.
 Example .emacs file:
 
 #+BEGIN_SRC emacs-lisp
+  ;;; -*- lexical-binding: t -*-
+
   ;;(load-file "~/Programs/linux-configuration/emacs-base.el")
   ;;(load-file "~/Programs/linux-configuration/emacs.el")
 
@@ -87,4 +89,4 @@ Install make, texinfo, and texlive.
 
 Generate PDF manual: "texi2pdf emacs.texi"
 
-Generate plaintext manual: "texi2any --plaintext > emacs-manual.txt"
+Generate plaintext manual: "texi2any --plaintext emacs.texi > emacs-manual.txt"

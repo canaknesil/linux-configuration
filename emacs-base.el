@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t -*-
+
 ;; Basic Emacs Configuration
 
 ;; See emacs-readme.org for more information
