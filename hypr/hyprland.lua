@@ -7,11 +7,12 @@
 -- hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
 --
 -- require("~/Programs/linux-configuration/hypr/hyprland")
+-- require("monitors")
 
--- Create empty file ~/.config/hypr/monitors.lua
--- This file will be overwritten by nwg-displays
+-- Move selected configurations from monitors*.lua files to
+-- ~/.config/hypr/monitors.lua, or create an empty one.
 
--- Required software: noctalia, kitty, wmenu, nwg-displays
+-- Required software: noctalia, kitty, wmenu
 
 
 ------------------
@@ -24,8 +25,6 @@ hl.monitor({
     position = "auto",
     scale    = "auto",
 })
-
-require("monitors")
 
 
 ---------------------
@@ -300,15 +299,15 @@ for i = 1, 10 do
 end
 
 -- Move workspace to another monitor
-hl.bind(mainMod .. " + ALT + " .. left , hl.dsp.workspace.move(monitor = "left"))
-hl.bind(mainMod .. " + ALT + " .. right, hl.dsp.workspace.move(monitor = "right"))
-hl.bind(mainMod .. " + ALT + " .. up   , hl.dsp.workspace.move(monitor = "up"))
-hl.bind(mainMod .. " + ALT + " .. down , hl.dsp.workspace.move(monitor = "down"))
+hl.bind(mainMod .. " + ALT + " .. left , hl.dsp.workspace.move({ monitor = "left" }))
+hl.bind(mainMod .. " + ALT + " .. right, hl.dsp.workspace.move({ monitor = "right" }))
+hl.bind(mainMod .. " + ALT + " .. up   , hl.dsp.workspace.move({ monitor = "up" }))
+hl.bind(mainMod .. " + ALT + " .. down , hl.dsp.workspace.move({ monitor = "down" }))
 
-hl.bind(mainMod .. " + ALT + left"  , hl.dsp.workspace.move(monitor = "left"))
-hl.bind(mainMod .. " + ALT + right" , hl.dsp.workspace.move(monitor = "right"))
-hl.bind(mainMod .. " + ALT + up"    , hl.dsp.workspace.move(monitor = "up"))
-hl.bind(mainMod .. " + ALT + down"  , hl.dsp.workspace.move(monitor = "down"))
+hl.bind(mainMod .. " + ALT + left"  , hl.dsp.workspace.move({ monitor = "left" }))
+hl.bind(mainMod .. " + ALT + right" , hl.dsp.workspace.move({ monitor = "right" }))
+hl.bind(mainMod .. " + ALT + up"    , hl.dsp.workspace.move({ monitor = "up" }))
+hl.bind(mainMod .. " + ALT + down"  , hl.dsp.workspace.move({ monitor = "down" }))
 
 -- Example special workspace (scratchpad)
 hl.bind(mainMod .. " + BACKSPACE",         hl.dsp.workspace.toggle_special("magic"))
