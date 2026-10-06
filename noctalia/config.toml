@@ -6,12 +6,10 @@ start = [
     "workspaces"
 ]
 center = [
-    "clock",
-    "spacer_notifications",
-    "notifications"
 ]
 end = [
     "tray",
+    "notifications",
     "spacer_4",
     "media",
     "spacer_3",
@@ -24,9 +22,10 @@ end = [
     "bluetooth",
     "volume",
     "power_profile",
-    "brightness",
     "battery",
     "spacer_1",
+    "clock",
+    "spacer_0",
     "session"
 ]
 margin_ends = 0
@@ -37,7 +36,13 @@ widget_spacing = 15
 [widget.clock]
 format = "{:%-d %B %Y   %-H:%M}"
 
-[widget.spacer_notifications]
+[widget.network]
+show_label = false
+
+[widget.media]
+album_art_only = true
+
+[widget.spacer_0]
 type = "spacer"
 
 [widget.spacer_1]
