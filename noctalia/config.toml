@@ -1,0 +1,73 @@
+# Copy to ~/.config/noctalia/config.toml
+
+[bar.default]
+background_opacity = 0.74999998323619366
+start = [
+    "workspaces"
+]
+center = [
+    "clock",
+    "spacer_notifications",
+    "notifications"
+]
+end = [
+    "tray",
+    "spacer_4",
+    "media",
+    "spacer_3",
+    "cpu",
+    "temp",
+    "ram",
+    "spacer_2",
+    "keyboard_layout",
+    "network",
+    "bluetooth",
+    "volume",
+    "power_profile",
+    "brightness",
+    "battery",
+    "spacer_1",
+    "session"
+]
+margin_ends = 0
+position = "bottom"
+radius = 0
+widget_spacing = 15
+
+[widget.clock]
+format = "{:%-d %B %Y   %-H:%M}"
+
+[widget.spacer_notifications]
+type = "spacer"
+
+[widget.spacer_1]
+type = "spacer"
+
+[widget.spacer_2]
+type = "spacer"
+
+[widget.spacer_3]
+type = "spacer"
+
+[widget.spacer_4]
+type = "spacer"
+
+[idle]
+behavior_order = [ "lock", "screen-off", "lock-and-suspend" ]
+pre_action_fade_seconds = 15
+
+    [idle.behavior.lock]
+    action = "lock"
+    enabled = true
+    timeout = 900.0
+
+    [idle.behavior.screen-off]
+    action = "screen_off"
+    enabled = true
+    timeout = 960.0
+
+    [idle.behavior.lock-and-suspend]
+    action = "lock_and_suspend"
+    enabled = false
+    timeout = 900.0
+
