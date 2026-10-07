@@ -1,0 +1,51 @@
+#!/usr/bin/env python3
+
+import sys
+from pathlib import Path
+import urllib.request
+
+fname_prefix = "~/Pictures/random"
+extension = "jpg"
+metadata_fname = "/tmp/picsum-metadata.txt"
+
+# Parse arguments
+monitors = []
+for arg in sys.argv[1:]:
+    dims = arg.split('x')
+    if len(dims) != 2:
+        raise Exception("Error parsing resolution")
+    dims = [int(dims[0]), int(dims[1])]
+    monitors.append(dims)
+
+assert(len(monitors) > 0)
+
+for (w, h) in monitors:
+    print(f"{w}x{h}")
+
+# Download image for the first resolution
+with urllib.request.urlopen(f"https://picsum.photos/{monitors[0][0]}/{monitors[0][1]}.{extension}") as res:
+    pic_id = res.headers.get("Picsum-ID")
+    data = res.read()
+
+print("Picsum-ID:", pic_id)
+images = [data]
+
+# Download image for the rest of the resolutions
+for (w, h) in monitors[1:]:
+    with urllib.request.urlopen(f"https://picsum.photos/id/{pic_id}/{w}/{h}.{extension}") as res:
+        data = res.read()
+    images.append(data)
+
+print(metadata_fname)
+with open(Path(metadata_fname).expanduser(), "a") as f:
+    print(f"Picsum-ID: {pic_id}", file=f)
+
+# Save images
+for ((w, h), image) in zip(monitors, images):
+    fname = f"{fname_prefix}_{w}x{h}.{extension}"
+    print(fname)
+    with open(Path(fname).expanduser(), "wb") as f:
+        f.write(image)
+    
+    
+    
