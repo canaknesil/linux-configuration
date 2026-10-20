@@ -424,3 +424,10 @@ hl.layer_rule({
   blur = true,
   blur_popups = true,
 })
+
+-- Zoom toolbar issue
+hl.window_rule({
+    name = "zoom-annotate-toolbar",
+    match = { class = "^zoom$", initial_title = "^annotate_toolbar$" },
+    float = true
+})
