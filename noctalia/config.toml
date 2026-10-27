@@ -76,3 +76,5 @@ pre_action_fade_seconds = 15
     enabled = false
     timeout = 900.0
 
+[osd.kinds]
+volume_output = false
