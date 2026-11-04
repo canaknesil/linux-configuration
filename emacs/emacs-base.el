@@ -533,14 +533,15 @@
 
 
 ;; Delete frame with C-x C-c
-(defun can/delete-frame ()
-  "Delete frame. If there is only one frame, exit Emacs."
-  (interactive)
-  (if (>= (seq-length (frame-list)) 2)
-      (delete-frame)
-    (save-buffers-kill-terminal)))
+;; TODO: (frame-list) returns 2 frames when there is only one visible. One additional for minibuffer.
+;; (defun can/delete-frame ()
+;;   "Delete frame. If there is only one frame, exit Emacs."
+;;   (interactive)
+;;   (if (>= (seq-length (frame-list)) 2)
+;;       (delete-frame)
+;;     (save-buffers-kill-terminal)))
 
-(global-set-key (kbd "C-x C-c") 'can/delete-frame)
+;; (global-set-key (kbd "C-x C-c") 'can/delete-frame)
 
 
 ;; Ediff in a single frame
