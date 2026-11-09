@@ -76,5 +76,8 @@ pre_action_fade_seconds = 15
     enabled = false
     timeout = 900.0
 
+[lockscreen]
+transition = [ "wipe" ]
+
 [osd.kinds]
 volume_input = false
